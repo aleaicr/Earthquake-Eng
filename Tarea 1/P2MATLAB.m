@@ -131,7 +131,7 @@ for i = 1:mc
     if Ia(i,1) > 0.05
         ti = tc(i,1);
     end
-    if I(i,1) > 0.95
+    if Ia(i,1) > 0.95
         tf = tc(i,1);
     end
 end
