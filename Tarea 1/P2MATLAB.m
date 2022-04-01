@@ -124,14 +124,17 @@ for i = 1:mc
     Ia_new = Ia_new + new_add;
     Ia = [Ia; Ia_new];
 end
+% Máxima Ia (Para saber el porcentaje del total)
+
+Iamax = max(Ia);
 
 % Determinamos cuando se genera el 5 y 95 por ciento
 
 for i = 1:mc
-    if Ia(i,1) > 0.05
+    if Ia(i,1) > 0.05*Iamax
         ti = tc(i,1);
     end
-    if Ia(i,1) > 0.95
+    if Ia(i,1) > 0.95*Iamax
         tf = tc(i,1);
     end
 end
