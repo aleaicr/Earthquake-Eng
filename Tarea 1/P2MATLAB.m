@@ -99,11 +99,41 @@ disp(maximos_sostenidos(9,1))
 g = 9.81; %m/s^2
 umbral = 0.05*g;
 
-ti = 0; % sec, tiempo inicial
-tf = 0; % sec, tiempo final
+for i = 1:mc
+    if abs(Concepcion(i,1)) > umbral
+        ti = tc(i,1);      % guardamos la primera vez que supera ese umbral
+        break
+    end
+end
+for i = mc:1 % me voy devolviendo por la lista
+    if abs(Concepcion(i,1)) > umbral
+        tf = tc(i,1);    % guardamos la última vez que se supera ese umbral
+        break
+    end
+end
+dur = tf-ti;
 
-for i = 2:mc
-    if   
+%% Duración con Método 5% a 95% de Intensidad de Arias
+
+% Generamos la "gráfica" de la Integral de Arias I_A
+
+Ia = [];
+
+for i = 1:mc
+    new_add = pi*/(2*g)abs(Concepcion(i,1))^2*dt;
+    Ia_new = Ia_new + new_add;
+    Ia = [Ia; Ia_new];
 end
 
-dur = tf-ti;
+% Determinamos cuando se genera el 5 y 95 por ciento
+
+for i = 1:mc
+    if Ia(i,1) > 0.05
+        ti = tc(i,1);
+    end
+    if I(i,1) > 0.95
+        tf = tc(i,1);
+    end
+end
+
+dur_mov_fuerte = tf - ti;
