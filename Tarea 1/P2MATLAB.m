@@ -28,12 +28,12 @@ mn = length(Northridge);
 %% Vector de tiempo;
 
 dt = 0.005; % general para todos
-tc = 0:dt:(mc-1)*dt;
-ts = 0:dt:(ms-1)*dt;
-tt = 0:dt:(mt-1)*dt;
-tv = 0:dt:(mv-1)*dt;
-tp = 0:dt:(mp-1)*dt;
-tn = 0:dt:(mn-1)*dt;
+tc = 0:dt:(mc-1)*dt; %Vector de tiempos para Concepción
+ts = 0:dt:(ms-1)*dt; % Vector de tiempos para Santiago
+tt = 0:dt:(mt-1)*dt; % Vector de tiempos para TAlca
+tv = 0:dt:(mv-1)*dt; % Vector de tiempos para valparaíso
+tp = 0:dt:(mp-1)*dt; % Vector de tiempos para Pica
+tn = 0:dt:(mn-1)*dt; % Vector de tiempos apra Northridge - Tarzana
 
 %% Conversión a cm/s2 para Pica
 
@@ -44,15 +44,15 @@ Pica_cms2 = Pica*981;  % g = 9.81 m/s2 = 981 cm/s2
 figure
 plot(tc,Concepcion);
 figure
-plot(Santiago,ts);
+plot(ts,Santiago);
 figure
-plot(Talca,ts);
+plot(tt, Talca);
 figure
-plot(Valparaiso,tv);
+plot(tv, Valparaiso);
 figure
-plot(Pica_cms2,tp);
+plot(tp, Pica_cms2);
 figure
-plot(Northridge,tn);
+plot(tn, Northridge);
 
 %% Calcular PGA
 PGAc = max(Concepcion);
@@ -63,22 +63,20 @@ PGAp = max(Pica_cms2);
 PGAn = max(northridge);
 
 %% Maximos Sostenidos
-elem_inicial = 0;
-% Anotar los máximos sostenidos
+% Para concepción
 
-lista_maximos_sostenidos = [];
-max = Concepcion(1,1); %Valor inicial
-j = 0;   %inicio en el tramo 0
+lista_maximos_sostenidos = []; % Se genera una lista vacía
+max = Concepcion(1,1); % Valor inicial de aceleración en el registro
+j = 1;   %inicio en el tramo 1
 
 for i = 2:mc
     if sign(Concepcion(i,1))*Concepcion(i-1,1)) != 1   %Si es negativo entonces hay un nuevo tramo
-        signo_nuevo = sign(Concepcion(i,1)*Concepcion(i-1,1));
-        max = new_max; 
+        if lista_maximos_sostenidos(j,1) < last_max || isempty(lista_maximos_sostenidos)
+            lista_maximos_sostenidos = [lista_maximos sostenidos; max];
+        end
+        max = 0; 
         j = j + 1;    % Siguiente tramo
     end
-    if Concepcion(i,1) > max
+    if abs(Concepcion(i,1)) > abs(max)
         new_max = Concepcion(i,1);
-        if lista_maximos_sostenidos(j,1) < new_max
-            lista_maximos_sostenidos = [lista_maximos sostenidos; new_max];
-        end
 end
