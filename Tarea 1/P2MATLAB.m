@@ -65,18 +65,45 @@ PGAn = max(northridge);
 %% Maximos Sostenidos
 % Para concepción
 
-lista_maximos_sostenidos = []; % Se genera una lista vacía
+maximos_sostenidos = []; % Se genera una lista vacía
 max = Concepcion(1,1); % Valor inicial de aceleración en el registro
 j = 1;   %inicio en el tramo 1
 
 for i = 2:mc
     if sign(Concepcion(i,1))*Concepcion(i-1,1)) == -1   %Si es negativo entonces hay un nuevo tramo
-        if lista_maximos_sostenidos(j,1) < last_max || isempty(lista_maximos_sostenidos)
-            lista_maximos_sostenidos = [lista_maximos sostenidos; max];
-        end
-        max = 0; 
-        j = j + 1;    % Siguiente tramo
+        % maximos_sostenidos = [maximos_sostenidos; max];
+        maximos_sostenidos(j,1) = max;
+        % if maximos_sostenidos(j,1) < max || isempty(maximos_sostenidos)
+        %     maximos_sostenidos = [lista_maximos sostenidos; last_max];
+        % end
+        max = 0;
+        p = j;
+        j = p + 1;    % Siguiente tramo (no me funciona j = j + 1;)
+        clear p % No es de interés guardar la variable p
     end
     if abs(Concepcion(i,1)) > abs(max)
-        new_max = Concepcion(i,1);
+        max = Concepcion(i,1);
+    end
 end
+
+% Ordenar las aceleraciones sostenidas en orden descendente (la primera es la mayor aceleración)
+sort(maximos_sostenidos,'descend');
+
+%Mostrar las aceleraciones sostenidas
+disp(maximos_sostenidos(3,1))
+disp(maximos_sostenidos(5,1))
+disp(maximos_sostenidos(7,1))
+disp(maximos_sostenidos(9,1))
+
+%% Duración del movimiento fuerte
+g = 9.81; %m/s^2
+umbral = 0.05*g;
+
+ti = 0; % sec, tiempo inicial
+tf = 0; % sec, tiempo final
+
+for i = 2:mc
+    if   
+end
+
+dur = tf-ti;
