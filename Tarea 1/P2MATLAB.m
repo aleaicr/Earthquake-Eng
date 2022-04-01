@@ -70,7 +70,7 @@ max = Concepcion(1,1); % Valor inicial de aceleración en el registro
 j = 1;   %inicio en el tramo 1
 
 for i = 2:mc
-    if sign(Concepcion(i,1))*Concepcion(i-1,1)) != 1   %Si es negativo entonces hay un nuevo tramo
+    if sign(Concepcion(i,1))*Concepcion(i-1,1)) == -1   %Si es negativo entonces hay un nuevo tramo
         if lista_maximos_sostenidos(j,1) < last_max || isempty(lista_maximos_sostenidos)
             lista_maximos_sostenidos = [lista_maximos sostenidos; max];
         end
