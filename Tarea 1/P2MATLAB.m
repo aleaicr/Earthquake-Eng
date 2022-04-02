@@ -110,7 +110,7 @@ sprintf('La duración del movimiento fuerte es de %d [sec]',dur)
 Ia(1,1) = 0;
 
 for i = 2:mc+1
-    new_add = pi/(2*g)*Regi(i-1,1)^2*dt; % Integrando
+    new_add = pi/(2*g*100)*Regi(i-1,1)^2*dt; % Integrando
     Ia(i,1) = Ia(i-1,1) + new_add; %Integral de arias (se puede graficar)
 end
 
@@ -124,16 +124,17 @@ Iamax = max(Ia); % Para saber que valor es 5 y 95 % del total
 
 for i = 1:mc
     if Ia(i,1) > 0.05*Iamax
-        ti = t_reg(i,1);
-        break
+        ti = t_reg(i,1); %Encontramos el primer
+        break % Paramos de buscar
     end
 end
 for i = 1:mc
     if Ia(i,1) > 0.95*Iamax
-        tf = t_reg(i,1);
+        tf = t_reg(i,1); %Encontramos hasta el último, hasta finalizar el registro
     end
 end
 
 dur_arias = tf - ti; % Duración con Método de la Intensidad de Arias
+
 sprintf('La duración con el método de la Intensidad de Arias es %d [sec]',dur_arias)
 clear ans
