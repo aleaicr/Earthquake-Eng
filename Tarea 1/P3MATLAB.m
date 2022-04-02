@@ -10,7 +10,7 @@ UPPG = fft(uppG);                           % DFT del registro
 Fs = 1/dt;                                  % Frecuencia de muestreo del registro
 s = -Fs/2:Fs/m:(Fs/2-Fs/m);                 % Rango de frecuencias
 w = 2*pi*s;                                 % Rango de frecuencias angulares
-Te = 2*pi./w;                                 % Rango de periodos
+Te = 2*pi./w;                               % Rango de periodos
 t = 0:dt:(m-1)*dt;                          % Vector de tiempo
 
 figure
