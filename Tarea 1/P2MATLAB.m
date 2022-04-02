@@ -130,4 +130,4 @@ for i = 1:mc
     end
 end
 
-dur_arias = tf - ti;
+dur_arias = tf - ti; % Duración con Método de La Integral de Arias
