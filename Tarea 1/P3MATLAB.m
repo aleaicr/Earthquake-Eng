@@ -14,3 +14,6 @@ t = 0:dt:(m-1)*dt;                          % Vector de tiempo
 
 figure
 plot(s,fftshift(abs(UPPG)).^2)
+xlabel('')
+ylabel('')
+title('DFT')
