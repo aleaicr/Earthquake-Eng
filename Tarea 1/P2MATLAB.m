@@ -74,7 +74,6 @@ end
 % Ordenar las aceleraciones sostenidas en orden descendente (la primera es la mayor aceleración)
 
 max_ordenados = sortrows(maximos_sostenidos,'descend');
-max_sostenidos_ordenados = [];
 
 for i = 1:j-1
     maximos_sostenidos_ordenados(i,1) = max_ordenados(i,1)*maximos_sostenidos(i,2);
@@ -87,19 +86,19 @@ sprintf('La 7ma aceleracion máxima sostenida es %d cm/s2',maximos_sostenidos_or
 sprintf('La 9na aceleracion máxima sostenida es %d cm/s2',maximos_sostenidos_ordenados(9,1))
 
 %% Duración del movimiento fuerte
-g = 9.81; %m/s^2
+g = 9.81; %m/s2
 u = 0.05; % porcentaje del máximo admitido
-umbral = u*g;
+umbral = u*g*100;
 
 for i = 1:mc
     if abs(Regi(i,1)) > umbral
         ti = t_reg(i,1);      % guardamos la primera vez que supera ese umbral
-        break %paramos para que no 
+        break % paramos para que no siga buscando 
     end
 end
 for i = 1:mc
     if abs(Regi(i,1)) > umbral
-        tf = t_reg(i,1);  % guardamos la última vez que se supera ese umbral
+        tf = t_reg(i,1);  % Guardamos la última vez que se supera ese umbral
     end
 end
 dur = tf - ti; % Duración del movimiento fuerte
@@ -111,7 +110,7 @@ sprintf('La duración del movimiento fuerte es de %d [sec]',dur)
 Ia(1,1) = 0;
 
 for i = 2:mc+1
-    new_add = pi/(2*g)*abs(Regi(i-1,1))^2*dt;
+    new_add = pi/(2*g)*Regi(i-1,1)^2*dt;
     Ia(i,1) = Ia(i-1,1) + new_add;
 end
 
@@ -126,7 +125,10 @@ Iamax = max(Ia); % Para saber que valor es 5 y 95 % del total
 for i = 1:mc
     if Ia(i,1) > 0.05*Iamax
         ti = t_reg(i,1);
+        break
     end
+end
+for i = 1:mc
     if Ia(i,1) > 0.95*Iamax
         tf = t_reg(i,1);
     end
@@ -134,3 +136,4 @@ end
 
 dur_arias = tf - ti; % Duración con Método de la Intensidad de Arias
 sprintf('La duración con el método de la Intensidad de Arias es %d [sec]',dur_arias)
+clear ans
