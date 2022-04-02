@@ -110,8 +110,8 @@ sprintf('La duración del movimiento fuerte es de %d [sec]',dur)
 Ia(1,1) = 0;
 
 for i = 2:mc+1
-    new_add = pi/(2*g)*Regi(i-1,1)^2*dt;
-    Ia(i,1) = Ia(i-1,1) + new_add;
+    new_add = pi/(2*g)*Regi(i-1,1)^2*dt; % Integrando
+    Ia(i,1) = Ia(i-1,1) + new_add; %Integral de arias (se puede graficar)
 end
 
 clear new_add p
