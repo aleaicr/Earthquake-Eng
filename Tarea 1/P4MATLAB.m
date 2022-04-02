@@ -102,7 +102,11 @@ Regi_raw_vel = cumtrapz(Regi_raw);
 Regi_raw_disp = cumtrapz(Regi_raw_vel);
 
 %% 4.3.2 u(T) = i.Fourier(-F(upp)/w^2)
-disp_fourier = ifft(fft(Regi_raw)./wr.^2);
+disp_fourier = ifft(-fft(Regi_raw)./wr.^2);
+UPPw = fft(Regi_raw);
+UPPw2 = UPPw./wr.^2
+furier_asd = ifft(-Uppw2);
+
 
 figure
 hold on
@@ -110,3 +114,5 @@ plot(sr,disp_fourier)
 plot(sr,Regi_raw_disp)
 plot(sdpr,Regi_disp_procesado)
 hold off
+
+%% NOTE TENGO 18GB de RAM para poder 
