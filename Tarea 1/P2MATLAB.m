@@ -4,13 +4,13 @@ close all
 clc
 disp('<a href="https://github.com/aleaicr/Tareas_Sismica">Github - Tareas_Sismica - Alexis Contreas R.</a>')
 disp('Si no corre el registro de Pica es por que hay que quitar los comentarios')
-disp('LINEA 22 - LINEA 32')
+disp('LINEA 24 Y 25')
 %% Importar datos
 % Todos los datos tienen paso temporal de 0.005
 % Todos tienen unidad cm/s2 para la aceleración del registro excepto pica2005_ew.txt
 
-Regi = readmatrix("Concepcion2010-L.txt");
-Nombre = "Concepción";
+Regi = readmatrix("pica2005_ew_arreglado.txt");
+Nombre = "Pica";
 mc = length(Regi);
 
 %% Vector de tiempo;
@@ -21,16 +21,8 @@ t_reg = (0:dt:(mc-1)*dt).'; % Vector que contiene los tiempos
 
 %% Ordenar Pica (registro viene con muchos NaN)
 % QUITAR COMENTARIO SI SE ESTÁ VIENDO EL REGISTRO DE PICA
-% Pica2 = [];
-% for i = 1:mp
-%     if Pica(i,3) > 0
-%         Pica2 = Pica(i,1);
-%     end
-%     if Pica(i,2) < 0
-%         Pica2 = Pica(i,1);
-%     end
-% end
-% Pica = Pica2*981;  % g = 9.81 m/s2 = 981 cm/s2
+% Regi2 = Regi;
+% Regi = Regi2*981;  % g = 9.81 m/s2 = 981 cm/s2
 
 %% Generación de Gráficos
 
