@@ -8,9 +8,10 @@ disp('LINEA 24 Y 25')
 %% Importar datos
 % Todos los datos tienen paso temporal de 0.005
 % Todos tienen unidad cm/s2 para la aceleración del registro excepto pica2005_ew.txt
-
-Regi = readmatrix("Talca2010-L.txt");
-Nombre = "Pica";
+% "Concepcion2010-L.txt"
+% "Talca2010-L.txt"
+Regi = readmatrix("Concepcion2010-L.txt");
+Nombre = "Concepción";
 mc = length(Regi);
 
 %% Vector de tiempo;
@@ -42,20 +43,16 @@ PGA_reg = max(Regi);
 maximos_sostenidos = []; % Se genera una lista vacía
 max_array = [Regi(1,1)]; % Valor inicial de aceleración en el registro
 j = 1;   % Inicio en el tramo 1
-signo = [];
+signo = [sign(Regi(1,1))];
 
 for i = 2:mc
     if sign(Regi(i,1)*Regi(i-1,1)) == -1   %Si es negativo entonces hay un nuevo tramo
-        % maximos_sostenidos = [maximos_sostenidos; max];
         maximos_sostenidos(j,1) = abs(max_array(j,1));
-        maximos_sostenidos(j,2) = signo(j,1);
-        % if maximos_sostenidos(j,1) < max || isempty(maximos_sostenidos)
-        %     maximos_sostenidos = [lista_maximos sostenidos; last_max];
-        % end
         p = j;
         j = p + 1;    % Siguiente tramo (no me funciona j = j + 1;)
         max_array(j,1) = 0;
         clear p % No es de interés guardar la variable p
+        maximos_sostenidos(j,2) = signo(j-1,1);
     end
     if abs(Regi(i,1)) > abs(max_array(j,1))
         max_array(j,1) = Regi(i,1);

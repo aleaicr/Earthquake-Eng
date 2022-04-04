@@ -16,7 +16,7 @@ t = 0:dt:(m-1)*dt;                          % Vector de tiempo
 figure
 plot(s,fftshift(abs(UPPG)).^2) % Graficar el módulo al cuadrado vs las frecuencias
 xlim([0 30])
-xlabel('T [sec]')
+xlabel('s [hz]')
 ylabel('|Ü_g(f)|^2')
 title('DFT')
 
