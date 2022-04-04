@@ -101,6 +101,22 @@ hold off
 Regi_raw_vel = cumtrapz(dtr,Regi_raw);
 Regi_raw_disp = cumtrapz(dtr,Regi_raw_vel);
 
+Regi_proc_vel = cumtrapz(dtapr,Regi_acc_procesado);
+Regi_proc_disp = cumtrapz(dtapr,Regi_proc_vel);
+
+
+figure
+plot(tapr,Regi_proc_vel)
+xlabel('Tiempo [s]')
+ylabel('Velocidad [cm/s]')
+title('Velocidad integrando Acc. PROCESADO')
+
+figure
+plot(tapr,Regi_proc_disp)
+xlabel('Tiempo [s]')
+ylabel('Desplazamiento [cm]')
+title('Desplazamiento integrando Vel PROCESADO')
+
 figure
 plot(tr,Regi_raw_vel)
 xlabel('Tiempo [s]')
@@ -116,7 +132,7 @@ title('Desplazamiento integrando Vel')
 %% 4.3.2 Transformada Inversa de Fourier
 % u(t) = F^-1(-F(upp)/w^2)
 
-disp_fourier = ifft(-fft(Regi_raw)./wr.^2);
+disp_fourier = ifft(-fft(Regi_raw)./(fftshift(wr)).^2);
 
 figure
 hold on
