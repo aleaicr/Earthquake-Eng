@@ -9,7 +9,7 @@ disp('LINEA 24 Y 25')
 % Todos los datos tienen paso temporal de 0.005
 % Todos tienen unidad cm/s2 para la aceleración del registro excepto pica2005_ew.txt
 
-Regi = readmatrix("pica2005_ew_arreglado.txt");
+Regi = readmatrix("Talca2010-L.txt");
 Nombre = "Pica";
 mc = length(Regi);
 
