@@ -121,6 +121,8 @@ disp_fourier = ifft(-fft(Regi_raw)./wr.^2);
 figure
 hold on
 plot(sr,disp_fourier)
+plot(sr,Regi_raw_disp)
+plot(sdpr,Regi_disp_procesado)
 hold off
 
 %% NO TENGO 18.7GB de RAM para que mi PC resuelva la matriz
