@@ -51,22 +51,22 @@ Tdpr = 2*pi./wdpr;
 % Gráfico Ac. Vs Tiempo
 figure
 plot(tr,Regi_raw)
-xlabel('Acc [cm/s2]')
+xlabel('Aceleración [cm/s2]')
 ylabel('t [s]')
-title('Raw vs t (Dom.Tiempo)')
+title('Raw vs t')
 
 figure
 plot(tapr,Regi_acc_procesado)
 xlabel('t [s]')
-ylabel('Acc [cm/s2]')
-title('Acc_Procesado vs t (Dom.Tiempo)')
+ylabel('Aceleración [cm/s2]')
+title('Acc_Procesado vs t')
 
 figure
 hold on
 plot(tr,Regi_raw)
 plot(tapr,Regi_acc_procesado)
 xlabel('t [s]')
-ylabel('Acc [cm/s2]')
+ylabel('Aceleración [cm/s2]')
 title('Raw vs Acc_Procesado (Dom.Tiempo)')
 hold off
 
@@ -74,22 +74,22 @@ hold off
 % Gráfico Ac. vs Frecuencia
 figure
 plot(sr,Regi_raw)
-ylabel('Acc [cm/s2]')
-xlabel('Frec [hz]')
-title('Raw vs s (Dom.Frecuencia)')
+ylabel('Aceleración [cm/s2]')
+xlabel('Frecuencia [hz]')
+title('Raw vs s')
 
 figure
 plot(sapr,Regi_acc_procesado)
-xlabel('Frec [s]')
-ylabel('Acc [cm/s2]')
-title('Acc_Procesado vs s (Dom.Frecuencia)')
+xlabel('Frecuencia [s]')
+ylabel('Aceleración [cm/s2]')
+title('Acc_Procesado vs s')
 
 figure
 hold on
 plot(sr,Regi_raw)
 plot(sapr,Regi_acc_procesado)
-xlabel('Frec [hz]')
-ylabel('Acc [cm/s2]')
+xlabel('Frecuencia [hz]')
+ylabel('Aceleración [cm/s2]')
 title('Raw vs Acc Procesado (Dom.Frecuencia)')
 hold off
 
@@ -106,37 +106,36 @@ Regi_proc_disp = cumtrapz(dtapr,Regi_proc_vel);
 
 
 figure
-plot(tapr,Regi_proc_vel)
-xlabel('Tiempo [s]')
-ylabel('Velocidad [cm/s]')
-title('Velocidad integrando Acc. PROCESADO')
-
-figure
-plot(tapr,Regi_proc_disp)
-xlabel('Tiempo [s]')
-ylabel('Desplazamiento [cm]')
-title('Desplazamiento integrando Vel PROCESADO')
-
-figure
 plot(tr,Regi_raw_vel)
 xlabel('Tiempo [s]')
 ylabel('Velocidad [cm/s]')
-title('Velocidad integrando Acc. Raw')
+title('Velocidad integrando Aceleración Raw')
 
 figure
 plot(tr,Regi_raw_disp)
 xlabel('Tiempo [s]')
 ylabel('Desplazamiento [cm]')
-title('Desplazamiento integrando Vel')
+title('Desplazamiento integrando Velocidad desde Raw')
+
+figure
+plot(tapr,Regi_proc_vel)
+xlabel('Tiempo [s]')
+ylabel('Velocidad [cm/s]')
+title('Velocidad integrando Aceleración Procesada')
+
+figure
+plot(tapr,Regi_proc_disp)
+xlabel('Tiempo [s]')
+ylabel('Desplazamiento [cm]')
+title('Desplazamiento integrando Velocidad desde Procesada')
 
 %% 4.3.2 Transformada Inversa de Fourier
 % u(t) = F^-1(-F(upp)/w^2)
 
-disp_fourier = ifft(-fft(Regi_raw)./(fftshift(wr)).^2);
+disp_fourier = norm(ifft(-fft(Regi_raw)./(wr.^2).'));
 
 figure
-hold on
-plot(sr,disp_fourier)
-hold off
+plot(wr,disp_fourier)
+
 
 %% NO TENGO 18.7GB de RAM para que mi PC resuelva la matriz
