@@ -10,8 +10,8 @@ disp('LINEA 24 Y 25')
 % Todos tienen unidad cm/s2 para la aceleración del registro excepto pica2005_ew.txt
 % "Concepcion2010-L.txt"
 % "Talca2010-L.txt"
-Regi = readmatrix("Concepcion2010-L.txt");
-Nombre = "Concepción";
+Regi = readmatrix("talca2010-L.txt");
+Nombre = "Talca";
 mc = length(Regi);
 
 %% Vector de tiempo;
@@ -48,11 +48,11 @@ signo = [sign(Regi(1,1))];
 for i = 2:mc
     if sign(Regi(i,1)*Regi(i-1,1)) == -1   %Si es negativo entonces hay un nuevo tramo
         maximos_sostenidos(j,1) = abs(max_array(j,1));
+        maximos_sostenidos(j,2) = signo(j,1);
         p = j;
         j = p + 1;    % Siguiente tramo (no me funciona j = j + 1;)
         max_array(j,1) = 0;
         clear p % No es de interés guardar la variable p
-        maximos_sostenidos(j,2) = signo(j-1,1);
     end
     if abs(Regi(i,1)) > abs(max_array(j,1))
         max_array(j,1) = Regi(i,1);
