@@ -10,8 +10,8 @@ disp('LINEA 24 Y 25')
 % Todos tienen unidad cm/s2 para la aceleración del registro excepto pica2005_ew.txt
 % "Concepcion2010-L.txt"
 % "Talca2010-L.txt"
-Regi = readmatrix("Concepcion2010-L.txt");
-Nombre = "Concepción";
+Regi = readmatrix("pica2005_ew.txt");
+Nombre = "Pica";
 mc = length(Regi);
 fprintf("Registro: %s \n \n",Nombre)
 
@@ -23,8 +23,7 @@ t_reg = (0:dt:(mc-1)*dt).'; % Vector que contiene los tiempos
 
 %% Ordenar Pica (registro viene con muchos NaN)
 % QUITAR COMENTARIO SI SE ESTÁ VIENDO EL REGISTRO DE PICA
-% Regi2 = Regi;
-% Regi = Regi2*981;  % g = 9.81 m/s2 = 981 cm/s2
+Regi = Regi*981;  % g = 9.81 m/s2 = 981 cm/s2
 
 %% Generación de Gráficos
 
