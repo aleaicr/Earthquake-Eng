@@ -132,10 +132,13 @@ title('Desplazamiento integrando Velocidad desde Procesada')
 %% 4.3.2 Transformada Inversa de Fourier
 % u(t) = F^-1(-F(upp)/w^2)
 
-disp_fourier = norm(ifft(-fft(Regi_raw)./(wr.^2).'));
+% Hay que arreglar lo de abajo, no me funciona
 
-figure
-plot(wr,disp_fourier)
+%disp_fourier = norm(ifft(-fft(Regi_raw)./(wr.^2).'));
+%disp_fourier_proc = ifft(-fft(Regi_acc_procesado)./wr.^2);
+% figure
+% plot(wr,disp_fourier)
+% plot(wapr,disp_fourier_proc)
 
 
 %% NO TENGO 18.7GB de RAM para que mi PC resuelva la matriz
