@@ -10,9 +10,10 @@ disp('LINEA 24 Y 25')
 % Todos tienen unidad cm/s2 para la aceleración del registro excepto pica2005_ew.txt
 % "Concepcion2010-L.txt"
 % "Talca2010-L.txt"
-Regi = readmatrix("talca2010-L.txt");
-Nombre = "Talca";
+Regi = readmatrix("Concepcion2010-L.txt");
+Nombre = "Concepción";
 mc = length(Regi);
+fprintf("Registro: %s \n \n",Nombre)
 
 %% Vector de tiempo;
 
@@ -37,6 +38,7 @@ grid on
 
 %% Calcular PGA
 PGA_reg = max(Regi);
+fprintf('El PGA del registro es : %3.3f [cm/s2] \n',PGA_reg);
 
 %% Maximos Sostenidos
 
@@ -69,10 +71,10 @@ for i = 1:j-1
 end
 
 %Mostrar las aceleraciones sostenidas
-sprintf('La 3ra aceleracion máxima sostenida es %d cm/s2',maximos_sostenidos_ordenados(3,1))
-sprintf('La 5ta aceleracion máxima sostenida es %d cm/s2',maximos_sostenidos_ordenados(5,1))
-sprintf('La 7ma aceleracion máxima sostenida es %d cm/s2',maximos_sostenidos_ordenados(7,1))
-sprintf('La 9na aceleracion máxima sostenida es %d cm/s2',maximos_sostenidos_ordenados(9,1))
+fprintf('La 3ra aceleracion máxima sostenida es %3.3f cm/s2 \n',maximos_sostenidos_ordenados(3,1))
+fprintf('La 5ta aceleracion máxima sostenida es %3.3f cm/s2 \n',maximos_sostenidos_ordenados(5,1))
+fprintf('La 7ma aceleracion máxima sostenida es %3.3f cm/s2 \n',maximos_sostenidos_ordenados(7,1))
+fprintf('La 9na aceleracion máxima sostenida es %3.3f cm/s2 \n',maximos_sostenidos_ordenados(9,1))
 
 %% Duración del movimiento fuerte
 g = 9.81; %m/s2
@@ -91,7 +93,7 @@ for i = 1:mc
     end
 end
 dur = tf - ti; % Duración del movimiento fuerte
-sprintf('La duración del movimiento fuerte es de %d [sec]',dur)
+fprintf('La duración del movimiento fuerte es de %3.3f [sec] \n',dur)
 %% Duración con Método 5% a 95% de Intensidad de Arias
 
 % Generamos la "gráfica" de la Integral de Arias I_A
@@ -125,5 +127,5 @@ end
 
 dur_arias = tf - ti; % Duración con Método de la Intensidad de Arias
 
-sprintf('La duración con el método de la Intensidad de Arias es %d [sec]',dur_arias)
+fprintf('La duración con el método de la Intensidad de Arias es %3.3f [sec] \n',dur_arias)
 clear ans
