@@ -59,7 +59,7 @@ figure
 plot(tapr,Regi_acc_procesado)
 xlabel('t [s]')
 ylabel('Aceleración [cm/s2]')
-title('Acc_Procesado vs t')
+title('Acc Procesado vs t')
 
 figure
 hold on
@@ -67,7 +67,7 @@ plot(tr,Regi_raw)
 plot(tapr,Regi_acc_procesado)
 xlabel('t [s]')
 ylabel('Aceleración [cm/s2]')
-title('Raw vs Acc_Procesado (Dom.Tiempo)')
+title('Raw vs Acc Procesado (Dom.Tiempo)')
 hold off
 
 %% 4.2

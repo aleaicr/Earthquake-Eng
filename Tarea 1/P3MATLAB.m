@@ -14,14 +14,14 @@ Te = 2*pi./w;                               % Rango de periodos
 t = 0:dt:(m-1)*dt;                          % Vector de tiempo
 
 figure
-plot(s,fftshift(abs(UPPG)).^2) % Graficar el módulo al cuadrado vs las frecuencias
+plot(s,fftshift(abs(UPPG)).^2)              % Graficar el módulo al cuadrado vs las frecuencias
 xlim([0 30])
 xlabel('s [hz]')
 ylabel('|Ü_g(f)|^2')
 title('DFT')
 
 figure
-plot(Te,fftshift(abs(UPPG)).^2)
+plot(Te,fftshift(abs(UPPG)).^2)             % Graficar el módulo al cuadrado vs el periodo
 xlim([0 50])
 xlabel('T [sec]')
 ylabel('|Ü_g(f)|^2')
