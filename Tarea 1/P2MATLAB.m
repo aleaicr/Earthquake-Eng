@@ -2,7 +2,6 @@
 clear variables
 close all
 clc
-disp('<a href="https://github.com/aleaicr/Tareas_Sismica">Github - Tareas_Sismica - Alexis Contreas R.</a>')
 disp('Para registro de PICA quitar los comentarios de la')
 disp('LINEA 24')
 %% Importar datos

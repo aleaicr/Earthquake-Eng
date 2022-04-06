@@ -85,15 +85,15 @@ title('Raw vs s')
 figure
 plot(sapr,fftshift(fourier_procesado))
 xlabel('Frecuencia [s]')
-ylabel('|H_{up}(\omega)|^2')
+ylabel('|Üg|^2')
 title('Procesado vs s')
 
 figure
 hold on
 plot(sr,fftshift(fourier_raw))
-plot(sapr,fourier_procesado)
+plot(sapr,fftshift(fourier_procesado))
 xlabel('Frecuencia [hz]')
-ylabel('|H_{up}(\omega)|^2')
+ylabel('|Üg|^2')
 title('Raw vs Procesado (Dom.Frecuencia)')
 hold off
 
@@ -136,15 +136,20 @@ title('Desplazamiento integrando Velocidad desde Procesada')
 %% 4.3.2 Transformada Inversa de Fourier
 % u(t) = F^-1(-F(upp)/w^2)
 
-% Hay que arreglar lo de abajo, no me funciona
+u_raw = ifft(-fft(Regi_raw)./(wr.').^2);
 
-disp_fourier = ifft(-fftshift(fft(Regi_raw))./(wr.^2).');
+for i = 1:mr
+    if u_raw(i,1) < 10^-5
+        u_raw(i,1) = 10^-5;    
+    end
+end
+
 % disp_fourier_proc = ifft(-fft(Regi_acc_procesado)./wr.^2);
 
 figure
-plot(sr,real(disp_fourier))
-xlabel('t [s]')
-ylabel('u(t)')
+plot(tr,real(u_raw))
+xlabel('t [sec]')
+ylabel('u(t) [cm]')
 title('Desplazamiento obtenido desde transformada de fourier del Registo')
 
 % figure
