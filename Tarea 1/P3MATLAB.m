@@ -3,7 +3,7 @@ clear variables
 close all
 clc
 
-uppG = readmatrix('Northridge-tarzana-EW.txt');  % Registro
+uppG = readmatrix('Concepcion2010-L.txt');  % Registro
 dt = 0.005;                                 % Paso temporal del registro para el muestreo-sampling
 m = length(uppG);                           % Largo del registro
 UPPG = fft(uppG);                           % DFT del registro
@@ -15,14 +15,14 @@ t = 0:dt:(m-1)*dt;                          % Vector de tiempo
 
 figure
 plot(s,fftshift(abs(UPPG)).^2)              % Graficar el módulo al cuadrado vs las frecuencias
-xlim([0 100])
+xlim([0 10])
 xlabel('s [hz]')
 ylabel('|Ü_g(f)|^2')
 title('DFT')
 
 figure
 plot(Te,fftshift(abs(UPPG)).^2)             % Graficar el módulo al cuadrado vs el periodo
-xlim([0 5])
+xlim([0 20])
 xlabel('T [sec]')
 ylabel('|Ü_g(f)|^2')
 title('DFT')
