@@ -67,34 +67,30 @@ plot(tr,Regi_raw)
 plot(tapr,Regi_acc_procesado)
 xlabel('t [s]')
 ylabel('Aceleración [cm/s2]')
-title('Raw vs Procesado (Dom.Tiempo)')
+title('Raw vs Acc Procesado (Dom.Tiempo)')
 hold off
 
 %% 4.2
 % Gráfico Ac. vs Frecuencia
-
-fourier_raw = abs(fft(Regi_raw)).^2;
-fourier_procesado = abs(fft(Regi_acc_procesado)).^2;
-
 figure
-plot(sr,fftshift(fourier_raw))
+plot(sr,Regi_raw)
 ylabel('Aceleración [cm/s2]')
 xlabel('Frecuencia [hz]')
 title('Raw vs s')
 
 figure
-plot(sapr,fftshift(fourier_procesado))
+plot(sapr,Regi_acc_procesado)
 xlabel('Frecuencia [s]')
-ylabel('|H_{up}(\omega)|^2')
+ylabel('Aceleración [cm/s2]')
 title('Procesado vs s')
 
 figure
 hold on
-plot(sr,fftshift(fourier_raw))
-plot(sapr,fourier_procesado)
+plot(sr,Regi_raw)
+plot(sapr,Regi_acc_procesado)
 xlabel('Frecuencia [hz]')
-ylabel('|H_{up}(\omega)|^2')
-title('Raw vs Procesado (Dom.Frecuencia)')
+ylabel('Aceleración [cm/s2]')
+title('Raw vs Acc Procesado (Dom.Frecuencia)')
 hold off
 
 %% 4.3
@@ -138,11 +134,11 @@ title('Desplazamiento integrando Velocidad desde Procesada')
 
 % Hay que arreglar lo de abajo, no me funciona
 
-disp_fourier = ifft(-fftshift(fft(Regi_raw))./(wr.^2).');
+disp_fourier = ifft(-fft(Regi_raw)./(wr.^2).');
 % disp_fourier_proc = ifft(-fft(Regi_acc_procesado)./wr.^2);
 
 figure
-plot(sr,real(disp_fourier))
+plot(tr,norm(disp_fourier))
 xlabel('t [s]')
 ylabel('u(t)')
 title('Desplazamiento obtenido desde transformada de fourier del Registo')
@@ -152,3 +148,5 @@ title('Desplazamiento obtenido desde transformada de fourier del Registo')
 % xlabel('t [s]')
 % ylabel('u(t)')
 % title('Desplazamiento obtenido desde transformada de fourier del Registo')
+
+%% NO TENGO 18.7GB de RAM para que mi PC resuelva la matriz
