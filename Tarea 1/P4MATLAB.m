@@ -136,6 +136,23 @@ xlabel('Tiempo [s]')
 ylabel('Desplazamiento [cm]')
 title('Desplazamiento integrando Velocidad desde Procesada')
 
+figure
+plot(tdpr,Regi_disp_procesado)
+xlabel('Tiempo [s]')
+ylabel('Desplazamiento [cm]')
+title('Desplazamiento procesado')
+
+figure
+hold on
+plot(tdpr,Regi_disp_procesado)
+plot(tr,Regi_raw_disp)
+xlabel('Tiempo [s]')
+ylabel('Desplazamiento [cm]')
+title('Comparación Desplazamiento procesado vs ')
+legend('Desplazamiento procesado','Desplazamiento integrando')
+hold off
+
+
 %% 4.3.2 Transformada Inversa de Fourier
 % u(t) = F^-1(-F(upp)/w^2)
 
