@@ -185,7 +185,6 @@ plot(tdpr,Regi_disp_procesado)
 xlabel('t [s]')
 ylabel('u(t)')
 title('Comparación de desplazamientos Fourier vs Procesado')
-legend('Desplazamiento Fourier','Registro Desplazamiento Procesado')
 hold off
 
 figure
