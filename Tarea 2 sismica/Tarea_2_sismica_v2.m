@@ -90,4 +90,25 @@ end
 
 %% P1.3
 
+
+
 %% P2
+% Está en Excel
+
+
+%%
+
+rmin = 7.2; % km
+L1 = 34.4; % km
+L2 = 62.3; % km
+L = 96.7; % km
+syms r l
+% Si l<L1<L2
+fRMl1(r) = piecewise(r == rmin,l/(L-l),and(r<r1,r>rmin),2*(L1-l)/(L-l),and(r<r2,r>r1),(L-2*L1)/(L-l));
+
+%Si L1<l<L2
+fRMl2(r) = piecewise();
+
+%Si L1<L2<l
+fRMl3(r) = 1; %r = rmin
+
