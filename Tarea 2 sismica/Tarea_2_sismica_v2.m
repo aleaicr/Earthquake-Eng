@@ -99,7 +99,7 @@ end
 %% P3
 %% P3.a
 % Definir fRM(r)
-rmin = 7.2; % km
+r_min = 7.2; % km
 L1 = 34.4; % km
 L2 = 62.3; % km
 L = 96.7; % km
@@ -107,17 +107,17 @@ L = 96.7; % km
 % Definr fRM(r)
 % La vamos a definir en función de 'l' para que quede con los subcasos
 syms r l r1 r2
-fRM(r,l) = piecewise(and(l<L1,L1<L2),piecewise(r == rmin,l/(L-l),and(r<r1,r>rmin),2*(L1-l)/(L-l),and(r<r2,r>r1),(L-2*L1)/(L-l)),and(L1<l,l<L2),piecewise(r==rmin,L1/(L-l),and(r2>r,r>rmin),(L2-l)/(L-l)),and(l>L2,L2>L1),1);
+% fRM(r,l) = piecewise(and(l<L1,L1<L2),piecewise(r == r_min,l/(L-l),and(r<r1,r>r_min),2*(L1-l)/(L-l),and(r<r2,r>r1),(L-2*L1)/(L-l)),and(L1<l,l<L2),piecewise(r==r_min,L1/(L-l),and(r2>r,r>r_min),(L2-l)/(L-l)),and(l>L2,L2>L1),1);
 
 % l<L1,L1<L2
-fRM1(r) = piecewise(r == rmin,l/(L-l),and(r<r1,r>rmin),2*(L1-l)/(L-l),and(r<r2,r>r1),(L-2*L1)/(L-l));
-r11 = (rmin^2+(L1-l)^2)^0.5
-r12 = (rmin^2+(L2-l)^2)^0.5
+fRM1 = piecewise(r == r_min,l/(L-l),and(r<=r1,r>r_min),r/((L-l)*sqrt(r^2-r_min^2)),and(r<=r2,r>r1),r/((L-l)*sqrt(r^2-r_min^2)));
+r11 = (r_min^2+(L1-l)^2)^0.5;
+r12 = (r_min^2+(L2-l)^2)^0.5;
 % L1<l<L2
-fRM2(r)= piecewise(r==rmin,L1/(L-l),and(r2>r,r>rmin),(L2-l)/(L-l));
-r22 = (rmin^2+(L2-l)^2)^0.5;
+fRM2= piecewise(r==r_min,L1/(L-l),and(r2>=r,r>=r_min),r/((L-l)*sqrt(r^2-r_min^2)));
+r22 = (r_min^2+(L2-l)^2)^0.5;
 % L1<L2<l
-fRM3(r) = piecewise(r==rmin,1,~(r==rmin),0);
+fRM3 = piecewise(r==r_min,1,~(r==r_min),0);
 
 %% P3.b
 % En Excel
@@ -130,29 +130,32 @@ magn = [0.95*Mmax; 0.85*Mmax; 0.8*Mmax;0.7*Mmax];
 
 %% P3.d
 
-for i = 1:4
+for i = 1:length(l_vals)
     l_val = l_vals(i,1);
-    if and(l_val<=L1,l<L2)
-        fRMj(i,2) = subs(r12,l,l_val);                                       % Coordenada 2 es el límite r2
-        fRMj(i,3) = subs(r11,l,l_val);                                       % Coordenada 3 es r1
-        fRMj(i,1) = subs(subs(subs(fRM1,l,l_val),r1,fRMj(i,3)),r2,fRMj(i,2));% Coordenada 1 es fR(r), tiene r1 y r2
-        break
-    elseif and(l_val>L1, l<=L2)
-        fRMj(i,2) = subs(r22,l,l_val);                                       % Coordenada 2 es el límite r2  
-        fRMj(i,1) = subs(subs(fRM2,l,l_val),r2,fRMj(i,2));                   % Coordenada 1 es fR(r), tiene r1, no tiene r2  
+    if and(l_val<=L1,l_val<L2)
+        fRMj(i,2) = subs(r12,l,l_val);                                          % Coordenada 2 es el límite r2
+        fRMj(i,3) = subs(r11,l,l_val);                                          % Coordenada 3 es r1
+        fRMj(i,1) = subs(subs(subs(fRM1,l,l_val),r1,fRMj(i,3)),r2,fRMj(i,2));   % Coordenada 1 es fR(r), tiene r1 y r2
+    elseif and(l_val>L1, l_val<=L2)
+        fRMj(i,2) = subs(r22,l,l_val);                                          % Coordenada 2 es el límite r2  
+        fRMj(i,1) = subs(subs(fRM2,l,l_val),r2,fRMj(i,2));                      % Coordenada 1 es fR(r), tiene r1, no tiene r2  
     elseif l_val>L2
-        fRMj(i,1) = subs(fRM3,l,l_val);                                      % Coordenada 1 es fR(r), no tiene ni r1 ni r2
+        fRMj(i,1) = subs(fRM3,l,l_val);                                         % Coordenada 1 es fR(r), no tiene ni r1 ni r2
     end
-    figure
-    hold on
-    fplot(fRMj(1,1),[r_min, fRMj(1,2)])
-    fplot(fRMj(2,1),[r_min, fRMj(2,2)])
-    fplot(fRMj(3,1),[r_min, fRMj(3,2)])
-    fplot(fRMj(4,1),[r_min, fRMj(4,2)])
-    xlabel('r [km]')
-    ylabel('fRM(r)')
-    legend(['l = 43.72km; Magn = 7.01'; 'l = 12.42km; Magn = 6.27'; 'l = 6.62km; Magn = 5.90'; 'l = 1.88km; Magn = 5.16'])
 end
+clear l_val
+close all
+figure
+hold on
+grid on
+fplot(fRMj(1,1),[r_min fRMj(1,2)])
+fplot(fRMj(2,1),[r_min fRMj(2,2)])
+fplot(fRMj(3,1),[r_min fRMj(3,2)])
+fplot(fRMj(4,1),[r_min fRMj(4,2)])
+xlabel('r [km]')
+ylabel('fRM(r)')
+% legend(['l = 43.72km; Magn = 7.01'; 'l = 12.42km; Magn = 6.27'; 'l = 6.62km; Magn = 5.90'; 'l = 1.88km; Magn = 5.16'])
+hold off
 
 %% P3.e
 
