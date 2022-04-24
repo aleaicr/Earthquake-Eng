@@ -109,6 +109,18 @@ L = 96.7; % km
 syms r l
 fRM(r,l) = piecewise(and(l<L1,L1<L2),piecewise(r == rmin,l/(L-l),and(r<r1,r>rmin),2*(L1-l)/(L-l),and(r<r2,r>r1),(L-2*L1)/(L-l)),and(L1<l,l<L2),piecewise(r==rmin,L1/(L-l),and(r2>r,r>rmin),(L2-l)/(L-l)),and(l>L2,L2>L1),1);
 
+% l<L1,L1<L2
+fRM1(r) = piecewise(r == rmin,l/(L-l),and(r<r1,r>rmin),2*(L1-l)/(L-l),and(r<r2,r>r1),(L-2*L1)/(L-l));
+% L1<l<L2
+fRM2(r)= piecewise(r==rmin,L1/(L-l),and(r2>r,r>rmin),(L2-l)/(L-l));
+% L1<L2<l
+fRM3(r) = piecewise(r==rmin,1,~(r==rmin),0);
+
+l_vals = [43.72; 12.43; 6.62; 1.882]; %km
+
+for i = 1
+
+
 %% P3.b
 % En Excel
 
