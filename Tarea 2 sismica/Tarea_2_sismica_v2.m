@@ -116,28 +116,20 @@ fRM2(r)= piecewise(r==rmin,L1/(L-l),and(r2>r,r>rmin),(L2-l)/(L-l));
 % L1<L2<l
 fRM3(r) = piecewise(r==rmin,1,~(r==rmin),0);
 
-Mmax = 
+Mmax = 7.38;
 l_vals = [43.72; 12.43; 6.62; 1.882]; %km
-magn = []
+magn = [0.95*Mmax; 0.85*Mmax; 0.8*Mmax;0.7*Mmax];
 
 for i = 1:4
     l_val = l_vals(i,1);
-    mag_val = 
-    figure
-    hold on
-    fplot(subs(fRM1(r),l,l_val),[r_min 100])
-    xlabel('r')
-    ylabel('f_R(r)')
-    title('magnitud', magnitud)
-    fplot(subs(fRM2(r),l,l_val),[r_min 100])
-    xlabel('r')
-    ylabel('f_R(r)')
-    title('magnitud', magnitud)
-    fplot(subs(fRM3(r),l,l_val),[r_min 100])
-    xlabel('r')
-    ylabel('f_R(r)')
-    title('magnitud', magnitud)
-    les
+    if and(l_val<L1,l<L2)
+        funct1 = fRM1
+    elseif and(l_val>L1, l<L2)
+        
+    elseif l_val>L2
+    end
+
+
 end
 
 
