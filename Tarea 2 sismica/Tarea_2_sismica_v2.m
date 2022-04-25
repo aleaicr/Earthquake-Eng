@@ -154,8 +154,7 @@ fplot(fRMj(3,1),[r_min fRMj(3,2)])
 fplot(fRMj(4,1),[r_min fRMj(4,2)])
 xlabel('r [km]')
 ylabel('fRM(r)')
-% legend(['l = 43.72km; Magn = 7.01'; 'l = 12.42km; Magn = 6.27'; 'l = 6.62km; Magn = 5.90'; 'l = 1.88km; Magn = 5.16'])
-hold off
+legend(['l = 43.72km; Magn = 7.01', 'l = 12.42km; Magn = 6.27', 'l = 6.62km; Magn = 5.90', 'l = 1.88km; Magn = 5.16'])
 
 %% P3.e
 
