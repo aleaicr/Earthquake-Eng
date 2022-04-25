@@ -174,7 +174,7 @@ legend('l = 43.72km; Magn = 7.01','l = 12.42km; Magn = 6.27','l = 6.62km; Magn =
 Dx = [0.1; 1; 2]; %km
 % Para cada división, calcular la distancia ri asociada
 for i = 1:length(Dx)
-    pos_x(:,i) = (0:Dx(i,1):L).';      % Columna 1 contiene posición x cada 0.1, columna 2 cada 1km, columna 3 cada 2km
+    pos_x(i) = (0:Dx(i,1):L).';      % Columna 1 contiene posición x cada 0.1, columna 2 cada 1km, columna 3 cada 2km
 end
 % Determinamos ri para cada segmento
 for i = 1:lenght(Dx)
@@ -198,11 +198,11 @@ end
 
 R_frec = zeros(length(R_range),length(Dx));                 % Inicializo matriz de zeros(Rango_R1,Rango_R2,Rango_R3), pero nos quedamos con el mayor
 
-for i = 1:length(Dx)                                        % Para cada Dx
-    for K = 2:length(R_range)                               % Para cada Rango_R, no pasa nada si partimos de 
-        for j = 1:length(ri(:,i))                           % Para cada largo del Dx asociaso
-            if and(ri(j,i) < R_range(k-1,1),ri(j,i)>R_range(k,1))% Si ri está dentro del rango (ESTO HAY QUE ARREGLARO)
-                R_frec(k,i) = R_frec(k,i) + 1;              % Si está dentro del rango, sumamos uno, si no entonces no pasa nada
+for i = 1:length(Dx)                                        % Para cada columna
+    for K = 1:length(R_range)
+        for j = 1:length(ri(:,i))
+            if and(ri(j,i) < R_range(k,1),ri(j,i)>R_range())
+                R_frec(k,i) = R_frec(k,i) + 1;
             end
         end
     end
