@@ -36,16 +36,19 @@ for Mw = 1:3
 
     figure
     loglog(r,puntos_rock(:,Mw))
-    xlabel('r [km]')
-    ylabel('PGA roca[unidad]')
-    title('PGA para roca, sismo magnitud', Mw_var)
-
-%     fprintf('Mw %f Suelo \n',Mw_var)
-    figure
+    hold on
     loglog(r,puntos_soil(:,Mw))
     xlabel('r [km]')
-    ylabel('PGA suelo[unidad]')
-    title('PGA para suelo, sismo magnitud', Mw_var)
+    ylabel('PGA [unidad]')
+    title('PGA, sismo magnitud', Mw_var)
+    legend('Roca','Suelo')
+    hold off
+%     fprintf('Mw %f Suelo \n',Mw_var)
+%     figure
+%     loglog(r,puntos_soil(:,Mw))
+%     xlabel('r [km]')
+%     ylabel('PGA suelo[unidad]')
+%     title('PGA para suelo, sismo magnitud', Mw_var)
 end
 
 
@@ -76,21 +79,63 @@ for Mw = 1:3
 
     figure
     loglog(r,puntos_rock(:,Mw))
-    xlabel('r [km]')
-    ylabel('PGA roca[unidad]')
-    title('PGA para roca, sismo magnitud', Mw_var)
-
-%     fprintf('Mw %f Suelo \n',Mw_var)
-    figure
+    hold on
     loglog(r,puntos_soil(:,Mw))
     xlabel('r [km]')
-    ylabel('PGA suelo[unidad]')
-    title('PGA para suelo, sismo magnitud', Mw_var)
+    ylabel('PGA [g]')
+    title('PGA con T_n = 2, sismo magnitud', Mw_var)
+    legend('Roca','Suelo')
+    hold off
+
+%     fprintf('Mw %f Suelo \n',Mw_var)
+%     figure
+%     loglog(r,puntos_soil(:,Mw))
+%     xlabel('r [km]')
+%     ylabel('PGA suelo[unidad]')
+%     title('PGA para suelo, sismo magnitud', Mw_var)
 end
 
 %% P1.3
-% No sé hacerla xd
 
+disp('P1.3')
+
+Mw_var = 8.8;
+r_var = 20; %km 
+
+% Para roca (rock)
+C1_rock = 0.00;
+C2_rock = 0.00;
+C3_rock = -2.552;
+C4_rock = 1.45; % * Standard deviation for magnitud greater than 8 is equal to the value for magnitud equal to 8
+C5_rock = -0.1; % *
+
+% Para suelo (soil)
+C1_soil = 0.00;
+C2_soil = 0.00;
+C3_soil = -2.329;
+C4_soil = 1.45;
+C5_soil = -0.1;
+
+Zt_var = 0;
+
+lny_rock = (0.2418 + 1.414*Mw_var + C1_rock + C2_rock*(10-Mw_var)^3 + C3_rock*log(r_var + 1.7818*exp(0.544*Mw_var)) + 0.00607*H_var + 0.3846*Zt_var);
+lny_soil = (-0.6687 + 1.438*Mw_var + C1_soil + C2_soil*(10-Mw_var)^3 + C3_soil*log(r_var + 1.097*exp(0.617*Mw_var))+0.00648*H_var + 0.3643*Zt_var);
+
+disp('Para sitios en roca')
+fprintf('ln(y)= %f \n', lny_rock)
+disp('Para sitios en suelo')
+fprintf('ln(y)= %f \n', lny_soil)
+sigma_rock = C4_rock + C5_rock*8.0; %desv. estandar para mag. mayores a 8, es equiv. a de la mag. 8. 
+sigma_soil = C4_soil + C5_soil*8.0;
+
+fprintf('sigma_rock = %f \n', sigma_rock)
+fprintf('sigma_soil = %f \n', sigma_soil)
+
+PGA_rock = logninv(0.95,lny_rock,sigma_rock);
+PGA_soil = logninv(0.95,lny_soil,sigma_soil);
+
+fprintf('PGA_rock = %f \n',PGA_rock)
+fprintf('PGA_soil = %f \n',PGA_soil)
 
 %% P2
 % Está en Excel completa
@@ -360,5 +405,3 @@ hold off
 % end
 % 
 % %table(R_range,R_frec)
-
-

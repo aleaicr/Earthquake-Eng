@@ -98,18 +98,21 @@ r = (10:1:500).';
 
     figure
     loglog(r,puntos_rock(:,Mw))
-    xlabel(<span class="string">'r [km]'</span>)
-    ylabel(<span class="string">'PGA roca[unidad]'</span>)
-    title(<span class="string">'PGA para roca, sismo magnitud'</span>, Mw_var)
-
-<span class="comment">%     fprintf('Mw %f Suelo \n',Mw_var)</span>
-    figure
+    hold <span class="string">on</span>
     loglog(r,puntos_soil(:,Mw))
     xlabel(<span class="string">'r [km]'</span>)
-    ylabel(<span class="string">'PGA suelo[unidad]'</span>)
-    title(<span class="string">'PGA para suelo, sismo magnitud'</span>, Mw_var)
+    ylabel(<span class="string">'PGA [unidad]'</span>)
+    title(<span class="string">'PGA, sismo magnitud'</span>, Mw_var)
+    legend(<span class="string">'Roca'</span>,<span class="string">'Suelo'</span>)
+    hold <span class="string">off</span>
+<span class="comment">%     fprintf('Mw %f Suelo \n',Mw_var)</span>
+<span class="comment">%     figure</span>
+<span class="comment">%     loglog(r,puntos_soil(:,Mw))</span>
+<span class="comment">%     xlabel('r [km]')</span>
+<span class="comment">%     ylabel('PGA suelo[unidad]')</span>
+<span class="comment">%     title('PGA para suelo, sismo magnitud', Mw_var)</span>
 <span class="keyword">end</span>
-</pre><img vspace="5" hspace="5" src="Tarea_2_sismica_v2_01.png" alt=""> <img vspace="5" hspace="5" src="Tarea_2_sismica_v2_02.png" alt=""> <img vspace="5" hspace="5" src="Tarea_2_sismica_v2_03.png" alt=""> <img vspace="5" hspace="5" src="Tarea_2_sismica_v2_04.png" alt=""> <img vspace="5" hspace="5" src="Tarea_2_sismica_v2_05.png" alt=""> <img vspace="5" hspace="5" src="Tarea_2_sismica_v2_06.png" alt=""> <h2 id="4">P1.2</h2><p>Para un periodo de <img src="Tarea_2_sismica_v2_eq14957162917779111852.png" alt="$T_n = 2.0 [sec]$"> y un amortiguamiento de <img src="Tarea_2_sismica_v2_eq00193514905240367153.png" alt="$\xi = 0.05$"></p><pre class="codeinput"><span class="comment">% Para roca</span>
+</pre><img vspace="5" hspace="5" src="Tarea_2_sismica_v2_01.png" alt=""> <img vspace="5" hspace="5" src="Tarea_2_sismica_v2_02.png" alt=""> <img vspace="5" hspace="5" src="Tarea_2_sismica_v2_03.png" alt=""> <h2 id="4">P1.2</h2><p>Para un periodo de <img src="Tarea_2_sismica_v2_eq14957162917779111852.png" alt="$T_n = 2.0 [sec]$"> y un amortiguamiento de <img src="Tarea_2_sismica_v2_eq00193514905240367153.png" alt="$\xi = 0.05$"></p><pre class="codeinput"><span class="comment">% Para roca</span>
 C1_rock = -3.328;
 C2_rock = -0.0080;
 C3_rock = -2.1070;
@@ -133,18 +136,70 @@ C5_soil = -0.1;
 
     figure
     loglog(r,puntos_rock(:,Mw))
-    xlabel(<span class="string">'r [km]'</span>)
-    ylabel(<span class="string">'PGA roca[unidad]'</span>)
-    title(<span class="string">'PGA para roca, sismo magnitud'</span>, Mw_var)
-
-<span class="comment">%     fprintf('Mw %f Suelo \n',Mw_var)</span>
-    figure
+    hold <span class="string">on</span>
     loglog(r,puntos_soil(:,Mw))
     xlabel(<span class="string">'r [km]'</span>)
-    ylabel(<span class="string">'PGA suelo[unidad]'</span>)
-    title(<span class="string">'PGA para suelo, sismo magnitud'</span>, Mw_var)
+    ylabel(<span class="string">'PGA [g]'</span>)
+    title(<span class="string">'PGA con T_n = 2, sismo magnitud'</span>, Mw_var)
+    legend(<span class="string">'Roca'</span>,<span class="string">'Suelo'</span>)
+    hold <span class="string">off</span>
+
+<span class="comment">%     fprintf('Mw %f Suelo \n',Mw_var)</span>
+<span class="comment">%     figure</span>
+<span class="comment">%     loglog(r,puntos_soil(:,Mw))</span>
+<span class="comment">%     xlabel('r [km]')</span>
+<span class="comment">%     ylabel('PGA suelo[unidad]')</span>
+<span class="comment">%     title('PGA para suelo, sismo magnitud', Mw_var)</span>
 <span class="keyword">end</span>
-</pre><img vspace="5" hspace="5" src="Tarea_2_sismica_v2_07.png" alt=""> <img vspace="5" hspace="5" src="Tarea_2_sismica_v2_08.png" alt=""> <img vspace="5" hspace="5" src="Tarea_2_sismica_v2_09.png" alt=""> <img vspace="5" hspace="5" src="Tarea_2_sismica_v2_10.png" alt=""> <img vspace="5" hspace="5" src="Tarea_2_sismica_v2_11.png" alt=""> <img vspace="5" hspace="5" src="Tarea_2_sismica_v2_12.png" alt=""> <h2 id="5">P1.3</h2><p>No s&eacute; hacerla xd</p><h2 id="6">P2</h2><p>Est&aacute; en Excel completa</p><h2 id="7">P3</h2><h2 id="8">P3.a</h2><p>Definir fRM(r)</p><pre class="codeinput">r_min = 7.2; <span class="comment">% km</span>
+</pre><img vspace="5" hspace="5" src="Tarea_2_sismica_v2_04.png" alt=""> <img vspace="5" hspace="5" src="Tarea_2_sismica_v2_05.png" alt=""> <img vspace="5" hspace="5" src="Tarea_2_sismica_v2_06.png" alt=""> <h2 id="5">P1.3</h2><pre class="codeinput">disp(<span class="string">'P1.3'</span>)
+
+Mw_var = 8.8;
+r_var = 20; <span class="comment">%km</span>
+
+<span class="comment">% Para roca (rock)</span>
+C1_rock = 0.00;
+C2_rock = 0.00;
+C3_rock = -2.552;
+C4_rock = 1.45; <span class="comment">% * Standard deviation for magnitud greater than 8 is equal to the value for magnitud equal to 8</span>
+C5_rock = -0.1; <span class="comment">% *</span>
+
+<span class="comment">% Para suelo (soil)</span>
+C1_soil = 0.00;
+C2_soil = 0.00;
+C3_soil = -2.329;
+C4_soil = 1.45;
+C5_soil = -0.1;
+
+Zt_var = 0;
+
+lny_rock = (0.2418 + 1.414*Mw_var + C1_rock + C2_rock*(10-Mw_var)^3 + C3_rock*log(r_var + 1.7818*exp(0.544*Mw_var)) + 0.00607*H_var + 0.3846*Zt_var);
+lny_soil = (-0.6687+1.438*Mw_var + C1_soil + C2_soil*(10-Mw_var)^3 + C3_soil*log(r_var + 1.097*exp(0.617*Mw_var))+0.000648*H_var + 0.3643*Zt_var);
+
+disp(<span class="string">'Para sitios en roca'</span>)
+fprintf(<span class="string">'ln(y)= %f \n'</span>, lny_rock)
+disp(<span class="string">'Para sitios en suelo'</span>)
+fprintf(<span class="string">'ln(y)= %f \n'</span>, lny_soil)
+sigma_rock = C4_rock + C5_rock*8.0; <span class="comment">%desv. estandar para mag. mayores a 8, es equiv. a de la mag. 8.</span>
+sigma_soil = C4_soil + C5_soil*8.0;
+
+fprintf(<span class="string">'sigma_rock = %f \n'</span>, sigma_rock)
+fprintf(<span class="string">'sigma_soil = %f \n'</span>, sigma_soil)
+
+PGA_rock = logninv(0.95,lny_rock,sigma_rock);
+PGA_soil = logninv(0.95,lny_soil,sigma_soil);
+
+fprintf(<span class="string">'PGA_rock = %f \n'</span>,PGA_rock)
+fprintf(<span class="string">'PGA_soil = %f \n'</span>,PGA_soil)
+</pre><pre class="codeoutput">P1.3
+Para sitios en roca
+ln(y)= -1.009701 
+Para sitios en suelo
+ln(y)= -1.030598 
+sigma_rock = 0.650000 
+sigma_soil = 0.650000 
+PGA_rock = 1.061257 
+PGA_soil = 1.039310 
+</pre><h2 id="6">P2</h2><p>Est&aacute; en Excel completa</p><h2 id="7">P3</h2><h2 id="8">P3.a</h2><p>Definir fRM(r)</p><pre class="codeinput">r_min = 7.2; <span class="comment">% km</span>
 L1 = 34.4; <span class="comment">% km</span>
 L2 = 62.3; <span class="comment">% km</span>
 L = 96.7; <span class="comment">% km</span>
@@ -199,7 +254,7 @@ xlabel(<span class="string">'r [km]'</span>)
 ylabel(<span class="string">'f_{R}(r)'</span>)
 title(<span class="string">'Funciones de densidad de probabilidad para las cuatro longitudes de ruptura'</span>)
 legend(<span class="string">'l = 43.72km; Magn = 7.01'</span>,<span class="string">'l = 12.42km; Magn = 6.27'</span>,<span class="string">'l = 6.62km; Magn = 5.90'</span>,<span class="string">'l = 1.88km; Magn = 5.16'</span>)
-</pre><img vspace="5" hspace="5" src="Tarea_2_sismica_v2_13.png" alt=""> <h2 id="12">P3.e</h2><pre class="codeinput"><span class="comment">% Para el caso de ruptura asociado a 0.7Mmax  =&gt; l = 1.882km</span>
+</pre><img vspace="5" hspace="5" src="Tarea_2_sismica_v2_07.png" alt=""> <h2 id="12">P3.e</h2><pre class="codeinput"><span class="comment">% Para el caso de ruptura asociado a 0.7Mmax  =&gt; l = 1.882km</span>
 <span class="comment">% Aproximar fR(r) num&eacute;ricamente utilizando histogramas</span>
 
 <span class="comment">% 1. Dividir la falla en segmentos de longitud dx</span>
@@ -393,7 +448,7 @@ hold <span class="string">off</span>
 <span class="comment">% end</span>
 <span class="comment">%</span>
 <span class="comment">% %table(R_range,R_frec)</span>
-</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021b</a><br></p></div><!--
+</pre><img vspace="5" hspace="5" src="Tarea_2_sismica_v2_08.png" alt=""> <img vspace="5" hspace="5" src="Tarea_2_sismica_v2_09.png" alt=""> <img vspace="5" hspace="5" src="Tarea_2_sismica_v2_10.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% Inicializar
 clear variables
@@ -433,16 +488,19 @@ for Mw = 1:3
 
     figure
     loglog(r,puntos_rock(:,Mw))
-    xlabel('r [km]')
-    ylabel('PGA roca[unidad]')
-    title('PGA para roca, sismo magnitud', Mw_var)
-
-%     fprintf('Mw %f Suelo \n',Mw_var)
-    figure
+    hold on
     loglog(r,puntos_soil(:,Mw))
     xlabel('r [km]')
-    ylabel('PGA suelo[unidad]')
-    title('PGA para suelo, sismo magnitud', Mw_var)
+    ylabel('PGA [unidad]')
+    title('PGA, sismo magnitud', Mw_var)
+    legend('Roca','Suelo')
+    hold off
+%     fprintf('Mw %f Suelo \n',Mw_var)
+%     figure
+%     loglog(r,puntos_soil(:,Mw))
+%     xlabel('r [km]')
+%     ylabel('PGA suelo[unidad]')
+%     title('PGA para suelo, sismo magnitud', Mw_var)
 end
 
 
@@ -473,21 +531,63 @@ for Mw = 1:3
 
     figure
     loglog(r,puntos_rock(:,Mw))
-    xlabel('r [km]')
-    ylabel('PGA roca[unidad]')
-    title('PGA para roca, sismo magnitud', Mw_var)
-
-%     fprintf('Mw %f Suelo \n',Mw_var)
-    figure
+    hold on
     loglog(r,puntos_soil(:,Mw))
     xlabel('r [km]')
-    ylabel('PGA suelo[unidad]')
-    title('PGA para suelo, sismo magnitud', Mw_var)
+    ylabel('PGA [g]')
+    title('PGA con T_n = 2, sismo magnitud', Mw_var)
+    legend('Roca','Suelo')
+    hold off
+
+%     fprintf('Mw %f Suelo \n',Mw_var)
+%     figure
+%     loglog(r,puntos_soil(:,Mw))
+%     xlabel('r [km]')
+%     ylabel('PGA suelo[unidad]')
+%     title('PGA para suelo, sismo magnitud', Mw_var)
 end
 
 %% P1.3
-% No sé hacerla xd
 
+disp('P1.3')
+
+Mw_var = 8.8;
+r_var = 20; %km 
+
+% Para roca (rock)
+C1_rock = 0.00;
+C2_rock = 0.00;
+C3_rock = -2.552;
+C4_rock = 1.45; % * Standard deviation for magnitud greater than 8 is equal to the value for magnitud equal to 8
+C5_rock = -0.1; % *
+
+% Para suelo (soil)
+C1_soil = 0.00;
+C2_soil = 0.00;
+C3_soil = -2.329;
+C4_soil = 1.45;
+C5_soil = -0.1;
+
+Zt_var = 0;
+
+lny_rock = (0.2418 + 1.414*Mw_var + C1_rock + C2_rock*(10-Mw_var)^3 + C3_rock*log(r_var + 1.7818*exp(0.544*Mw_var)) + 0.00607*H_var + 0.3846*Zt_var);
+lny_soil = (-0.6687+1.438*Mw_var + C1_soil + C2_soil*(10-Mw_var)^3 + C3_soil*log(r_var + 1.097*exp(0.617*Mw_var))+0.000648*H_var + 0.3643*Zt_var);
+
+disp('Para sitios en roca')
+fprintf('ln(y)= %f \n', lny_rock)
+disp('Para sitios en suelo')
+fprintf('ln(y)= %f \n', lny_soil)
+sigma_rock = C4_rock + C5_rock*8.0; %desv. estandar para mag. mayores a 8, es equiv. a de la mag. 8. 
+sigma_soil = C4_soil + C5_soil*8.0;
+
+fprintf('sigma_rock = %f \n', sigma_rock)
+fprintf('sigma_soil = %f \n', sigma_soil)
+
+PGA_rock = logninv(0.95,lny_rock,sigma_rock);
+PGA_soil = logninv(0.95,lny_soil,sigma_soil);
+
+fprintf('PGA_rock = %f \n',PGA_rock)
+fprintf('PGA_soil = %f \n',PGA_soil)
 
 %% P2
 % Está en Excel completa
@@ -757,8 +857,6 @@ hold off
 % end
 % 
 % %table(R_range,R_frec)
-
-
 
 ##### SOURCE END #####
 --></body></html>
