@@ -172,8 +172,10 @@ legend('l = 43.72km; Magn = 7.01','l = 12.42km; Magn = 6.27','l = 6.62km; Magn =
 % 1. Dividir la falla en segmentos de longitud dx
 Dx = [0.1; 1; 2]; %km
 % Para cada división, calcular la distancia ri asociada
-pos_x = zeros(L/min(Dx),L/min(Dx));
+
+% pos_x = zeros(L/min(Dx),L/min(Dx));
 x_0 = 0;
+
 for i = 1:length(Dx)
     for j = 1:L/Dx(i,1)
         pos_x(j,i) = x_0 + Dx(i,1)*j;
@@ -196,48 +198,167 @@ end
 DR = [1;2.5;5]; % km
 r2max = (r_min^2 + L2^2)^0.5;
 R_0 = r_min;
+
 for i = 1:length(DR)
-    for j = 1:r2max/DR(i,1)
+    for j = 1:round(r2max/DR(i,1))
         R_range(j,i) = R_0 + DR(i,1)*(j-1);                             %Creo un rango de R+DR.... R+DR...    
+        if i == 1
+            R_range1(j,1) = R_0 + DR(i,1)*(j-1);
+        elseif i == 2 
+            R_range2(j,1) = R_0 + DR(i,1)*(j-1);
+        elseif i == 3
+            R_range3(j,1) = R_0 + DR(i,1)*(j-1);
+        end
     end
 end
+
 % disp('Se muestra R_range')
 % disp(R_range)
 
 R_frec = zeros(length(R_range),length(Dx));                             % Inicializo matriz de zeros(Rango_R1,Rango_R2,Rango_R3), pero nos quedamos con el mayor
-
-for i = 1:length(Dx)                                                    % Para cada Dx, justo calza también con para cada DR
-    for k = 1:length(R_range(:,i))-1                                      % Para cada Rango_R, no pasa nada si partimos de 
-        for j = 1:length(ri(:,i))                                       % Para cada largo del Dx asociaso
-            if and(ri(j,i) > R_range(k,i) , ri(j,i) < R_range(k+1,i))   % Si ri está dentro del rango 
-                p = R_frec(k,i);
-                R_frec(k,i) = p + 1;                                    % Si está dentro del rango, sumamos uno, si no entonces no pasa nada
+frecs1 = zeros(length(R_range1),length(Dx));
+frecs2 = zeros(length(R_range2),length(Dx));
+frecs3 = zeros(length(R_range3),length(Dx));
+for i = 1:length(DR)                                                    % Para cada Dx, justo calza también con para cada DR
+    for j = 1:length(Dx)                                      % Para cada Rango_R, no pasa nada si partimos de 
+        for k = 1:length(R_range(:,i))-1                                       % Para cada largo del Dx asociaso
+            for t = 1:length(ri(:,j)) 
+                if i == 1
+                    if and(ri(t,j) > R_range(k,i), ri(t,j) < R_range(k+1,i))
+                            frecs1(k,j) = frecs1(k,j) + 1;
+                    end    
+                elseif i == 2
+                    if and(ri(t,j) > R_range(k,i), ri(t,j) < R_range(k+1,i))
+                            frecs2(k,j) = frecs2(k,j) + 1;
+                    end 
+                elseif i== 3
+                    if and(ri(t,j) > R_range(k,i), ri(t,j) < R_range(k+1,i))
+                            frecs3(k,j) = frecs3(k,j) + 1;
+                    end
+                end
             end
         end
     end
 end
 
-% Normalizando
-
-for i = 1:length(DR)
-    total = sum(R_frec(:,i));
-    R_frec_normalizado(:,i) = R_frec(:,i)/total;
-end
-
-
-% disp('Se muestra R_frec')
-% disp(R_frec)
-% disp('Se muestra R_frec')
-% disp(R_frec_normalizado)
-
 % Graficamos
 for i = 1:length(DR)
-    figure
-    grid on
-    histogram(R_frec_normalizado(:,i).',R_range(:,i).')
-    xlabel('r [km]')
-    ylabel('f_{R}(r)')
-    title('Funciones de densidad de probabilidad para las cuatro longitudes de ruptura')
+    for j = 1:length(Dx)
+        if i == 1
+            for k = 1:length(frecs1(:,j))
+                if ~(frecs1(k,j) == 0)
+                    if j ==1
+                        frecs11_new(k,1) = frecs1(k,j);
+                    elseif j == 2
+                        frecs12_new(k,1) = frecs1(k,j);
+                    elseif j == 3
+                        frecs13_new(k,1) = frecs1(k,j);
+                    end
+                end
+            end
+        elseif i == 2
+            for k = 1:length(frecs2(:,j))
+                if ~(frecs2(k,j) == 0)
+                    if j ==1
+                        frecs21_new(k,1) = frecs2(k,j);
+                    elseif j == 2
+                        frecs22_new(k,1) = frecs2(k,j);
+                    elseif j == 3
+                        frecs23_new(k,1) = frecs2(k,j);
+                    end
+                end
+            end
+
+        elseif i == 3
+            for k = 1:length(frecs3(:,j))
+                if ~(frecs3(k,j) == 0)
+                    if j ==1
+                        frecs31_new(k,1) = frecs3(k,j);
+                    elseif j == 2
+                        frecs32_new(k,1) = frecs3(k,j);
+                    elseif j == 3
+                        frecs33_new(k,1) = frecs3(k,j);
+                    end
+                end
+            end
+        end
+    end
 end
 
- table(R_range,R_frec)
+figure
+myhist11 = histogram(frecs11_new.',R_range1);
+hold on
+myhist12 = histogram(frecs12_new.',R_range2);
+myhist13 = histogram(frecs13_new.',R_range3);
+myhist11.Normalization = 'pdf';
+myhist12.Normalization = 'pdf';
+myhist13.Normalization = 'pdf';
+xlabel('r')
+ylabel('f_R(r)')
+legend('Dx = 0.1', 'Dx = 1', 'Dx = 2')
+hold off
+
+figure
+myhist21 = histogram(frecs21_new.',R_range1);
+hold on
+myhist22 = histogram(frecs22_new.',R_range2);
+myhist23 = histogram(frecs23_new.',R_range3);
+myhist21.Normalization = 'pdf';
+myhist22.Normalization = 'pdf';
+myhist23.Normalization = 'pdf';
+xlabel('r')
+ylabel('f_R(r)')
+legend('Dx = 0.1', 'Dx = 1', 'Dx = 2')
+hold off
+
+figure
+myhist31 = histogram(frecs21_new.',R_range1);
+hold on
+myhist32 = histogram(frecs22_new.',R_range2);
+myhist33 = histogram(frecs23_new.',R_range3);
+myhist31.Normalization = 'pdf';
+myhist32.Normalization = 'pdf';
+myhist33.Normalization = 'pdf';
+xlabel('r')
+ylabel('f_R(r)')
+legend('Dx = 0.1', 'Dx = 1', 'Dx = 2')
+hold off
+
+% for i = 1:length(Dx)
+%     for j = 1:length(R_range(:,i))
+%         if ~(R_range(j,i) == 0)
+%             if i == 1
+%                 R_range_new1(j,1) = R_range(j,i);
+%             elseif i == 2
+%                 R_range_new2(j,1) = R_range(j,i);
+%             elseif i == 3
+%                 R_range_new3(j,1) = R_range(j,i);
+%             end
+%         end
+%         if ~(R_frec(j,i) == 0)
+%             if i == 1
+%                 R_frec_new1(j,1) = R_frec(j,i);
+%             elseif i == 2
+%                 R_frec_new2(j,1) = R_frec(j,i);
+%             elseif i == 3
+%                 R_frec_new3(j,1) = R_frec(j,i);
+%             end
+%         end
+%     end
+%     figure
+%     hold on
+%     grid on
+%     hist1 = histogram(R_frec_new1.',R_range_new1)
+%     hist2 = histogram(R_frec_new2.',R_range_new2)
+%     hist3 = histogram(R_frec_new3.',R_range_new3)
+%     hist1.Normalization = 'pdf';
+%     hist2.Normalization = 'pdf';
+%     hist3.Normalization = 'pdf';
+%     xlabel('r [km]')
+%     ylabel('f_{R}(r)')
+%     hold off
+% end
+% 
+% %table(R_range,R_frec)
+
+

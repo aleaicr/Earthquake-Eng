@@ -233,7 +233,10 @@ for i = 1:length(DR)                                                    % Para c
                     end 
                 elseif i== 3
                     if and(ri(t,j) > R_range(k,i), ri(t,j) < R_range(k+1,i))
-                            frecs3(k,j) = frecs3(k,j) + 1;
+                            frecs3(k,j) = frecs1(k,j) + 1;
+                    end 
+                end
+                        end
                     end
                 end
             end
