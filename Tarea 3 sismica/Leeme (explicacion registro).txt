@@ -1,0 +1,3 @@
+Los primeros 10 segundos del registro del centro estan en el archivo el_centro_10s.mat, que se puede leer directamente usando el comando 'load' de MATLAB.
+
+La primera columna corresponde al vector de tiempo, en segundos. La segunda columna corresponde al registro sísmico, en g.
