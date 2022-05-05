@@ -42,7 +42,7 @@ for i = 1:size(t,1)-1
         fs(i+1,1) = fs(i+1,1) + k*Delta_u;
         if abs(fs(i+1,1)) > Fy
             fs(i+1,1) = Fy*sign(fs(i+1,1));
-            fluencias(i+1,1) = sign(fs(i+1,1));
+            fluencias(i+1,1) = abs*fs(i+1,1)*sign(fs(i+1,1));
             kt = k;
         else
             kt = k;

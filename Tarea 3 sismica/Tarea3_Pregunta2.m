@@ -1,5 +1,8 @@
 %% Pregunta 2
 
+
+%% Inicializar
+
 clear all
 close all
 clc
