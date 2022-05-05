@@ -1,4 +1,4 @@
-function [Sd,Sv,Sa,PSv,PSa] = Newmark_Lineal(beta,xi,dt,ui,udi,uddg)
+function [Sd,Sv,Sa,PSv,PSa] = Newmark_beta_Lineal(beta,xi,dt,ui,udi,uddg)
 % Beta -> factor del método de Newmark
 % xi -> Razón de amortiguamiento
 % dt -> Rango de partición
@@ -15,18 +15,18 @@ N2 = size(Tn,2);
 u = zeros(N,1);
 ud = zeros(N,1);         
 udd = zeros(N,1);
-Sd = zeros(N2,1);
-Sv = zeros(N2,1);
-Sa = zeros(N2,1);
-PSv = zeros(N2,1);
-PSa = zeros(N2,1);
+Sd = zeros(N2,2);
+Sv = zeros(N2,2);
+Sa = zeros(N2,2);
+PSv = zeros(N2,2);
+PSa = zeros(N2,2);
 u(1,1) = ui;
 ud(1,1) = udi;
 
 
-for j = 1:N2                                                        % j es el periodo a evaluar
+for j = 1:N2                                                                  % j periodo
     if Tn(1,j) == 0
-        for i = 1:size(uddg,1)                                                % i es el número de dato del registro
+        for i = 1:size(uddg,1)                                                % i Valor del registro
             udd(i,1) = uddg(i,1);
         end
         Sd(j,1) = Tn(1,j);
@@ -36,12 +36,12 @@ for j = 1:N2                                                        % j es el pe
         Sa(j,1) = Tn(1,j);
         Sa(j,2) = max(abs(udd(:,1)));
     else
-        omegan = 2*pi/Tn(1,j);                                               % Frecuencia natural del sistema
-        udd(1,1) = uddg(1,1) - 2*xi*omegan*udi - omegan^2*ui;
-        a1 = 1/(beta*dt^2) + 2*xi*omegan*gamma/(beta*dt);
-        a2 = 1/(beta*dt) + 2*xi*omegan*(gamma/beta-1);
-        a3 = (1/(2*beta)-1) + 2*xi*omegan*dt*(gamma/(2*beta)-1);
-        k_tongo = a1 + omegan^2;
+        wn = 2*pi/Tn(1,j);                                               % Frecuencia natural del sistema
+        udd(1,1) = uddg(1,1) - 2*xi*wn*udi - wn^2*ui;
+        a1 = 1/(beta*dt^2) + 2*xi*wn*gamma/(beta*dt);
+        a2 = 1/(beta*dt) + 2*xi*wn*(gamma/beta-1);
+        a3 = (1/(2*beta)-1) + 2*xi*wn*dt*(gamma/(2*beta)-1);
+        k_tongo = a1 + wn^2;
         for i = 2:size(uddg,1)
             p_tongo = -uddg(i,1) + a1*u(i-1,1) + a2*ud(i-1,1) + a3*udd(i-1,1);
             u(i,1) = p_tongo/k_tongo;
@@ -58,8 +58,8 @@ for j = 1:N2                                                        % j es el pe
         Sa(j,2) = max(abs(udd_tot(:,1)));
         PSv(j,1) = Tn(1,j);
         PSa(j,1) = Tn(1,j);
-        PSv(j,2) = omegan*Sd(j,2);
-        PSa(j,2)=omegan^2*Sd(j,2);
+        PSv(j,2) = wn*Sd(j,2);
+        PSa(j,2)=wn^2*Sd(j,2);
     end
     u(:,1) = zeros(size(u,1),1);
     ud(:,1) = zeros(size(ud,1),1);
