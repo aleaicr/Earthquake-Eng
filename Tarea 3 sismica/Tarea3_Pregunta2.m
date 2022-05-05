@@ -3,13 +3,15 @@
 
 %% Inicializar
 
-clear all
+clear variables
 close all
 clc
 
 %% Importar Registro
-load('el_centro.mat');
-
+% load() guarda el registro uppG 
+% dt
+% uppG
+load('el_centro.mat');                                                      
 %% Datos
 Tn = 0.5;                                                                   % Periodo 
 beta = 1/4;                                                                 % Factor de método newmark-beta
@@ -36,8 +38,10 @@ t = transpose(0:dt:(size(uppG,1)-1)*dt);
 %% Parte i y ii
 [u,ud,udd,fs,fluencia,ductilidad] = Newmark_No_Lineal(beta,Tn,xi,dt,ui,udi,uppG,Fy,R,t);
 
+
+u = u*386.06; % De dónde sale el 386.06?
+
 figure
-u = u*386.06;
 
 subplot(3,1,1)
 plot(t(:,1),u(:,1))
