@@ -12,8 +12,9 @@ clc
 
 %% Importar registro
 
-registro = readmatrix("Northridge-Tarzana-EW".txt);
+registro = readmatrix("Northridge-Tarzana-EW.txt");
 
 %%
+
 
 
