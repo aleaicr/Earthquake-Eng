@@ -1,0 +1,492 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Tarea 5 Ingenier&iacute;a S&iacute;smica</title><meta name="generator" content="MATLAB 9.11"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2022-06-09"><meta name="DC.source" content="Tarea5.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Tarea 5 Ingenier&iacute;a S&iacute;smica</h1><!--introduction--><p>Crist&oacute;bal Adasme - Alexis Contreras</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Inicializar</a></li><li><a href="#2">Pregunta 1</a></li><li><a href="#3">P1 a)</a></li><li><a href="#4">P1 b)</a></li><li><a href="#5">P1 c)</a></li><li><a href="#6">P1 d)</a></li><li><a href="#7">P1 e</a></li><li><a href="#8">P1 f</a></li><li><a href="#9">Pregunta 2</a></li><li><a href="#10">P2 a)</a></li><li><a href="#11">P2 b)</a></li></ul></div><h2 id="1">Inicializar</h2><pre class="codeinput">clear <span class="string">variables</span>
+close <span class="string">all</span>
+clc
+</pre><h2 id="2">Pregunta 1</h2><pre class="codeinput"><span class="comment">% Par&aacute;metros</span>
+g = 980; <span class="comment">% cm/s2</span>
+htotal = 40; <span class="comment">% m</span>
+Wtotal = 9000; <span class="comment">%tonf</span>
+cant_pisos = 10;                                                            <span class="comment">% Cantidad de pisos</span>
+h = htotal/cant_pisos;                                                      <span class="comment">% Altura de cada piso</span>
+W = Wtotal/cant_pisos; <span class="comment">% tonf                                               % Peso W</span>
+k = 500; <span class="comment">%tonf/cm</span>
+Pisos = (cant_pisos:-1:1)';
+Modos = (1:1:cant_pisos)';
+
+k1 = 0.2*k;
+k2 = 0.2*k;
+k3 = 0.4*k;
+k4 = 0.4*k;
+k5 = 0.6*k;
+k6 = 0.6*k;
+k7 = 0.8*k;
+k8 = 0.8*k;
+k9 = k;
+k10 = k;
+
+m1 = 0.5*W/g;
+m2 = 0.8*W/g;
+m3 = W/g;
+m4 = W/g;
+m5 = W/g;
+m6 = W/g;
+m7 = W/g;
+m8 = W/g;
+m9 = W/g;
+m10 = 1.4*W/g;
+
+M = diag([m1 m2 m3 m4 m5 m6 m7 m8 m9 m10]);
+K = [k1 -k1 0 0 0 0 0 0 0 0;
+    -k1 k2+k1 -k2 0 0 0 0 0 0 0;
+    0 -k2 k3+k2 -k3 0 0 0 0 0 0;
+    0 0 -k3 k4+k3 -k4 0 0 0 0 0;
+    0 0 0 -k4 k5+k4 -k5 0 0 0 0;
+    0 0 0 0 -k5 k6+k5 -k6 0 0 0;
+    0 0 0 0 0 -k6 k7+k6 -k7 0 0;
+    0 0 0 0 0 0 -k7 k8+k7 -k8 0;
+    0 0 0 0 0 0 0 -k8 k9+k8 -k9;
+    0 0 0 0 0 0 0 0 -k9 k10+k9];
+G = [-m1; -m2; -m3; -m4; -m5; -m6; -m7; -m8; -m9; -m10];
+r = diag(ones(cant_pisos));
+disp(<span class="string">'Matriz de masa [M]'</span>)
+disp(M)
+disp(<span class="string">'Matriz de rigidez [K]'</span>)
+disp(K)
+</pre><pre class="codeoutput">Matriz de masa [M]
+  Columns 1 through 7
+
+    0.4592         0         0         0         0         0         0
+         0    0.7347         0         0         0         0         0
+         0         0    0.9184         0         0         0         0
+         0         0         0    0.9184         0         0         0
+         0         0         0         0    0.9184         0         0
+         0         0         0         0         0    0.9184         0
+         0         0         0         0         0         0    0.9184
+         0         0         0         0         0         0         0
+         0         0         0         0         0         0         0
+         0         0         0         0         0         0         0
+
+  Columns 8 through 10
+
+         0         0         0
+         0         0         0
+         0         0         0
+         0         0         0
+         0         0         0
+         0         0         0
+         0         0         0
+    0.9184         0         0
+         0    0.9184         0
+         0         0    1.2857
+
+Matriz de rigidez [K]
+  Columns 1 through 6
+
+         100        -100           0           0           0           0
+        -100         200        -100           0           0           0
+           0        -100         300        -200           0           0
+           0           0        -200         400        -200           0
+           0           0           0        -200         500        -300
+           0           0           0           0        -300         600
+           0           0           0           0           0        -300
+           0           0           0           0           0           0
+           0           0           0           0           0           0
+           0           0           0           0           0           0
+
+  Columns 7 through 10
+
+           0           0           0           0
+           0           0           0           0
+           0           0           0           0
+           0           0           0           0
+           0           0           0           0
+        -300           0           0           0
+         700        -400           0           0
+        -400         800        -400           0
+           0        -400         900        -500
+           0           0        -500        1000
+
+</pre><h2 id="3">P1 a)</h2><pre class="codeinput">[Phi, lambda] = eig(K,M);                                                   <span class="comment">% Problema de valores y vectores propios</span>
+wn = diag(lambda.^0.5);                                                             <span class="comment">% Frecuencia de cada modo</span>
+Tn = 2*pi./wn;                                                              <span class="comment">% Periodo de cada modo</span>
+
+tabla = table();
+tabla.Modo_n = Modos;
+tabla.Periodos_Tn = Tn;
+tabla.FreqAngular_wn = wn;
+disp(tabla)
+clear <span class="string">tabla</span>
+</pre><pre class="codeoutput">    Modo_n    Periodos_Tn    FreqAngular_wn
+    ______    ___________    ______________
+
+       1          1.988          3.1606    
+       2        0.81474          7.7119    
+       3        0.52376          11.996    
+       4        0.38083          16.499    
+       5          0.308            20.4    
+       6        0.27795          22.606    
+       7        0.24313          25.843    
+       8         0.2063          30.456    
+       9        0.18036          34.838    
+      10        0.15614           40.24    
+
+</pre><h2 id="4">P1 b)</h2><p>Caluclar factores de participaci&oacute;n modal Gamma_n y las formas modales {Phi_n} Graficar Gamma_n{Phi_n} para los primeros 5 primeros modos</p><pre class="codeinput">Mn = diag(Phi.'*M*Phi);
+Kn = diag(Phi.'*K*Phi);
+Mn_matrix = Phi.'*M*Phi;
+Kn_matrix = Phi.'*K*Phi;
+
+<span class="comment">% Gamma_n</span>
+Gamma_n = -Phi.'*M*r./Mn;
+
+<span class="comment">% Comentarios</span>
+tabla = table(Modos,Gamma_n);
+disp(tabla)
+clear <span class="string">tabla</span>
+
+<span class="comment">% Graficamos</span>
+cant_modos = 5;
+figure
+<span class="keyword">for</span> i = 1:cant_modos
+    subplot(1,cant_modos,i)
+    plot([Gamma_n(i)*Phi(:,i); 0],[Pisos; 0], <span class="string">'-o'</span>)
+    xlabel([<span class="string">'\Gamma_'</span>, num2str(Modos(i)), <span class="string">'\{\phi_{j'</span>, num2str(Modos(i)), <span class="string">'}\}'</span>])
+    <span class="keyword">if</span> i == 1
+        ylabel(<span class="string">'Piso'</span>)
+        hold <span class="string">on</span>
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+hold <span class="string">off</span>
+sgtitle(<span class="string">'\Gamma_n \{\phi_n\}'</span>)
+</pre><pre class="codeoutput">    Modos     Gamma_n 
+    _____    _________
+
+      1        -2.5715
+      2        -1.0725
+      3       -0.70653
+      4        0.56486
+      5        -0.2755
+      6        0.37333
+      7       -0.21916
+      8        0.17987
+      9        0.14934
+     10      -0.095834
+
+</pre><img vspace="5" hspace="5" src="Tarea5_01.png" alt=""> <h2 id="5">P1 c)</h2><p>Calcular Masa modal Equivalente y determine el n&uacute;mero de modos necesario para que la suma de la masa modal equivalente sea al menos un 90% de la masa total del edificio</p><pre class="codeinput">Mn_ast = zeros(cant_pisos,1);
+<span class="keyword">for</span> n = 1:cant_pisos
+    <span class="keyword">for</span> j = 1:cant_pisos
+        Mn_ast(n,1) = Mn(n,1) + M(j,j)*Gamma_n(n)*Phi(j,n);
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+PMass = Mn_ast/(Wtotal/g);                                                  <span class="comment">% Porcentaje de Masa modal Equivalente de cada modo</span>
+PMass_acum = zeros(cant_pisos,1);                                           <span class="comment">% Porcentaje de Masa modal equivalente acumulado</span>
+PMass_acum(1,1) = PMass(1,1);
+printed = 0;                                                                <span class="comment">% Contador para ver si ya encontr&oacute; la soluci&oacute;n</span>
+<span class="keyword">for</span> i = 2:cant_pisos
+    PMass_acum(i,1) = PMass_acum(i-1,1) + PMass(i,1);
+    <span class="keyword">if</span> PMass_acum(i,1) &gt; 0.9 &amp;&amp; printed ~= 1
+        fprintf(<span class="string">'Solo se requieren los primeros %i modos \n \n'</span>, Modos(i,1))
+        printed = 1;
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+<span class="comment">% Comentarios</span>
+tabla = table();
+tabla.Modos = Modos;
+tabla.MasaModalEquivalente = Mn_ast;
+tabla.PorcntajeDeMasa = PMass;
+tabla.PorcntajeDeMasaAcum = PMass_acum;
+disp(tabla)
+clear <span class="string">tabla</span>
+<span class="comment">% Para verificar</span>
+<span class="comment">% Sum(Mn_Ast) = Sum_m</span>
+</pre><pre class="codeoutput">Solo se requieren los primeros 10 modos 
+ 
+    Modos    MasaModalEquivalente    PorcntajeDeMasa    PorcntajeDeMasaAcum
+    _____    ____________________    _______________    ___________________
+
+      1            0.83014              0.090394             0.090394      
+      2            0.82408              0.089733              0.18013      
+      3            0.81527              0.088774               0.2689      
+      4            0.77667               0.08457              0.35347      
+      5            0.91878               0.10004              0.45352      
+      6            0.81685              0.088946              0.54246      
+      7            0.91751              0.099907              0.64237      
+      8            0.92283               0.10049              0.74285      
+      9             0.9304               0.10131              0.84416      
+     10            0.96176               0.10472              0.94889      
+
+</pre><h2 id="6">P1 d)</h2><p>Amortiguamiento del primer modo utilizando f&oacute;rmula propuesta por Cruz &amp; Miranda (2021)</p><pre class="codeinput">xi = zeros(cant_pisos,1);
+<span class="comment">% Para el primer modo</span>
+xi(1,1) = 0.28*htotal^(-0.52);
+</pre><h2 id="7">P1 e</h2><p>Amortiguamiento para los modos superiores utilizando f&oacute;rmula propuesta por Cruz &amp; Miranda (2017)</p><pre class="codeinput"><span class="keyword">for</span> i = 2:cant_pisos
+    xi(i,1) = xi(1,1)*(1+0.12*(wn(i,1)/wn(1,1)-1));
+<span class="keyword">end</span>
+</pre><h2 id="8">P1 f</h2><p>Graficar xi_n vs wn</p><pre class="codeinput">figure
+plot(wn,xi)
+xlabel(<span class="string">'\omega_n'</span>)
+ylabel(<span class="string">'\xi_n'</span>)
+title(<span class="string">'\xi_n vs \omega_n'</span>)
+<span class="comment">% Da una recta como es de esperar viendo la ecuaci&oacute;n de xi para modos</span>
+<span class="comment">% superiores</span>
+
+<span class="comment">% figure</span>
+<span class="comment">% plot(Modos,xi)</span>
+<span class="comment">% xlabel('Modos')</span>
+<span class="comment">% ylabel('\xi_n')</span>
+</pre><img vspace="5" hspace="5" src="Tarea5_02.png" alt=""> <h2 id="9">Pregunta 2</h2><h2 id="10">P2 a)</h2><p>Import(registro maule)</p><pre class="codeinput"><span class="comment">% Sd1 para Tn = 0.01:0.01:6, para xi = xi_1</span>
+<span class="comment">% PSa1 = wn1^2*Sd1</span>
+<span class="comment">% plot(Tn,Psa1)</span>
+</pre><h2 id="11">P2 b)</h2><p>Ce1 = PSa/g</p><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Tarea 5 Ingeniería Sísmica
+% Cristóbal Adasme - Alexis Contreras
+
+%% Inicializar
+clear variables
+close all
+clc
+
+%% Pregunta 1
+
+% Parámetros
+g = 980; % cm/s2
+htotal = 40; % m
+Wtotal = 9000; %tonf
+cant_pisos = 10;                                                            % Cantidad de pisos
+h = htotal/cant_pisos;                                                      % Altura de cada piso
+W = Wtotal/cant_pisos; % tonf                                               % Peso W
+k = 500; %tonf/cm
+Pisos = (cant_pisos:-1:1)';
+Modos = (1:1:cant_pisos)';
+
+k1 = 0.2*k;
+k2 = 0.2*k;
+k3 = 0.4*k;
+k4 = 0.4*k;
+k5 = 0.6*k;
+k6 = 0.6*k;
+k7 = 0.8*k;
+k8 = 0.8*k;
+k9 = k;
+k10 = k;
+
+m1 = 0.5*W/g;
+m2 = 0.8*W/g;
+m3 = W/g;
+m4 = W/g;
+m5 = W/g;
+m6 = W/g;
+m7 = W/g;
+m8 = W/g;
+m9 = W/g;
+m10 = 1.4*W/g;
+
+M = diag([m1 m2 m3 m4 m5 m6 m7 m8 m9 m10]);
+K = [k1 -k1 0 0 0 0 0 0 0 0;
+    -k1 k2+k1 -k2 0 0 0 0 0 0 0;
+    0 -k2 k3+k2 -k3 0 0 0 0 0 0;
+    0 0 -k3 k4+k3 -k4 0 0 0 0 0;
+    0 0 0 -k4 k5+k4 -k5 0 0 0 0;
+    0 0 0 0 -k5 k6+k5 -k6 0 0 0;
+    0 0 0 0 0 -k6 k7+k6 -k7 0 0;
+    0 0 0 0 0 0 -k7 k8+k7 -k8 0;
+    0 0 0 0 0 0 0 -k8 k9+k8 -k9;
+    0 0 0 0 0 0 0 0 -k9 k10+k9];
+G = [-m1; -m2; -m3; -m4; -m5; -m6; -m7; -m8; -m9; -m10];
+r = diag(ones(cant_pisos));
+disp('Matriz de masa [M]')
+disp(M)
+disp('Matriz de rigidez [K]')
+disp(K)
+
+%% P1 a)
+[Phi, lambda] = eig(K,M);                                                   % Problema de valores y vectores propios
+wn = diag(lambda.^0.5);                                                             % Frecuencia de cada modo
+Tn = 2*pi./wn;                                                              % Periodo de cada modo
+
+tabla = table();
+tabla.Modo_n = Modos;
+tabla.Periodos_Tn = Tn;
+tabla.FreqAngular_wn = wn;
+disp(tabla)
+clear tabla
+
+%% P1 b)
+% Caluclar factores de participación modal Gamma_n y las formas modales {Phi_n}
+% Graficar Gamma_n{Phi_n} para los primeros 5 primeros modos
+Mn = diag(Phi.'*M*Phi);
+Kn = diag(Phi.'*K*Phi);
+Mn_matrix = Phi.'*M*Phi;
+Kn_matrix = Phi.'*K*Phi;
+
+% Gamma_n
+Gamma_n = -Phi.'*M*r./Mn;
+
+% Comentarios
+tabla = table(Modos,Gamma_n);
+disp(tabla)
+clear tabla
+
+% Graficamos
+cant_modos = 5;
+figure
+for i = 1:cant_modos
+    subplot(1,cant_modos,i)
+    plot([Gamma_n(i)*Phi(:,i); 0],[Pisos; 0], '-o')
+    xlabel(['\Gamma_', num2str(Modos(i)), '\{\phi_{j', num2str(Modos(i)), '}\}'])
+    if i == 1
+        ylabel('Piso')
+        hold on
+    end
+end
+hold off
+sgtitle('\Gamma_n \{\phi_n\}')
+
+%% P1 c)
+% Calcular Masa modal Equivalente
+% y determine el número de modos necesario para que la suma de la 
+% masa modal equivalente sea al menos un 90% de la masa total del edificio
+
+Mn_ast = zeros(cant_pisos,1);
+for n = 1:cant_pisos
+    for j = 1:cant_pisos
+        Mn_ast(n,1) = Mn(n,1) + M(j,j)*Gamma_n(n)*Phi(j,n);
+    end
+end
+
+PMass = Mn_ast/(Wtotal/g);                                                  % Porcentaje de Masa modal Equivalente de cada modo
+PMass_acum = zeros(cant_pisos,1);                                           % Porcentaje de Masa modal equivalente acumulado
+PMass_acum(1,1) = PMass(1,1);                                               
+printed = 0;                                                                % Contador para ver si ya encontró la solución
+for i = 2:cant_pisos
+    PMass_acum(i,1) = PMass_acum(i-1,1) + PMass(i,1);
+    if PMass_acum(i,1) > 0.9 && printed ~= 1
+        fprintf('Solo se requieren los primeros %i modos \n \n', Modos(i,1))
+        printed = 1;
+    end
+end
+
+% Comentarios
+tabla = table();
+tabla.Modos = Modos;
+tabla.MasaModalEquivalente = Mn_ast;
+tabla.PorcntajeDeMasa = PMass;
+tabla.PorcntajeDeMasaAcum = PMass_acum;
+disp(tabla)
+clear tabla
+% Para verificar
+% Sum(Mn_Ast) = Sum_m
+
+%% P1 d)
+% Amortiguamiento del primer modo utilizando fórmula propuesta por Cruz &
+% Miranda (2021)
+xi = zeros(cant_pisos,1);
+% Para el primer modo
+xi(1,1) = 0.28*htotal^(-0.52);
+
+%% P1 e
+% Amortiguamiento para los modos superiores utilizando fórmula propuesta
+% por Cruz & Miranda (2017)
+for i = 2:cant_pisos
+    xi(i,1) = xi(1,1)*(1+0.12*(wn(i,1)/wn(1,1)-1));
+end
+%% P1 f
+% Graficar xi_n vs wn
+figure
+plot(wn,xi)
+xlabel('\omega_n')
+ylabel('\xi_n')
+title('\xi_n vs \omega_n')
+% Da una recta como es de esperar viendo la ecuación de xi para modos
+% superiores
+
+% figure
+% plot(Modos,xi)
+% xlabel('Modos')
+% ylabel('\xi_n')
+
+%% Pregunta 2
+
+%% P2 a)
+% Import(registro maule)
+
+% Sd1 para Tn = 0.01:0.01:6, para xi = xi_1
+% PSa1 = wn1^2*Sd1
+% plot(Tn,Psa1)
+
+%% P2 b)
+% Ce1 = PSa/g
+
+
+
+##### SOURCE END #####
+--></body></html>
