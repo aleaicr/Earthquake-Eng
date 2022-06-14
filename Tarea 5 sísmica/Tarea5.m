@@ -164,7 +164,7 @@ end
 %% P1 f)
 % Graficar xi_n vs wn
 figure
-plot(wn,xi)
+plot(wn,xi,'-o')
 xlabel('\omega_n')
 ylabel('\xi_n')
 title('\xi_n vs \omega_n')
@@ -280,7 +280,7 @@ razon_drift1 = drift1/h;  %cm/cm
 
 % comentarios y figuras
 figure
-plot(corte_pisos1,Pisos)
+plot(corte_pisos1,Pisos,'-o')
 xlabel('V_{Pisos,1} [tonf]')
 ylabel('Pisos')
 grid on
@@ -288,7 +288,7 @@ disp('Corte de cada piso (modo 1)')
 disp(corte_pisos1)
 
 figure
-plot(dxe1,Pisos)
+plot(dxe1,Pisos,'-o')
 xlabel('Desplazamaientos laterales de cada piso [cm] (modo 1)')
 ylabel('Pisos')
 grid on
@@ -296,7 +296,7 @@ disp('Desplazamientos laterales de cada piso [cm] (modo 1)')
 disp(dxe1)
 
 figure
-plot(drift1,Pisos)
+plot(drift1,Pisos,'-o')
 xlabel('Derivas de piso (drift) [cm] (modo1)')
 ylabel('Pisos')
 grid on
@@ -304,7 +304,7 @@ disp('Derivas de piso [cm] (modo 1)')
 disp(drift1)
 
 figure
-plot(razon_drift1,Pisos)
+plot(razon_drift1,Pisos,'-o')
 xlabel('Razón de derivas de piso (modo 1)')
 ylabel('Pisos')
 grid on
@@ -377,11 +377,21 @@ grid on
 % Primero obtenemos el corte de piso para cada modo
 
 V = zeros(cant_pisos,n_modos);
+figure 
+hold on
 for n = 1:n_modos
     for j = 1:cant_pisos
         V(j,n) = sum(fs_max(1:j,n));    %tonf
     end
+    plot(V(:,n),Pisos,'-o')
 end
+hold off
+xlabel('V_{jn}')
+ylabel('Pisos')
+legend(strcat('Modo ',string(1:n_modos)))
+grid on
+
+% Luego, SSRS
 
 %% P3 d) 
 % Máximo desplazamiento lateral de cada piso
