@@ -12,10 +12,10 @@ clc
 g = 980; % cm/s2
 htotal = 40; % m
 Wtotal = 8730; %tonf
-W = 900; % tonf                                                             % Peso W
-k = 500; %tonf/cm                                                           % Rigidez K
 cant_pisos = 10;                                                            % Cantidad de pisos
 h = htotal/cant_pisos;                                                      % Altura de cada piso
+W = 900; % tonf                                               % Peso W
+k = 500; %tonf/cm
 Pisos = (cant_pisos:-1:1)';
 Modos = flip(Pisos);
 
@@ -192,12 +192,11 @@ udi = 0;
 ui = 0;
 beta = 1/6;
 dt = 0.02;
-
 % Buscar PSa
 T_xlabel = Tn_ini:Tn_step:Tn_fin;
 [Sd,Sv,Sa,PSv,PSa] = Newmark_Lineal(beta,xi(modoi),0.005,ui,udi,Registro.data,T_xlabel,Mn(1)); % cm y segundos
-
-% Figura PSa vs Tn
+% PSa [cm/s2] ... Psa [g] => PSa *980[cm/s2] = PSa [g]
+% Figura PSa para cada Tn
 figure
 plot(T_xlabel,PSa/g)
 xlabel('Periodo T (sec)')
@@ -252,7 +251,6 @@ plot(Fk1,Pisos,'-o')
 xlabel('Fk_1 [tonf]')
 ylabel('Piso')
 grid on
-
 
 %% P2 e)
 % Para cada piso calcular:
@@ -414,6 +412,3 @@ grid on
 % SRSS
 %% P3 e)
 % Máxima razón de desplazamiento de piso
-
-
-
