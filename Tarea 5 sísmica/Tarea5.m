@@ -10,7 +10,7 @@ clc
 
 % Parámetros
 g = 980; % cm/s2
-htotal = 40; % m
+htotal = 40*100; % m
 Wtotal = 8730; %tonf
 W = 900; % tonf                                                             % Peso W
 k = 500; %tonf/cm                                                           % Rigidez K
@@ -61,7 +61,8 @@ disp(K)
 
 %% P1 a)
 [Phi, lambda] = eig(K,M);                                                   % Problema de valores y vectores propios
-wn = diag(lambda.^0.5);                                                             % Frecuencia de cada modo
+wn = diag(lambda.^0.5);                                                     % Frecuencia de cada modo
+wn2 = wn.^2;
 Tn = 2*pi./wn;                                                              % Periodo de cada modo
 
 tabla = table();
@@ -91,6 +92,7 @@ figure
 for i = 1:cant_modos_dibujar
     subplot(1,cant_modos_dibujar,i)
     plot([Gamma_n(i)*Phi(:,i); 0],[Pisos; 0], '-o')
+    grid on
     xlabel(['\Gamma_', num2str(Modos(i)), '\{\phi_{', num2str(Modos(i)), '}\}'])
     xlim([-1.5 1.5])
     if i == 1
@@ -128,12 +130,12 @@ end
 PMass = Mn_ast/(Wtotal/g);                                                  % Porcentaje de Masa modal Equivalente de cada modo
 PMass_acum = zeros(cant_pisos,1);                                           % Porcentaje de Masa modal equivalente acumulado
 PMass_acum(1,1) = PMass(1,1);                                               
-                                                                % Contador para ver si ya encontró la solución
+counter = 0;                                                                % Contador para ver si ya encontró la solución
 for i = 2:cant_pisos
     PMass_acum(i,1) = PMass_acum(i-1,1) + PMass(i,1);
-    if PMass_acum(i,1) > 0.9
+    if PMass_acum(i,1) > 0.9 && counter == 0
         fprintf('Solo se requieren los primeros %i modos \n \n', Modos(i,1))
-        break
+        counter = 1;
     end
 end
 
@@ -152,7 +154,7 @@ clear tabla
 % Amortiguamiento del primer modo utilizando fórmula propuesta por Cruz & Miranda (2021)
 xi = zeros(cant_pisos,1);
 % Para el primer modo fórmula Cruz & Miranda (2021)
-xi(1,1) = 0.28*htotal^(-0.52);
+xi(1,1) = 0.28*(htotal/100)^(-0.52);
 
 %% P1 e)
 % Amortiguamiento para los modos superiores utilizando fórmula propuesta por Cruz & Miranda (2017)
@@ -180,6 +182,9 @@ grid on
 %% Pregunta 2
 % Para el registro de Santiago Centro del terremoto Maule 2010
 Registro = importdata('stgocentro2010-L.txt');
+dt = 0.005;
+time_vect = dt:dt:dt*length(Registro.data);
+time_length = length(time_vect);
 
 %% P2 a)
 % Calcular pseudo-espectro de aceleraciones para el primer modo
@@ -190,12 +195,11 @@ Tn_step = 0.01;
 Tn_fin = 6;
 udi = 0;
 ui = 0;
-beta = 1/6;
-dt = 0.02;
+beta = 1/4;
 
 % Buscar PSa
 T_xlabel = Tn_ini:Tn_step:Tn_fin;
-[Sd,Sv,Sa,PSv,PSa] = Newmark_Lineal(beta,xi(modoi),0.005,ui,udi,Registro.data,T_xlabel,Mn(1)); % cm y segundos
+[Sd,Sv,Sa,PSv,PSa] = Newmark_Lineal(beta,xi(modoi),dt,ui,udi,Registro.data,T_xlabel); % cm y segundos
 
 % Figura PSa vs Tn
 figure
@@ -224,7 +228,7 @@ fprintf('El valor del coeficiente sísmico elástico Ce_1 = %f \n \n', Ce1_PSa)
 % Qo = C*I*P = Ce1*1*Wtotal 
 Qo1 = Ce1_PSa*Wtotal;    % tonf
 
-fprintf('Corte Basal del primer modo Qo_1 = C*I*P = Ce_1*Wtotal = %.4f [tonf] \n \n',Qo1)
+% fprintf('Corte Basal del primer modo Qo_1 = C*I*P = Ce_1*Wtotal = %.4f [tonf] \n \n',Qo1)
 
 %% P2 d)
 % Utilizando la distribución en altura de la norma NCh433, calcule las
@@ -240,7 +244,7 @@ end
 Ak = flip(Ak);                                                              % Damos vuelta para que quede con pisos de arriba a abajo
 
 % Fk
-Pk = diag(M);                                                             % Peso de cada piso (de arriba a abajo)
+Pk = diag(M);                                                               % Peso de cada piso (de arriba a abajo)
 sumAjPj = sum(Ak.*Pk);                                                      % Suma_(j=1)^N (Aj*Pj)
 Fk1 = zeros(cant_pisos,1);
 for i = 1:cant_pisos
@@ -252,7 +256,6 @@ plot(Fk1,Pisos,'-o')
 xlabel('Fk_1 [tonf]')
 ylabel('Piso')
 grid on
-
 
 %% P2 e)
 % Para cada piso calcular:
@@ -266,6 +269,9 @@ corte_pisos1 = zeros(cant_pisos,1);
 for i = 1:cant_pisos
     corte_pisos1(i,1) = sum(Fk1(1:i));    %tonf
 end
+
+% Corte basal
+Vb1 = sum(Fk1(:,1));
 
 %P2 e) ii) 
 % Desplazamientos laterales (en cm)
@@ -285,8 +291,7 @@ plot(corte_pisos1,Pisos,'-o')
 xlabel('V_{Pisos,1} [tonf]')
 ylabel('Pisos')
 grid on
-disp('Corte de cada piso (modo 1)')
-disp(corte_pisos1)
+
 
 figure
 plot(dxe1,Pisos,'-o')
@@ -294,8 +299,7 @@ xlabel('Desplazamaientos laterales de cada piso (\delta_{xe}) [cm] (modo 1)')
 ylabel('Pisos')
 title('\delta_{xe} = [K^{-1}]*Fk_1')
 grid on
-disp('Desplazamientos laterales de cada piso [cm] (modo 1)')
-disp(dxe1)
+
 
 % figure
 % plot(ujn_max,Pisos,'-o')
@@ -319,8 +323,23 @@ plot(razon_drift1*100,Pisos,'-o')
 xlabel('Razón de derivas de piso (modo 1)')
 ylabel('Pisos')
 grid on
-disp('Razón de derivas de piso [%] (modo 1)')
-disp(razon_drift1*100)
+
+
+% Comentarios consola P2
+
+disp('Pregunta 2, Resultados')
+fprintf('Corte basal máximo: suma(Fk1) =  %f [tonf] \n Corte basal máximo: Qo1 = CIP = %f [tonf] \n \n ',Vb1, Qo1)
+
+tabla = table();
+tabla.Piso = Pisos;
+tabla.Fk1 = Fk1;
+tabla.corte_pisos1 = corte_pisos1;
+tabla.dxe1 = dxe1;
+tabla.razon_drift1 = razon_drift1*100;
+disp(tabla)
+clear tabla
+
+
 %% P3
 % Análisis modal espectral, registro SantiagoCentro_Maule2010
 % Utilizar 4 modos
@@ -330,7 +349,7 @@ fprintf('Cantidad de modos a considerar  n = %0.f \n',n_modos)
 figure
 hold on
 for i = 1:n_modos
-    [Sd,Sv,Sa,PSv,PSa] = Newmark_Lineal(beta,xi(i),dt,ui,udi,Registro.data,T_xlabel,Mn(i)); % cm y segundos
+    [Sd,Sv,Sa,PSv,PSa] = Newmark_Lineal(beta,xi(i),dt,ui,udi,Registro.data,T_xlabel); % cm y segundos
     modo.PSa(:,i) = PSa;    % cm/s2
     modo.PSv(:,i) = PSv;    % cm/s
     modo.Sa(:,i) = Sa;      % cm/s2
@@ -344,9 +363,20 @@ ylabel('PSa_n')
 legend(strcat('Modo ',string(1:n_modos)))
 grid on
 
+figure
+hold on
+for i = 1:n_modos
+    plot(T_xlabel,modo.Sd(:,i))
+end
+hold off
+xlabel('Tn')
+ylabel('Sd_n')
+legend(strcat('Modo ',string(1:n_modos)))
+grid on
+
 %% P3 a)
 % Corte Basal Máximo 
-% Lo calculamos  en P3 c)
+% Lo calculamos  en P3 b)
 %% P3 b)
 % Fuerzas laterales de piso máximas
 % Dn(t) = Sd(Tn) => fs_max(j,n) = Gamma_n(n)*phi(j,n)*mj*PSa(T(n))
@@ -355,7 +385,7 @@ figure
 hold on
 for n = 1:n_modos
     for j = 1:cant_pisos
-        fs_max(j,n) = Gamma_n(n)*Phi(j,n)*M(j,j)*PSa(round(Tn(1)/Tn_step));
+        fs_max(j,n) = Gamma_n(n)*Phi(j,n)*M(j,j)*modo.PSa(round(Tn(n)/Tn_step),n);
     end
     plot(fs_max(:,n),Pisos,'-o')
 end
@@ -378,6 +408,16 @@ plot(fs_SRSSmax,Pisos,'-o')
 xlabel('fs_{SRSS}^{max}')
 ylabel('Pisos')
 grid on
+
+% Corte basal máximo
+Vb_max = zeros(1,n_modos);
+for n = 1:n_modos
+    Vb_max(1,n) = sum(fs_max(:,n));
+end
+
+% SRSS
+Vb_SRSSmax = sqrt(sumsqr(Vb_max(1,:)));
+
 
 %% P3 c)
 % Máximo esfuerzo de corte de piso
@@ -410,10 +450,320 @@ ylabel('Pisos')
 grid on
 
 %% P3 d) 
-% Máximo desplazamiento lateral de cada piso
-% SRSS
+% Máximo desplazamiento lateral de cada piso SRSS
+
+u_jnmax = zeros(cant_pisos,n_modos);
+for n = 1:n_modos
+    for j = 1:cant_pisos
+        u_jnmax(j,n) = Gamma_n(n)*Phi(j,n)*modo.Sd(round(Tn(n)/Tn_step),n);
+    end
+end
+
+% Luego, SSRS
+u_SRSSmax = zeros(cant_pisos,1);
+for j = 1:cant_pisos
+    u_SRSSmax(j,1) = sqrt(sumsqr(u_jnmax(j,:)));
+end
+figure
+plot(u_SRSSmax,Pisos,'-o')
+xlabel('u_{SRSS}^{max} [tonf]')
+ylabel('Pisos')
+grid on
+
 %% P3 e)
 % Máxima razón de desplazamiento de piso
 
+rdp = zeros(cant_pisos,n_modos);
+for j = 1:cant_pisos
+    for n = 1:n_modos
+        if j < cant_pisos
+            rdp(j,n) = (1/h)*Gamma_n(n)*(Phi(j,n)-Phi(j+1,n))*modo.PSa(round(Tn(n)/Tn_step),n)*(1/wn2(n));
+        elseif j == cant_pisos
+            rdp(j,n) = (1/h)*Gamma_n(n)*(Phi(j,n))*modo.PSa(round(Tn(n)/Tn_step),n)*(1/wn2(n));
+        end
+    end
+end
 
+% Luego SRSS
+
+rdp_SRSSmax = zeros(cant_pisos,1);
+for j = 1:cant_pisos
+    rdp_SRSSmax(j,1) = sqrt(sumsqr(rdp(j,:)));
+end
+figure
+plot(rdp_SRSSmax*100,Pisos,'-o')
+xlabel('rdp_{SRSS}^{max} [tonf]')
+ylabel('Pisos')
+grid on
+
+
+% Comentarios Consolta P3
+disp('Pregunta 3, Resultados')
+fprintf('Corte basal máximo = %f [tonf] \n \n',Vb_SRSSmax)
+tabla = table();
+tabla.Piso = Pisos;
+tabla.fs = fs_SRSSmax;
+tabla.V = V_SRSSmax;
+tabla.u = u_SRSSmax;
+tabla.rdp = rdp_SRSSmax*100;
+disp(tabla)
+clear tabla
+
+%% P4 Análisis modal tiempo historia
+sn = Gamma_n'.*diag(M).*Phi;                                                 % {Sjn} = Gamma_n*mj*Phi_jn
+n_modos = 4;                                                                % Cantidad de modos a considerar en el análisis tiempo-historia
+figure
+for i = 1:n_modos
+    Dn = Disp_Newmark_Lineal(beta,xi(i),dt,ui,udi,Registro.data,Tn(i));     % Se determinan todos los Dn(t) para cada modo para un registro y amortig en particular.
+    modo.Dn(:,i) = Dn;
+    subplot(n_modos,1,i)                                                    % Graficamos Dn(t) para todos los modos considerados
+    plot(time_vect,modo.Dn(:,i))
+    ylabel(['D_', num2str(Modos(i)), '(t)'])
+    if i == 1
+        hold on
+    end
+    ylim([-20 20])
+    xlim([0 dt*time_length])
+end
+xlabel('tiempo t (sec)')
+hold off
+sgtitle('D_n(t)')
+
+% Obtención del máximo Dn(t) en el tiempo
+for i = 1:n_modos
+    modo.Dn_max(i,1) = max(abs(modo.Dn(:,i)));                                   % Buscamos max(Dn(t)), El Dn(t) máximo para cada mood
+end
+
+% % DESPLAZAMIENTO DE PISO
+% % uj = sum(Gamma_n*Phi_jn*Dn(t))
+% uj = zeros(time_length,cant_pisos);
+% for j = 1:cant_pisos
+%     for n = 1:n_modos
+%         uj(:,j) = uj(:,j) + Gamma_n(n)*Phi(j,n)*modo.Dn(:,n);               % Se suman todos los modos    
+%     end
+% end
+% 
+% % DESPLAZAMIENTOS MODALES DE TECHO 
+% % Desaplazamiento del techo (debe ser controlado) para cada modo
+% % u1n = Gamma_n*Phi_1n*Dn(t)    
+% u1n = zeros(time_length,n_modos);
+% figure
+% for n = 1:n_modos
+%     subplot(n_modos,1,n)
+%     u1n(:,n) = Gamma_n(n)*Phi(1,n)*modo.Dn(:,n);                            % Desplazamiento de techo para cada modo
+%     plot(time_vect,u1n(:,n))
+%     ylabel(['u_{1', num2str(Modos(n)), '} (t)'])
+%     ylim([-20 20])
+%     xlim([0 dt*time_length])
+% end
+% xlabel('tiempo t (sec)')
+% hold off
+% sgtitle('u_{1n}(t) = \Gamma_n \Phi_{1n} D_n(t)')
+% 
+% 
+% % RAZÓN DE DERIVAS MODALES
+% % Razón de derivas de piso para cada modo por separado
+% RDPjn = zeros(time_length,cant_pisos,n_modos);                              % RDP_jn (t)
+% 
+% for j = 2:cant_pisos
+%     for n = 1:n_modos
+%         RDPjn(:,j,n) = 1/h*Gamma_n(n)*(Phi(j,n)-Phi(j-1,n))*modo.Dn(:,n);   % RDP_jn (t) = 1/h*Gamma_n*(Phi_jn-Phi_j-1,n)*Dn(t)
+%     end
+% end
+% 
+% pisos_graficar = [9;5];                                                     % Escribir acá los pisos que se quieren graficar
+% length_pg = length(pisos_graficar);
+% 
+% figure                                                                      % Graficamos RDP, para el piso j en los modos considerados (n_modos)
+% for i = 1:length_pg
+%     subplot(length_pg,1,i)
+%     hold on
+%     for n = 1:n_modos
+%         plot(time_vect,RDPjn(:,i,n))
+%     end
+%     hold off
+%     ylabel(['RDP_{',num2str(pisos_graficar(i)),'n}']);
+% end
+% xlabel('tiempo (t) [sec]')
+
+
+%% P4 a) Corte basal máximo
+% Como es solo basal, no depende del número del piso, y solo se suman las
+% contribuciones modales
+
+vb_t = zeros(time_length,1);
+for n = 1:n_modos
+    vb_t(:,1) = vb_t(:,1) + Mn_ast(n,1)*wn2(n)*modo.Dn(:,n);                % Se suma la contribución de cada modo
+end
+Vj_max = max(abs(vb_t(:,1)));                                               % Corte vasal máximo es el máximo absoluto
+
+
+%% P4 b) Fuerzas laterales máximas
+% Obtenemos r_jn^st para cada piso para cada modo
+% fs_j(t) = sum( {rjn^st}wn^2*Dn(t) )
+% El máximo: fs_jmax = max(fs_j(t))
+
+fs_jt = zeros(time_length,cant_pisos);
+fs_jmax = zeros(cant_pisos,1);
+for j = 1:cant_pisos
+    for n = 1:n_modos
+        fs_jt(:,j) = fs_jt(:,j) + M(j,j)*Gamma_n(n,1)*Phi(j,n)*wn2(n)*modo.Dn(:,n); % Sum(rjn^st * wn^2 * Dn(t))
+    end
+    fs_jmax(j,1) = max(abs(fs_jt(:,j)));                                    % Máximo absoluto en el tiempo para el piso
+end
+
+figure
+plot(fs_jmax,Pisos,'-o')
+xlabel('fs_{j,max}')
+ylabel('Pisos')
+grid on
+title('fs_{j,max}')
+xlim([0 250])
+
+
+%% P4 c) Esfuerzo de corte máximo de cada piso
+% Esfuerzos e corte máximo para cada piso
+% rjnst = Sum_j(m_j*Gamma_n*Phi_jn)
+
+rjnst_v = zeros(cant_pisos,n_modos);
+V_jt = zeros(time_length,cant_pisos);
+V_jmax = zeros(cant_pisos,1);
+
+for i = 1:cant_pisos
+    for n = 1:n_modos
+        for j = 1:i
+            rjnst_v(i,n) = rjnst_v(i,n) + M(j,j)*Gamma_n(n,1)*Phi(j,n);   
+        end
+    end
+end
+
+for j = 1:cant_pisos
+    for n = 1:n_modos
+        V_jt(:,j) = V_jt(:,j) + rjnst_v(j,n)*wn2(n)*modo.Dn(:,n);           % Vj(t) = sum( rjnst_v * wn^2 * Dn(t) )
+    end
+    V_jmax(j,1) = max(abs(V_jt(:,j)));
+end
+
+figure
+plot(V_jmax,Pisos,'-o')
+xlabel('Fuerza de corte de piso')
+ylabel('Pisos')
+grid on
+title('V_{j,max}')
+
+
+%% P4 d) desplazamientos laterales máximos
+% rjnst = (Gamma_n/wn^2)*Phi_jn
+rjnst_u = zeros(cant_pisos,n_modos);
+u_jt = zeros(time_length,cant_pisos);
+u_jmax = zeros(cant_pisos,1);
+
+for j = 1:cant_pisos
+    for n = 1:n_modos
+        rjnst_u(j,n) = Gamma_n(n)/wn2(n)*Phi(j,n);                          % Mejor guardarlo ya que se ocupan en P4 e)
+        u_jt(:,j) = u_jt(:,j) + rjnst_u(j,n)*wn2(n)*modo.Dn(:,n);
+    end
+    u_jmax(j,1) = max(abs(u_jt(:,j)));
+end
+
+figure
+plot(u_jmax,Pisos,'-o')
+xlabel('Desplazamientos laterales máximos')
+ylabel('Pisos')
+grid on
+title('u_{j,max}')
+
+
+%% P4 e) razón de derivas de piso máximoas
+% rjnst = (rjnst(uj)-rjnst(uj+1))/hj
+
+rdp_jt = zeros(time_length,cant_pisos);
+rdp_jmax = zeros(cant_pisos,1);
+for j = 1:cant_pisos
+    for n = 1:n_modos
+        if j < cant_pisos
+            rdp_jt(:,j) = rdp_jt(:,j) + (rjnst_u(j,n)-rjnst_u(j+1,n))/h*wn2(n)*modo.Dn(:,n);    % Traemos rjnst_u
+        elseif j == cant_pisos
+            rdp_jt(:,j) = rdp_jt(:,j) + (rjnst_u(j,n))/h*wn2(n)*modo.Dn(:,n);                   % La del primer modo es 
+        end
+    end
+    rdp_jmax(j,1) = max(abs(rdp_jt(:,j)));
+end
+
+figure
+plot(rdp_jmax*100,Pisos,'-o')
+xlabel('Razón de derivas de piso')
+ylabel('Pisos')
+grid on
+title('rdp_{j,max}')
+
+% Comentarios consola P4
+
+disp('Pregunta 4, Resultados')
+fprintf('Corte basal máximo: %f [tonf] \n \n',Vj_max)
+
+tabla = table();
+tabla.Piso = Pisos;
+tabla.fs_jmax = fs_jmax;
+tabla.V_jmax = V_jmax;
+tabla.u_jmax = u_jmax;
+tabla.rdp_jmax = rdp_jmax*100;
+disp(tabla)
+clear tabla
+
+%% P5
+% Comparación
+% No se reescribirán las tablas, solo las figuras, pero todas juntas
+% Fuerzas laterales
+figure
+hold on
+plot(Fk1,Pisos,'-o')
+plot(fs_SRSSmax,Pisos,'-o')
+plot(fs_jmax,Pisos,'-o')
+hold off
+xlabel('Fuerza lateral de piso máxima [tonf]')
+ylabel('Pisos')
+legend('CLE','ME','MTH')
+grid on
+
+
+% Corte 
+
+figure
+hold on
+plot(corte_pisos1,Pisos,'-o')
+plot(V_SRSSmax,Pisos,'-o')
+plot(V_jmax,Pisos,'-o')
+hold off
+xlabel('Corte de piso máximo [tonf]')
+ylabel('Pisos')
+legend('CLE','ME','MTH')
+grid on
+
+
+% Desplazamiento
+
+figure
+hold on
+plot(dxe1,Pisos,'-o')
+plot(u_SRSSmax,Pisos,'-o')
+plot(u_jmax,Pisos,'-o')
+hold off
+xlabel('Desplazamiento lateral de piso máximo [cm]')
+ylabel('Pisos')
+legend('CLE','ME','MTH')
+grid on
+
+% Razón de derivas de piso
+
+figure
+hold on
+plot(razon_drift1*100,Pisos,'-o')
+plot(rdp_SRSSmax*100,Pisos,'-o')
+plot(rdp_jmax*100,Pisos,'-o')
+hold off
+xlabel('Razón de deriva de piso máxima')
+ylabel('Pisos')
+legend('CLE','ME','MTH')
+grid on
 

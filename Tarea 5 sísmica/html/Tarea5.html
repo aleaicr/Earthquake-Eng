@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>Tarea 5 Ingenier&iacute;a S&iacute;smica</title><meta name="generator" content="MATLAB 9.11"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2022-06-09"><meta name="DC.source" content="Tarea5.m"><style type="text/css">
+      --><title>Tarea 5 Ingenier&iacute;a S&iacute;smica 2022-1</title><meta name="generator" content="MATLAB 9.11"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2022-06-22"><meta name="DC.source" content="Tarea5.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -67,19 +67,19 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>Tarea 5 Ingenier&iacute;a S&iacute;smica</h1><!--introduction--><p>Crist&oacute;bal Adasme - Alexis Contreras</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Inicializar</a></li><li><a href="#2">Pregunta 1</a></li><li><a href="#3">P1 a)</a></li><li><a href="#4">P1 b)</a></li><li><a href="#5">P1 c)</a></li><li><a href="#6">P1 d)</a></li><li><a href="#7">P1 e</a></li><li><a href="#8">P1 f</a></li><li><a href="#9">Pregunta 2</a></li><li><a href="#10">P2 a)</a></li><li><a href="#11">P2 b)</a></li></ul></div><h2 id="1">Inicializar</h2><pre class="codeinput">clear <span class="string">variables</span>
+  </style></head><body><div class="content"><h1>Tarea 5 Ingenier&iacute;a S&iacute;smica 2022-1</h1><!--introduction--><p>Crist&oacute;bal Adasme - Alexis Contreras</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Inicializar</a></li><li><a href="#2">Pregunta 1</a></li><li><a href="#3">P1 a)</a></li><li><a href="#4">P1 b)</a></li><li><a href="#5">P1 c)</a></li><li><a href="#6">P1 d)</a></li><li><a href="#7">P1 e)</a></li><li><a href="#8">P1 f)</a></li><li><a href="#9">Pregunta 2</a></li><li><a href="#10">P2 a)</a></li><li><a href="#11">P2 b)</a></li><li><a href="#12">P2 c)</a></li><li><a href="#13">P2 d)</a></li><li><a href="#14">P2 e)</a></li><li><a href="#15">P3</a></li><li><a href="#16">P3 a)</a></li><li><a href="#17">P3 b)</a></li><li><a href="#18">P3 c)</a></li><li><a href="#19">P3 d)</a></li><li><a href="#20">P3 e)</a></li><li><a href="#21">P4 An&aacute;lisis modal tiempo historia</a></li><li><a href="#22">P4 a) Corte basal m&aacute;ximo</a></li><li><a href="#23">P4 b) Fuerzas laterales m&aacute;ximas</a></li><li><a href="#24">P4 c) Esfuerzo de corte m&aacute;ximo de cada piso</a></li><li><a href="#25">P4 d) desplazamientos laterales m&aacute;ximos</a></li><li><a href="#26">P4 e) raz&oacute;n de derivas de piso m&aacute;ximoas</a></li><li><a href="#27">P5</a></li></ul></div><h2 id="1">Inicializar</h2><pre class="codeinput">clear <span class="string">variables</span>
 close <span class="string">all</span>
 clc
 </pre><h2 id="2">Pregunta 1</h2><pre class="codeinput"><span class="comment">% Par&aacute;metros</span>
 g = 980; <span class="comment">% cm/s2</span>
-htotal = 40; <span class="comment">% m</span>
-Wtotal = 9000; <span class="comment">%tonf</span>
+htotal = 40*100; <span class="comment">% m</span>
+Wtotal = 8730; <span class="comment">%tonf</span>
+W = 900; <span class="comment">% tonf                                                             % Peso W</span>
+k = 500; <span class="comment">%tonf/cm                                                           % Rigidez K</span>
 cant_pisos = 10;                                                            <span class="comment">% Cantidad de pisos</span>
 h = htotal/cant_pisos;                                                      <span class="comment">% Altura de cada piso</span>
-W = Wtotal/cant_pisos; <span class="comment">% tonf                                               % Peso W</span>
-k = 500; <span class="comment">%tonf/cm</span>
 Pisos = (cant_pisos:-1:1)';
-Modos = (1:1:cant_pisos)';
+Modos = flip(Pisos);
 
 k1 = 0.2*k;
 k2 = 0.2*k;
@@ -175,7 +175,8 @@ Matriz de rigidez [K]
            0           0        -500        1000
 
 </pre><h2 id="3">P1 a)</h2><pre class="codeinput">[Phi, lambda] = eig(K,M);                                                   <span class="comment">% Problema de valores y vectores propios</span>
-wn = diag(lambda.^0.5);                                                             <span class="comment">% Frecuencia de cada modo</span>
+wn = diag(lambda.^0.5);                                                     <span class="comment">% Frecuencia de cada modo</span>
+wn2 = wn.^2;
 Tn = 2*pi./wn;                                                              <span class="comment">% Periodo de cada modo</span>
 
 tabla = table();
@@ -200,24 +201,23 @@ clear <span class="string">tabla</span>
 
 </pre><h2 id="4">P1 b)</h2><p>Caluclar factores de participaci&oacute;n modal Gamma_n y las formas modales {Phi_n} Graficar Gamma_n{Phi_n} para los primeros 5 primeros modos</p><pre class="codeinput">Mn = diag(Phi.'*M*Phi);
 Kn = diag(Phi.'*K*Phi);
-Mn_matrix = Phi.'*M*Phi;
-Kn_matrix = Phi.'*K*Phi;
 
 <span class="comment">% Gamma_n</span>
-Gamma_n = -Phi.'*M*r./Mn;
+Gamma_n = Phi.'*M*r./Mn;
 
 <span class="comment">% Comentarios</span>
 tabla = table(Modos,Gamma_n);
 disp(tabla)
 clear <span class="string">tabla</span>
 
-<span class="comment">% Graficamos</span>
-cant_modos = 5;
+<span class="comment">% Graficamos Gamma_n*phi_n para 5 modos Todos separados</span>
+cant_modos_dibujar = 5;                                                     <span class="comment">% Cantidad de modos que queremos dibujar (cambiar si se quieren dibujar m&aacute;s)</span>
 figure
-<span class="keyword">for</span> i = 1:cant_modos
-    subplot(1,cant_modos,i)
+<span class="keyword">for</span> i = 1:cant_modos_dibujar
+    subplot(1,cant_modos_dibujar,i)
     plot([Gamma_n(i)*Phi(:,i); 0],[Pisos; 0], <span class="string">'-o'</span>)
-    xlabel([<span class="string">'\Gamma_'</span>, num2str(Modos(i)), <span class="string">'\{\phi_{j'</span>, num2str(Modos(i)), <span class="string">'}\}'</span>])
+    xlabel([<span class="string">'\Gamma_'</span>, num2str(Modos(i)), <span class="string">'\{\phi_{'</span>, num2str(Modos(i)), <span class="string">'}\}'</span>])
+    xlim([-1.5 1.5])
     <span class="keyword">if</span> i == 1
         ylabel(<span class="string">'Piso'</span>)
         hold <span class="string">on</span>
@@ -225,40 +225,52 @@ figure
 <span class="keyword">end</span>
 hold <span class="string">off</span>
 sgtitle(<span class="string">'\Gamma_n \{\phi_n\}'</span>)
-</pre><pre class="codeoutput">    Modos     Gamma_n 
-    _____    _________
 
-      1        -2.5715
-      2        -1.0725
-      3       -0.70653
-      4        0.56486
-      5        -0.2755
-      6        0.37333
-      7       -0.21916
-      8        0.17987
-      9        0.14934
-     10      -0.095834
+<span class="comment">% Graficamos Gamma_n*phi_n para 5 modos Todos juntos</span>
+figure
+hold <span class="string">on</span>
+<span class="keyword">for</span> i = 1:cant_modos_dibujar
+    plot([Gamma_n(i)*Phi(:,i); 0],[Pisos; 0], <span class="string">'-o'</span>)
+<span class="keyword">end</span>
+hold <span class="string">off</span>
+xlabel(<span class="string">'\Gamma_n \{\Phi_n\}'</span>)
+ylabel(<span class="string">'Piso'</span>)
+legend(strcat(<span class="string">'Modo '</span>,string(1:cant_modos_dibujar)))
+grid <span class="string">on</span>
+</pre><pre class="codeoutput">    Modos    Gamma_n 
+    _____    ________
 
-</pre><img vspace="5" hspace="5" src="Tarea5_01.png" alt=""> <h2 id="5">P1 c)</h2><p>Calcular Masa modal Equivalente y determine el n&uacute;mero de modos necesario para que la suma de la masa modal equivalente sea al menos un 90% de la masa total del edificio</p><pre class="codeinput">Mn_ast = zeros(cant_pisos,1);
+      1        2.5715
+      2        1.0725
+      3       0.70653
+      4      -0.56486
+      5        0.2755
+      6      -0.37333
+      7       0.21916
+      8      -0.17987
+      9      -0.14934
+     10      0.095834
+
+</pre><img vspace="5" hspace="5" src="Tarea5_01.png" alt=""> <img vspace="5" hspace="5" src="Tarea5_02.png" alt=""> <h2 id="5">P1 c)</h2><p>Calcular Masa modal Equivalente y determine el n&uacute;mero de modos necesario para que la suma de la masa modal equivalente sea al menos un 90% de la masa total del edificio</p><pre class="codeinput">Mn_ast = zeros(cant_pisos,1);
 <span class="keyword">for</span> n = 1:cant_pisos
     <span class="keyword">for</span> j = 1:cant_pisos
-        Mn_ast(n,1) = Mn(n,1) + M(j,j)*Gamma_n(n)*Phi(j,n);
+        Mn_ast(n,1) = Mn_ast(n,1) + M(j,j)*Gamma_n(n)*Phi(j,n);
     <span class="keyword">end</span>
 <span class="keyword">end</span>
 
 PMass = Mn_ast/(Wtotal/g);                                                  <span class="comment">% Porcentaje de Masa modal Equivalente de cada modo</span>
 PMass_acum = zeros(cant_pisos,1);                                           <span class="comment">% Porcentaje de Masa modal equivalente acumulado</span>
 PMass_acum(1,1) = PMass(1,1);
-printed = 0;                                                                <span class="comment">% Contador para ver si ya encontr&oacute; la soluci&oacute;n</span>
+counter = 0;                                                                <span class="comment">% Contador para ver si ya encontr&oacute; la soluci&oacute;n</span>
 <span class="keyword">for</span> i = 2:cant_pisos
     PMass_acum(i,1) = PMass_acum(i-1,1) + PMass(i,1);
-    <span class="keyword">if</span> PMass_acum(i,1) &gt; 0.9 &amp;&amp; printed ~= 1
+    <span class="keyword">if</span> PMass_acum(i,1) &gt; 0.9 &amp;&amp; counter == 0
         fprintf(<span class="string">'Solo se requieren los primeros %i modos \n \n'</span>, Modos(i,1))
-        printed = 1;
+        counter = 1;
     <span class="keyword">end</span>
 <span class="keyword">end</span>
 
-<span class="comment">% Comentarios</span>
+<span class="comment">% Comentarios consola</span>
 tabla = table();
 tabla.Modos = Modos;
 tabla.MasaModalEquivalente = Mn_ast;
@@ -267,47 +279,601 @@ tabla.PorcntajeDeMasaAcum = PMass_acum;
 disp(tabla)
 clear <span class="string">tabla</span>
 <span class="comment">% Para verificar</span>
-<span class="comment">% Sum(Mn_Ast) = Sum_m</span>
-</pre><pre class="codeoutput">Solo se requieren los primeros 10 modos 
+<span class="comment">% Sum(Mn_Ast) = Sum(diag(M))</span>
+</pre><pre class="codeoutput">Solo se requieren los primeros 3 modos 
  
     Modos    MasaModalEquivalente    PorcntajeDeMasa    PorcntajeDeMasaAcum
     _____    ____________________    _______________    ___________________
 
-      1            0.83014              0.090394             0.090394      
-      2            0.82408              0.089733              0.18013      
-      3            0.81527              0.088774               0.2689      
-      4            0.77667               0.08457              0.35347      
-      5            0.91878               0.10004              0.45352      
-      6            0.81685              0.088946              0.54246      
-      7            0.91751              0.099907              0.64237      
-      8            0.92283               0.10049              0.74285      
-      9             0.9304               0.10131              0.84416      
-     10            0.96176               0.10472              0.94889      
+      1              6.6124               0.74229             0.74229      
+      2              1.1503               0.12913             0.87142      
+      3             0.49918              0.056037             0.92746      
+      4             0.31907              0.035818             0.96328      
+      5              0.0759             0.0085203              0.9718      
+      6             0.13938              0.015646             0.98744      
+      7            0.048032             0.0053919             0.99283      
+      8            0.032354              0.003632             0.99647      
+      9            0.022303             0.0025036             0.99897      
+     10           0.0091841              0.001031                   1      
 
 </pre><h2 id="6">P1 d)</h2><p>Amortiguamiento del primer modo utilizando f&oacute;rmula propuesta por Cruz &amp; Miranda (2021)</p><pre class="codeinput">xi = zeros(cant_pisos,1);
-<span class="comment">% Para el primer modo</span>
-xi(1,1) = 0.28*htotal^(-0.52);
-</pre><h2 id="7">P1 e</h2><p>Amortiguamiento para los modos superiores utilizando f&oacute;rmula propuesta por Cruz &amp; Miranda (2017)</p><pre class="codeinput"><span class="keyword">for</span> i = 2:cant_pisos
+<span class="comment">% Para el primer modo f&oacute;rmula Cruz &amp; Miranda (2021)</span>
+xi(1,1) = 0.28*(htotal/100)^(-0.52);
+</pre><h2 id="7">P1 e)</h2><p>Amortiguamiento para los modos superiores utilizando f&oacute;rmula propuesta por Cruz &amp; Miranda (2017)</p><pre class="codeinput"><span class="keyword">for</span> i = 2:cant_pisos
     xi(i,1) = xi(1,1)*(1+0.12*(wn(i,1)/wn(1,1)-1));
 <span class="keyword">end</span>
-</pre><h2 id="8">P1 f</h2><p>Graficar xi_n vs wn</p><pre class="codeinput">figure
-plot(wn,xi)
+</pre><h2 id="8">P1 f)</h2><p>Graficar xi_n vs wn</p><pre class="codeinput">figure
+plot(wn,xi,<span class="string">'-o'</span>)
 xlabel(<span class="string">'\omega_n'</span>)
 ylabel(<span class="string">'\xi_n'</span>)
 title(<span class="string">'\xi_n vs \omega_n'</span>)
-<span class="comment">% Da una recta como es de esperar viendo la ecuaci&oacute;n de xi para modos</span>
-<span class="comment">% superiores</span>
+grid <span class="string">on</span>
 
+<span class="comment">% Da una recta como es de esperar viendo la ecuaci&oacute;n de xi para modos superiores</span>
+
+<span class="comment">% Figura para ver como var&iacute;a Xi para cada modo (no es una recta)</span>
 <span class="comment">% figure</span>
 <span class="comment">% plot(Modos,xi)</span>
 <span class="comment">% xlabel('Modos')</span>
 <span class="comment">% ylabel('\xi_n')</span>
-</pre><img vspace="5" hspace="5" src="Tarea5_02.png" alt=""> <h2 id="9">Pregunta 2</h2><h2 id="10">P2 a)</h2><p>Import(registro maule)</p><pre class="codeinput"><span class="comment">% Sd1 para Tn = 0.01:0.01:6, para xi = xi_1</span>
-<span class="comment">% PSa1 = wn1^2*Sd1</span>
-<span class="comment">% plot(Tn,Psa1)</span>
-</pre><h2 id="11">P2 b)</h2><p>Ce1 = PSa/g</p><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021b</a><br></p></div><!--
+</pre><img vspace="5" hspace="5" src="Tarea5_03.png" alt=""> <h2 id="9">Pregunta 2</h2><p>Para el registro de Santiago Centro del terremoto Maule 2010</p><pre class="codeinput">Registro = importdata(<span class="string">'stgocentro2010-L.txt'</span>);
+dt = 0.005;
+time_vect = dt:dt:dt*length(Registro.data);
+time_length = length(time_vect);
+</pre><h2 id="10">P2 a)</h2><p>Calcular pseudo-espectro de aceleraciones para el primer modo Par&aacute;metros</p><pre class="codeinput">modoi = 1;
+Tn_ini = 0.01;
+Tn_step = 0.01;
+Tn_fin = 6;
+udi = 0;
+ui = 0;
+beta = 1/4;
+
+<span class="comment">% Buscar PSa</span>
+T_xlabel = Tn_ini:Tn_step:Tn_fin;
+[Sd,Sv,Sa,PSv,PSa] = Newmark_Lineal(beta,xi(modoi),dt,ui,udi,Registro.data,T_xlabel); <span class="comment">% cm y segundos</span>
+
+<span class="comment">% Figura PSa vs Tn</span>
+figure
+plot(T_xlabel,PSa/g)
+xlabel(<span class="string">'Periodo T (sec)'</span>)
+ylabel(<span class="string">'PSa_1 [g]'</span>)
+title(<span class="string">'Pseudo-Espectro de Aceleraciones Modo 1'</span>)
+grid <span class="string">on</span>
+</pre><img vspace="5" hspace="5" src="Tarea5_04.png" alt=""> <h2 id="11">P2 b)</h2><p>Calcular coeficiente s&iacute;smico asociado a demanda el&aacute;stica del primer modo</p><pre class="codeinput"><span class="comment">% Encontrando periodo</span>
+n = round(Tn(1)/Tn_step);
+
+<span class="comment">% Determinaci&oacute;n de Ce1</span>
+<span class="comment">% Ce1_Sa = Sa(n)/g;</span>
+Ce1_PSa = PSa(n)/g;
+
+<span class="comment">%Comentario consola</span>
+fprintf(<span class="string">'El valor del coeficiente s&iacute;smico el&aacute;stico Ce_1 = %f \n \n'</span>, Ce1_PSa)
+</pre><pre class="codeoutput">El valor del coeficiente s&iacute;smico el&aacute;stico Ce_1 = 0.163039 
+ 
+</pre><h2 id="12">P2 c)</h2><p>Suponiendo coeficiente de Importancia I = 1, calcule el corte basal asociado al primer modo en tonf Qo = C*I*P = Ce1*1*Wtotal</p><pre class="codeinput">Qo1 = Ce1_PSa*Wtotal;    <span class="comment">% tonf</span>
+
+<span class="comment">% fprintf('Corte Basal del primer modo Qo_1 = C*I*P = Ce_1*Wtotal = %.4f [tonf] \n \n',Qo1)</span>
+</pre><h2 id="13">P2 d)</h2><p>Utilizando la distribuci&oacute;n en altura de la norma NCh433, calcule las cargas laterales equivalentes en cada piso, en tonf</p><pre class="codeinput"><span class="comment">% Ak</span>
+Ak = zeros(cant_pisos,1);                                                   <span class="comment">% Forma de distribuci&oacute;n de cargas</span>
+Zk = (h:h:htotal).';                                                        <span class="comment">% Altura de cada piso</span>
+Ak(1) = sqrt(1)-sqrt(1-Zk(1)/htotal);                                       <span class="comment">% Forma de distribuci&oacute;n de cargas del primer piso</span>
+<span class="keyword">for</span> i = 2:cant_pisos
+    Ak(i,1) = sqrt(1-Zk(i-1)/htotal)-sqrt(1-Zk(i)/htotal);
+<span class="keyword">end</span>
+Ak = flip(Ak);                                                              <span class="comment">% Damos vuelta para que quede con pisos de arriba a abajo</span>
+
+<span class="comment">% Fk</span>
+Pk = diag(M);                                                               <span class="comment">% Peso de cada piso (de arriba a abajo)</span>
+sumAjPj = sum(Ak.*Pk);                                                      <span class="comment">% Suma_(j=1)^N (Aj*Pj)</span>
+Fk1 = zeros(cant_pisos,1);
+<span class="keyword">for</span> i = 1:cant_pisos
+    Fk1(i,1) = Ak(i,1).*Pk(i,1)/sumAjPj*Qo1;                                <span class="comment">% Fuerza de cada piso (de arriba a abajo)</span>
+<span class="keyword">end</span>
+
+figure
+plot(Fk1,Pisos,<span class="string">'-o'</span>)
+xlabel(<span class="string">'Fk_1 [tonf]'</span>)
+ylabel(<span class="string">'Piso'</span>)
+grid <span class="string">on</span>
+</pre><img vspace="5" hspace="5" src="Tarea5_05.png" alt=""> <h2 id="14">P2 e)</h2><p>Para cada piso calcular: i) Esfuerzos de corte (en tonf) ii) Desplazamientos laterales (en cm) iii) Raz&oacute;n de derivas de piso (Expresadas como porcentaje)</p><pre class="codeinput"><span class="comment">% P2 e) i) Esfuerzos de corte (en tonf)</span>
+
+corte_pisos1 = zeros(cant_pisos,1);
+<span class="keyword">for</span> i = 1:cant_pisos
+    corte_pisos1(i,1) = sum(Fk1(1:i));    <span class="comment">%tonf</span>
+<span class="keyword">end</span>
+
+<span class="comment">% Corte basal</span>
+Vb1 = sum(Fk1(:,1));
+
+<span class="comment">%P2 e) ii)</span>
+<span class="comment">% Desplazamientos laterales (en cm)</span>
+<span class="comment">% {dxe} = {K}^-1*{Fk}</span>
+dxe1 = K^-1*Fk1;  <span class="comment">%cm</span>
+<span class="comment">% ujn_max = Gamma_n(1)*Phi(:,1)*PSa(n)*Tn(1)^2/(4*pi^2); % Modal Espectral</span>
+
+<span class="comment">% P2 e) iii)</span>
+<span class="comment">% Raz&oacute;n de derivadas de piso (Expresadas como porcentaje)</span>
+
+drift1 = dxe1 - [dxe1(2:cant_pisos); 0];   <span class="comment">%cm</span>
+razon_drift1 = drift1/h;  <span class="comment">%cm/cm</span>
+
+<span class="comment">% comentarios y figuras</span>
+figure
+plot(corte_pisos1,Pisos,<span class="string">'-o'</span>)
+xlabel(<span class="string">'V_{Pisos,1} [tonf]'</span>)
+ylabel(<span class="string">'Pisos'</span>)
+grid <span class="string">on</span>
+
+
+figure
+plot(dxe1,Pisos,<span class="string">'-o'</span>)
+xlabel(<span class="string">'Desplazamaientos laterales de cada piso (\delta_{xe}) [cm] (modo 1)'</span>)
+ylabel(<span class="string">'Pisos'</span>)
+title(<span class="string">'\delta_{xe} = [K^{-1}]*Fk_1'</span>)
+grid <span class="string">on</span>
+
+
+<span class="comment">% figure</span>
+<span class="comment">% plot(ujn_max,Pisos,'-o')</span>
+<span class="comment">% xlabel('Desplazamiento lateral de cada piso (u_{jn}^{max}) [cm] (modo 1)')</span>
+<span class="comment">% ylabel('Pisos')</span>
+<span class="comment">% title('u_{jn}^{max} = \Gamma_1*\phi(:,1)*PSa_1*T_1/(4*pi^2)')</span>
+<span class="comment">% grid on</span>
+<span class="comment">% disp('Desplazamientos laterales red. de cada piso [cm] (modo 1)')</span>
+<span class="comment">% disp(dxe1)</span>
+
+figure
+plot(drift1,Pisos,<span class="string">'-o'</span>)
+xlabel(<span class="string">'Derivas de piso (drift) [cm] (modo1)'</span>)
+ylabel(<span class="string">'Pisos'</span>)
+grid <span class="string">on</span>
+disp(<span class="string">'Derivas de piso [cm] (modo 1)'</span>)
+disp(drift1)
+
+figure
+plot(razon_drift1*100,Pisos,<span class="string">'-o'</span>)
+xlabel(<span class="string">'Raz&oacute;n de derivas de piso (modo 1)'</span>)
+ylabel(<span class="string">'Pisos'</span>)
+grid <span class="string">on</span>
+
+
+<span class="comment">% Comentarios consola P2</span>
+
+disp(<span class="string">'Pregunta 2, Resultados'</span>)
+fprintf(<span class="string">'Corte basal m&aacute;ximo: suma(Fk1) =  %f [tonf] \n Corte basal m&aacute;ximo: Qo1 = CIP = %f [tonf] \n \n '</span>,Vb1, Qo1)
+
+tabla = table();
+tabla.Piso = Pisos;
+tabla.Fk1 = Fk1;
+tabla.corte_pisos1 = corte_pisos1;
+tabla.dxe1 = dxe1;
+tabla.razon_drift1 = razon_drift1*100;
+disp(tabla)
+clear <span class="string">tabla</span>
+</pre><pre class="codeoutput">Derivas de piso [cm] (modo 1)
+    2.6913
+    4.4749
+    3.0928
+    3.8139
+    2.9662
+    3.3491
+    2.7759
+    3.0217
+    2.6021
+    2.8467
+
+Pregunta 2, Resultados
+Corte basal m&aacute;ximo: suma(Fk1) =  1423.327690 [tonf] 
+ Corte basal m&aacute;ximo: Qo1 = CIP = 1423.327690 [tonf] 
+ 
+     Piso     Fk1      corte_pisos1     dxe1     razon_drift1
+    ____    ______    ____________    ______    ____________
+
+     10     269.13       269.13       31.635      0.67282   
+      9     178.36       447.49       28.943       1.1187   
+      8     171.08       618.56       24.468      0.77321   
+      7     144.22       762.79       21.376      0.95349   
+      6     127.06       889.85       17.562      0.74154   
+      5     114.87       1004.7       14.595      0.83727   
+      4     105.64       1110.4       11.246      0.69398   
+      3     98.326       1208.7       8.4705      0.75543   
+      2      92.35         1301       5.4487      0.65052   
+      1     122.29       1423.3       2.8467      0.71166   
+
+</pre><img vspace="5" hspace="5" src="Tarea5_06.png" alt=""> <img vspace="5" hspace="5" src="Tarea5_07.png" alt=""> <img vspace="5" hspace="5" src="Tarea5_08.png" alt=""> <img vspace="5" hspace="5" src="Tarea5_09.png" alt=""> <h2 id="15">P3</h2><p>An&aacute;lisis modal espectral, registro SantiagoCentro_Maule2010 Utilizar 4 modos</p><pre class="codeinput">n_modos = 4;                                                                      <span class="comment">% Cantidad de modos a utilizar</span>
+fprintf(<span class="string">'Cantidad de modos a considerar  n = %0.f \n'</span>,n_modos)
+
+figure
+hold <span class="string">on</span>
+<span class="keyword">for</span> i = 1:n_modos
+    [Sd,Sv,Sa,PSv,PSa] = Newmark_Lineal(beta,xi(i),dt,ui,udi,Registro.data,T_xlabel); <span class="comment">% cm y segundos</span>
+    modo.PSa(:,i) = PSa;    <span class="comment">% cm/s2</span>
+    modo.PSv(:,i) = PSv;    <span class="comment">% cm/s</span>
+    modo.Sa(:,i) = Sa;      <span class="comment">% cm/s2</span>
+    modo.Sv(:,i) = Sv;      <span class="comment">% cm/s</span>
+    modo.Sd(:,i) = Sd;      <span class="comment">% cm</span>
+    plot(T_xlabel,PSa/g)
+<span class="keyword">end</span>
+hold <span class="string">off</span>
+xlabel(<span class="string">'Tn'</span>)
+ylabel(<span class="string">'PSa_n'</span>)
+legend(strcat(<span class="string">'Modo '</span>,string(1:n_modos)))
+grid <span class="string">on</span>
+</pre><pre class="codeoutput">Cantidad de modos a considerar  n = 4 
+</pre><img vspace="5" hspace="5" src="Tarea5_10.png" alt=""> <h2 id="16">P3 a)</h2><p>Corte Basal M&aacute;ximo Lo calculamos  en P3 b)</p><h2 id="17">P3 b)</h2><p>Fuerzas laterales de piso m&aacute;ximas Dn(t) = Sd(Tn) =&gt; fs_max(j,n) = Gamma_n(n)*phi(j,n)*mj*PSa(T(n))</p><pre class="codeinput">fs_max = zeros(cant_pisos,n_modos);
+figure
+hold <span class="string">on</span>
+<span class="keyword">for</span> n = 1:n_modos
+    <span class="keyword">for</span> j = 1:cant_pisos
+        fs_max(j,n) = Gamma_n(n)*Phi(j,n)*M(j,j)*modo.PSa(round(Tn(n)/Tn_step),n);
+    <span class="keyword">end</span>
+    plot(fs_max(:,n),Pisos,<span class="string">'-o'</span>)
+<span class="keyword">end</span>
+hold <span class="string">off</span>
+xlabel(<span class="string">'fs_{jn}^{max}'</span>)
+ylabel(<span class="string">'Pisos'</span>)
+legend(strcat(<span class="string">'Modo '</span>,string(1:n_modos)))
+grid <span class="string">on</span>
+
+<span class="comment">% Para encontrar la fuerza m&aacute;xima de cada piso (combinando todos los modos)</span>
+<span class="comment">% Combinaci&oacute;n modal -&gt; SRSS, CQC o ABSSUM</span>
+
+<span class="comment">% SRSS</span>
+fs_SRSSmax = zeros(cant_pisos,1);
+<span class="keyword">for</span> j = 1:cant_pisos
+    fs_SRSSmax(j,1) = sqrt(sumsqr(fs_max(j,:)));
+<span class="keyword">end</span>
+figure
+plot(fs_SRSSmax,Pisos,<span class="string">'-o'</span>)
+xlabel(<span class="string">'fs_{SRSS}^{max}'</span>)
+ylabel(<span class="string">'Pisos'</span>)
+grid <span class="string">on</span>
+
+<span class="comment">% Corte basal m&aacute;ximo</span>
+Vb_max = zeros(1,n_modos);
+<span class="keyword">for</span> n = 1:n_modos
+    Vb_max(1,n) = sum(fs_max(:,n));
+<span class="keyword">end</span>
+
+<span class="comment">% SRSS</span>
+Vb_SRSSmax = sqrt(sumsqr(Vb_max(1,:)));
+</pre><img vspace="5" hspace="5" src="Tarea5_11.png" alt=""> <img vspace="5" hspace="5" src="Tarea5_12.png" alt=""> <h2 id="18">P3 c)</h2><p>M&aacute;ximo esfuerzo de corte de piso Primero obtenemos el corte de piso para cada modo</p><pre class="codeinput">V = zeros(cant_pisos,n_modos);
+figure
+hold <span class="string">on</span>
+<span class="keyword">for</span> n = 1:n_modos
+    <span class="keyword">for</span> j = 1:cant_pisos
+        V(j,n) = sum(fs_max(1:j,n));    <span class="comment">%tonf</span>
+    <span class="keyword">end</span>
+    plot(V(:,n),Pisos,<span class="string">'-o'</span>)
+<span class="keyword">end</span>
+hold <span class="string">off</span>
+xlabel(<span class="string">'V_{jn} [tonf]'</span>)
+ylabel(<span class="string">'Pisos'</span>)
+legend(strcat(<span class="string">'Modo '</span>,string(1:n_modos)))
+grid <span class="string">on</span>
+
+<span class="comment">% Luego, SSRS</span>
+V_SRSSmax = zeros(cant_pisos,1);
+<span class="keyword">for</span> j = 1:cant_pisos
+    V_SRSSmax(j,1) = sqrt(sumsqr(V(j,:)));
+<span class="keyword">end</span>
+figure
+plot(V_SRSSmax,Pisos,<span class="string">'-o'</span>)
+xlabel(<span class="string">'V_{SRSS}^{max} [tonf]'</span>)
+ylabel(<span class="string">'Pisos'</span>)
+grid <span class="string">on</span>
+</pre><img vspace="5" hspace="5" src="Tarea5_13.png" alt=""> <img vspace="5" hspace="5" src="Tarea5_14.png" alt=""> <h2 id="19">P3 d)</h2><p>M&aacute;ximo desplazamiento lateral de cada piso SRSS</p><pre class="codeinput">u_jnmax = zeros(cant_pisos,n_modos);
+<span class="keyword">for</span> n = 1:n_modos
+    <span class="keyword">for</span> j = 1:cant_pisos
+        u_jnmax(j,n) = Gamma_n(n)*Phi(j,n)*modo.Sd(round(Tn(n)/Tn_step),n);
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+<span class="comment">% Luego, SSRS</span>
+u_SRSSmax = zeros(cant_pisos,1);
+<span class="keyword">for</span> j = 1:cant_pisos
+    u_SRSSmax(j,1) = sqrt(sumsqr(u_jnmax(j,:)));
+<span class="keyword">end</span>
+figure
+plot(u_SRSSmax,Pisos,<span class="string">'-o'</span>)
+xlabel(<span class="string">'u_{SRSS}^{max} [tonf]'</span>)
+ylabel(<span class="string">'Pisos'</span>)
+grid <span class="string">on</span>
+</pre><img vspace="5" hspace="5" src="Tarea5_15.png" alt=""> <h2 id="20">P3 e)</h2><p>M&aacute;xima raz&oacute;n de desplazamiento de piso</p><pre class="codeinput">rdp = zeros(cant_pisos,n_modos);
+<span class="keyword">for</span> j = 1:cant_pisos
+    <span class="keyword">for</span> n = 1:n_modos
+        <span class="keyword">if</span> j &lt; cant_pisos
+            rdp(j,n) = (1/h)*Gamma_n(n)*(Phi(j,n)-Phi(j+1,n))*modo.PSa(round(Tn(n)/Tn_step),n)*(1/wn2(n));
+        <span class="keyword">elseif</span> j == cant_pisos
+            rdp(j,n) = (1/h)*Gamma_n(n)*(Phi(j,n))*modo.PSa(round(Tn(n)/Tn_step),n)*(1/wn2(n));
+        <span class="keyword">end</span>
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+<span class="comment">% Luego SRSS</span>
+
+rdp_SRSSmax = zeros(cant_pisos,1);
+<span class="keyword">for</span> j = 1:cant_pisos
+    rdp_SRSSmax(j,1) = sqrt(sumsqr(rdp(j,:)));
+<span class="keyword">end</span>
+figure
+plot(rdp_SRSSmax*100,Pisos,<span class="string">'-o'</span>)
+xlabel(<span class="string">'rdp_{SRSS}^{max} [tonf]'</span>)
+ylabel(<span class="string">'Pisos'</span>)
+grid <span class="string">on</span>
+
+
+<span class="comment">% Comentarios Consolta P3</span>
+disp(<span class="string">'Pregunta 3, Resultados'</span>)
+fprintf(<span class="string">'Corte basal m&aacute;ximo = %f [tonf] \n \n'</span>,Vb_SRSSmax)
+tabla = table();
+tabla.Piso = Pisos;
+tabla.fs = fs_SRSSmax;
+tabla.V = V_SRSSmax;
+tabla.u = u_SRSSmax;
+tabla.rdp = rdp_SRSSmax*100;
+disp(tabla)
+clear <span class="string">tabla</span>
+</pre><pre class="codeoutput">Pregunta 3, Resultados
+Corte basal m&aacute;ximo = 1127.258675 [tonf] 
+ 
+    Piso      fs        V         u         rdp  
+    ____    ______    ______    ______    _______
+
+     10     174.23    174.23    23.623    0.43558
+      9     198.41    353.44    22.426    0.88359
+      8     254.67     505.9    19.628    0.63237
+      7     202.62     652.5    17.378    0.81563
+      6     206.65    761.58    14.385    0.63465
+      5      189.2    868.64    11.969    0.72387
+      4     150.37       948     9.184     0.5925
+      3     162.29    1011.2    6.8789    0.63197
+      2     160.32    1066.6    4.3822    0.53332
+      1     154.28    1127.3    2.2557    0.56363
+
+</pre><img vspace="5" hspace="5" src="Tarea5_16.png" alt=""> <h2 id="21">P4 An&aacute;lisis modal tiempo historia</h2><pre class="codeinput">sn = Gamma_n'.*diag(M).*Phi;                                                 <span class="comment">% {Sjn} = Gamma_n*mj*Phi_jn</span>
+n_modos = 4;                                                                <span class="comment">% Cantidad de modos a considerar en el an&aacute;lisis tiempo-historia</span>
+figure
+<span class="keyword">for</span> i = 1:n_modos
+    Dn = Disp_Newmark_Lineal(beta,xi(i),dt,ui,udi,Registro.data,Tn(i));     <span class="comment">% Se determinan todos los Dn(t) para cada modo para un registro y amortig en particular.</span>
+    modo.Dn(:,i) = Dn;
+    subplot(n_modos,1,i)                                                    <span class="comment">% Graficamos Dn(t) para todos los modos considerados</span>
+    plot(time_vect,modo.Dn(:,i))
+    ylabel([<span class="string">'D_'</span>, num2str(Modos(i)), <span class="string">'(t)'</span>])
+    <span class="keyword">if</span> i == 1
+        hold <span class="string">on</span>
+    <span class="keyword">end</span>
+    ylim([-20 20])
+    xlim([0 dt*time_length])
+<span class="keyword">end</span>
+xlabel(<span class="string">'tiempo t (sec)'</span>)
+hold <span class="string">off</span>
+sgtitle(<span class="string">'D_n(t)'</span>)
+
+<span class="comment">% Obtenci&oacute;n del m&aacute;ximo Dn(t) en el tiempo</span>
+<span class="keyword">for</span> i = 1:n_modos
+    modo.Dn_max(i,1) = max(abs(modo.Dn(:,i)));                                   <span class="comment">% Buscamos max(Dn(t)), El Dn(t) m&aacute;ximo para cada mood</span>
+<span class="keyword">end</span>
+
+<span class="comment">% % DESPLAZAMIENTO DE PISO</span>
+<span class="comment">% % uj = sum(Gamma_n*Phi_jn*Dn(t))</span>
+<span class="comment">% uj = zeros(time_length,cant_pisos);</span>
+<span class="comment">% for j = 1:cant_pisos</span>
+<span class="comment">%     for n = 1:n_modos</span>
+<span class="comment">%         uj(:,j) = uj(:,j) + Gamma_n(n)*Phi(j,n)*modo.Dn(:,n);               % Se suman todos los modos</span>
+<span class="comment">%     end</span>
+<span class="comment">% end</span>
+<span class="comment">%</span>
+<span class="comment">% % DESPLAZAMIENTOS MODALES DE TECHO</span>
+<span class="comment">% % Desaplazamiento del techo (debe ser controlado) para cada modo</span>
+<span class="comment">% % u1n = Gamma_n*Phi_1n*Dn(t)</span>
+<span class="comment">% u1n = zeros(time_length,n_modos);</span>
+<span class="comment">% figure</span>
+<span class="comment">% for n = 1:n_modos</span>
+<span class="comment">%     subplot(n_modos,1,n)</span>
+<span class="comment">%     u1n(:,n) = Gamma_n(n)*Phi(1,n)*modo.Dn(:,n);                            % Desplazamiento de techo para cada modo</span>
+<span class="comment">%     plot(time_vect,u1n(:,n))</span>
+<span class="comment">%     ylabel(['u_{1', num2str(Modos(n)), '} (t)'])</span>
+<span class="comment">%     ylim([-20 20])</span>
+<span class="comment">%     xlim([0 dt*time_length])</span>
+<span class="comment">% end</span>
+<span class="comment">% xlabel('tiempo t (sec)')</span>
+<span class="comment">% hold off</span>
+<span class="comment">% sgtitle('u_{1n}(t) = \Gamma_n \Phi_{1n} D_n(t)')</span>
+<span class="comment">%</span>
+<span class="comment">%</span>
+<span class="comment">% % RAZ&Oacute;N DE DERIVAS MODALES</span>
+<span class="comment">% % Raz&oacute;n de derivas de piso para cada modo por separado</span>
+<span class="comment">% RDPjn = zeros(time_length,cant_pisos,n_modos);                              % RDP_jn (t)</span>
+<span class="comment">%</span>
+<span class="comment">% for j = 2:cant_pisos</span>
+<span class="comment">%     for n = 1:n_modos</span>
+<span class="comment">%         RDPjn(:,j,n) = 1/h*Gamma_n(n)*(Phi(j,n)-Phi(j-1,n))*modo.Dn(:,n);   % RDP_jn (t) = 1/h*Gamma_n*(Phi_jn-Phi_j-1,n)*Dn(t)</span>
+<span class="comment">%     end</span>
+<span class="comment">% end</span>
+<span class="comment">%</span>
+<span class="comment">% pisos_graficar = [9;5];                                                     % Escribir ac&aacute; los pisos que se quieren graficar</span>
+<span class="comment">% length_pg = length(pisos_graficar);</span>
+<span class="comment">%</span>
+<span class="comment">% figure                                                                      % Graficamos RDP, para el piso j en los modos considerados (n_modos)</span>
+<span class="comment">% for i = 1:length_pg</span>
+<span class="comment">%     subplot(length_pg,1,i)</span>
+<span class="comment">%     hold on</span>
+<span class="comment">%     for n = 1:n_modos</span>
+<span class="comment">%         plot(time_vect,RDPjn(:,i,n))</span>
+<span class="comment">%     end</span>
+<span class="comment">%     hold off</span>
+<span class="comment">%     ylabel(['RDP_{',num2str(pisos_graficar(i)),'n}']);</span>
+<span class="comment">% end</span>
+<span class="comment">% xlabel('tiempo (t) [sec]')</span>
+</pre><img vspace="5" hspace="5" src="Tarea5_17.png" alt=""> <h2 id="22">P4 a) Corte basal m&aacute;ximo</h2><p>Como es solo basal, no depende del n&uacute;mero del piso, y solo se suman las contribuciones modales</p><pre class="codeinput">vb_t = zeros(time_length,1);
+<span class="keyword">for</span> n = 1:n_modos
+    vb_t(:,1) = vb_t(:,1) + Mn_ast(n,1)*wn2(n)*modo.Dn(:,n);                <span class="comment">% Se suma la contribuci&oacute;n de cada modo</span>
+<span class="keyword">end</span>
+Vj_max = max(abs(vb_t(:,1)));                                               <span class="comment">% Corte vasal m&aacute;ximo es el m&aacute;ximo absoluto</span>
+</pre><h2 id="23">P4 b) Fuerzas laterales m&aacute;ximas</h2><p>Obtenemos r_jn^st para cada piso para cada modo fs_j(t) = sum( {rjn^st}wn^2*Dn(t) ) El m&aacute;ximo: fs_jmax = max(fs_j(t))</p><pre class="codeinput">fs_jt = zeros(time_length,cant_pisos);
+fs_jmax = zeros(cant_pisos,1);
+<span class="keyword">for</span> j = 1:cant_pisos
+    <span class="keyword">for</span> n = 1:n_modos
+        fs_jt(:,j) = fs_jt(:,j) + M(j,j)*Gamma_n(n,1)*Phi(j,n)*wn2(n)*modo.Dn(:,n); <span class="comment">% Sum(rjn^st * wn^2 * Dn(t))</span>
+    <span class="keyword">end</span>
+    fs_jmax(j,1) = max(abs(fs_jt(:,j)));                                    <span class="comment">% M&aacute;ximo absoluto en el tiempo para el piso</span>
+<span class="keyword">end</span>
+
+figure
+plot(fs_jmax,Pisos,<span class="string">'-o'</span>)
+xlabel(<span class="string">'fs_{j,max}'</span>)
+ylabel(<span class="string">'Pisos'</span>)
+grid <span class="string">on</span>
+title(<span class="string">'fs_{j,max}'</span>)
+xlim([0 250])
+</pre><img vspace="5" hspace="5" src="Tarea5_18.png" alt=""> <h2 id="24">P4 c) Esfuerzo de corte m&aacute;ximo de cada piso</h2><p>Esfuerzos e corte m&aacute;ximo para cada piso rjnst = Sum_j(m_j*Gamma_n*Phi_jn)</p><pre class="codeinput">rjnst_v = zeros(cant_pisos,n_modos);
+V_jt = zeros(time_length,cant_pisos);
+V_jmax = zeros(cant_pisos,1);
+
+<span class="keyword">for</span> i = 1:cant_pisos
+    <span class="keyword">for</span> n = 1:n_modos
+        <span class="keyword">for</span> j = i:cant_pisos
+            rjnst_v(i,n) = rjnst_v(i,n) + M(j,j)*Gamma_n(n,1)*Phi(j,n);
+        <span class="keyword">end</span>
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+<span class="keyword">for</span> j = 1:cant_pisos
+    <span class="keyword">for</span> n = 1:n_modos
+        V_jt(:,j) = V_jt(:,j) + rjnst_v(j,n)*wn2(n)*modo.Dn(:,n);           <span class="comment">% Vj(t) = sum( rjnst_v * wn^2 * Dn(t) )</span>
+    <span class="keyword">end</span>
+    V_jmax(j,1) = max(abs(V_jt(:,j)));
+<span class="keyword">end</span>
+V_jmax = flip(V_jmax);                                                      <span class="comment">% No cacho porq me da al rev&eacute;s</span>
+figure
+plot(V_jmax,Pisos,<span class="string">'-o'</span>)
+xlabel(<span class="string">'Fuerza de corte de piso'</span>)
+ylabel(<span class="string">'Pisos'</span>)
+grid <span class="string">on</span>
+title(<span class="string">'V_{j,max}'</span>)
+</pre><img vspace="5" hspace="5" src="Tarea5_19.png" alt=""> <h2 id="25">P4 d) desplazamientos laterales m&aacute;ximos</h2><p>rjnst = (Gamma_n/wn^2)*Phi_jn</p><pre class="codeinput">rjnst_u = zeros(cant_pisos,n_modos);
+u_jt = zeros(time_length,cant_pisos);
+u_jmax = zeros(cant_pisos,1);
+
+<span class="keyword">for</span> j = 1:cant_pisos
+    <span class="keyword">for</span> n = 1:n_modos
+        rjnst_u(j,n) = Gamma_n(n)/wn2(n)*Phi(j,n);                          <span class="comment">% Mejor guardarlo ya que se ocupan en P4 e)</span>
+        u_jt(:,j) = u_jt(:,j) + rjnst_u(j,n)*wn2(n)*modo.Dn(:,n);
+    <span class="keyword">end</span>
+    u_jmax(j,1) = max(abs(u_jt(:,j)));
+<span class="keyword">end</span>
+
+figure
+plot(u_jmax,Pisos,<span class="string">'-o'</span>)
+xlabel(<span class="string">'Desplazamientos laterales m&aacute;ximos'</span>)
+ylabel(<span class="string">'Pisos'</span>)
+grid <span class="string">on</span>
+title(<span class="string">'u_{j,max}'</span>)
+</pre><img vspace="5" hspace="5" src="Tarea5_20.png" alt=""> <h2 id="26">P4 e) raz&oacute;n de derivas de piso m&aacute;ximoas</h2><p>rjnst = (rjnst(uj)-rjnst(uj+1))/hj</p><pre class="codeinput">rdp_jt = zeros(time_length,cant_pisos);
+rdp_jmax = zeros(cant_pisos,1);
+<span class="keyword">for</span> j = 1:cant_pisos
+    <span class="keyword">for</span> n = 1:n_modos
+        <span class="keyword">if</span> j &lt; cant_pisos
+            rdp_jt(:,j) = rdp_jt(:,j) + (rjnst_u(j,n)-rjnst_u(j+1,n))/h*wn2(n)*modo.Dn(:,n);    <span class="comment">% Traemos rjnst_u</span>
+        <span class="keyword">elseif</span> j == cant_pisos
+            rdp_jt(:,j) = rdp_jt(:,j) + (rjnst_u(j,n))/h*wn2(n)*modo.Dn(:,n);                   <span class="comment">% La del primer modo es</span>
+        <span class="keyword">end</span>
+    <span class="keyword">end</span>
+    rdp_jmax(j,1) = max(abs(rdp_jt(:,j)));
+<span class="keyword">end</span>
+
+figure
+plot(rdp_jmax*100,Pisos,<span class="string">'-o'</span>)
+xlabel(<span class="string">'Raz&oacute;n de derivas de piso'</span>)
+ylabel(<span class="string">'Pisos'</span>)
+grid <span class="string">on</span>
+title(<span class="string">'rdp_{j,max}'</span>)
+
+<span class="comment">% Comentarios consola P4</span>
+
+disp(<span class="string">'Pregunta 4, Resultados'</span>)
+fprintf(<span class="string">'Corte basal m&aacute;ximo: %f [tonf] \n \n'</span>,Vj_max)
+
+tabla = table();
+tabla.Piso = Pisos;
+tabla.fs_jmax = fs_jmax;
+tabla.V_jmax = V_jmax;
+tabla.u_jmax = u_jmax;
+tabla.rdp_jmax = rdp_jmax*100;
+disp(tabla)
+clear <span class="string">tabla</span>
+</pre><pre class="codeoutput">Pregunta 4, Resultados
+Corte basal m&aacute;ximo: 1065.786480 [tonf] 
+ 
+    Piso    fs_jmax    V_jmax    u_jmax    rdp_jmax
+    ____    _______    ______    ______    ________
+
+     10     180.46      202.9    25.547    0.45116 
+      9     239.64     421.04    23.844     1.0333 
+      8     205.04     642.78    19.776    0.74561 
+      7        201     798.66    16.798    0.88729 
+      6      204.6     841.53    13.249      0.633 
+      5     215.37     829.32     10.96    0.68589 
+      4     180.58     866.96    8.6046    0.52525 
+      3     225.14     1029.2     6.513    0.58907 
+      2     218.34     1067.8    4.1576    0.50656 
+      1      202.9     1065.8    2.1316    0.53289 
+
+</pre><img vspace="5" hspace="5" src="Tarea5_21.png" alt=""> <h2 id="27">P5</h2><p>Comparaci&oacute;n No se reescribir&aacute;n las tablas, solo las figuras, pero todas juntas Fuerzas laterales</p><pre class="codeinput">figure
+hold <span class="string">on</span>
+plot(Fk1,Pisos,<span class="string">'-o'</span>)
+plot(fs_SRSSmax,Pisos,<span class="string">'-o'</span>)
+plot(fs_jmax,Pisos,<span class="string">'-o'</span>)
+hold <span class="string">off</span>
+xlabel(<span class="string">'Fuerza lateral de piso m&aacute;xima [tonf]'</span>)
+ylabel(<span class="string">'Pisos'</span>)
+legend(<span class="string">'CLE'</span>,<span class="string">'ME'</span>,<span class="string">'MTH'</span>)
+grid <span class="string">on</span>
+
+
+<span class="comment">% Corte</span>
+
+figure
+hold <span class="string">on</span>
+plot(corte_pisos1,Pisos,<span class="string">'-o'</span>)
+plot(V_SRSSmax,Pisos,<span class="string">'-o'</span>)
+plot(V_jmax,Pisos,<span class="string">'-o'</span>)
+hold <span class="string">off</span>
+xlabel(<span class="string">'Corte de piso m&aacute;ximo [tonf]'</span>)
+ylabel(<span class="string">'Pisos'</span>)
+legend(<span class="string">'CLE'</span>,<span class="string">'ME'</span>,<span class="string">'MTH'</span>)
+grid <span class="string">on</span>
+
+
+<span class="comment">% Desplazamiento</span>
+
+figure
+hold <span class="string">on</span>
+plot(dxe1,Pisos,<span class="string">'-o'</span>)
+plot(u_SRSSmax,Pisos,<span class="string">'-o'</span>)
+plot(u_jmax,Pisos,<span class="string">'-o'</span>)
+hold <span class="string">off</span>
+xlabel(<span class="string">'Desplazamiento lateral de piso m&aacute;ximo [cm]'</span>)
+ylabel(<span class="string">'Pisos'</span>)
+legend(<span class="string">'CLE'</span>,<span class="string">'ME'</span>,<span class="string">'MTH'</span>)
+grid <span class="string">on</span>
+
+<span class="comment">% Raz&oacute;n de derivas de piso</span>
+
+figure
+hold <span class="string">on</span>
+plot(razon_drift1*100,Pisos,<span class="string">'-o'</span>)
+plot(rdp_SRSSmax*100,Pisos,<span class="string">'-o'</span>)
+plot(rdp_jmax*100,Pisos,<span class="string">'-o'</span>)
+hold <span class="string">off</span>
+xlabel(<span class="string">'Raz&oacute;n de deriva de piso m&aacute;xima'</span>)
+ylabel(<span class="string">'Pisos'</span>)
+legend(<span class="string">'CLE'</span>,<span class="string">'ME'</span>,<span class="string">'MTH'</span>)
+grid <span class="string">on</span>
+</pre><img vspace="5" hspace="5" src="Tarea5_22.png" alt=""> <img vspace="5" hspace="5" src="Tarea5_23.png" alt=""> <img vspace="5" hspace="5" src="Tarea5_24.png" alt=""> <img vspace="5" hspace="5" src="Tarea5_25.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
-%% Tarea 5 Ingeniería Sísmica
+%% Tarea 5 Ingeniería Sísmica 2022-1
 % Cristóbal Adasme - Alexis Contreras
 
 %% Inicializar
@@ -319,14 +885,14 @@ clc
 
 % Parámetros
 g = 980; % cm/s2
-htotal = 40; % m
-Wtotal = 9000; %tonf
+htotal = 40*100; % m
+Wtotal = 8730; %tonf
+W = 900; % tonf                                                             % Peso W
+k = 500; %tonf/cm                                                           % Rigidez K
 cant_pisos = 10;                                                            % Cantidad de pisos
 h = htotal/cant_pisos;                                                      % Altura de cada piso
-W = Wtotal/cant_pisos; % tonf                                               % Peso W
-k = 500; %tonf/cm
 Pisos = (cant_pisos:-1:1)';
-Modos = (1:1:cant_pisos)';
+Modos = flip(Pisos);
 
 k1 = 0.2*k;
 k2 = 0.2*k;
@@ -370,7 +936,8 @@ disp(K)
 
 %% P1 a)
 [Phi, lambda] = eig(K,M);                                                   % Problema de valores y vectores propios
-wn = diag(lambda.^0.5);                                                             % Frecuencia de cada modo
+wn = diag(lambda.^0.5);                                                     % Frecuencia de cada modo
+wn2 = wn.^2;
 Tn = 2*pi./wn;                                                              % Periodo de cada modo
 
 tabla = table();
@@ -385,24 +952,23 @@ clear tabla
 % Graficar Gamma_n{Phi_n} para los primeros 5 primeros modos
 Mn = diag(Phi.'*M*Phi);
 Kn = diag(Phi.'*K*Phi);
-Mn_matrix = Phi.'*M*Phi;
-Kn_matrix = Phi.'*K*Phi;
 
 % Gamma_n
-Gamma_n = -Phi.'*M*r./Mn;
+Gamma_n = Phi.'*M*r./Mn;
 
 % Comentarios
 tabla = table(Modos,Gamma_n);
 disp(tabla)
 clear tabla
 
-% Graficamos
-cant_modos = 5;
+% Graficamos Gamma_n*phi_n para 5 modos Todos separados
+cant_modos_dibujar = 5;                                                     % Cantidad de modos que queremos dibujar (cambiar si se quieren dibujar más)
 figure
-for i = 1:cant_modos
-    subplot(1,cant_modos,i)
+for i = 1:cant_modos_dibujar
+    subplot(1,cant_modos_dibujar,i)
     plot([Gamma_n(i)*Phi(:,i); 0],[Pisos; 0], '-o')
-    xlabel(['\Gamma_', num2str(Modos(i)), '\{\phi_{j', num2str(Modos(i)), '}\}'])
+    xlabel(['\Gamma_', num2str(Modos(i)), '\{\phi_{', num2str(Modos(i)), '}\}'])
+    xlim([-1.5 1.5])
     if i == 1
         ylabel('Piso')
         hold on
@@ -410,6 +976,18 @@ for i = 1:cant_modos
 end
 hold off
 sgtitle('\Gamma_n \{\phi_n\}')
+
+% Graficamos Gamma_n*phi_n para 5 modos Todos juntos
+figure
+hold on
+for i = 1:cant_modos_dibujar
+    plot([Gamma_n(i)*Phi(:,i); 0],[Pisos; 0], '-o')
+end
+hold off
+xlabel('\Gamma_n \{\Phi_n\}')
+ylabel('Piso')
+legend(strcat('Modo ',string(1:cant_modos_dibujar)))
+grid on
 
 %% P1 c)
 % Calcular Masa modal Equivalente
@@ -419,23 +997,23 @@ sgtitle('\Gamma_n \{\phi_n\}')
 Mn_ast = zeros(cant_pisos,1);
 for n = 1:cant_pisos
     for j = 1:cant_pisos
-        Mn_ast(n,1) = Mn(n,1) + M(j,j)*Gamma_n(n)*Phi(j,n);
+        Mn_ast(n,1) = Mn_ast(n,1) + M(j,j)*Gamma_n(n)*Phi(j,n);
     end
 end
 
 PMass = Mn_ast/(Wtotal/g);                                                  % Porcentaje de Masa modal Equivalente de cada modo
 PMass_acum = zeros(cant_pisos,1);                                           % Porcentaje de Masa modal equivalente acumulado
 PMass_acum(1,1) = PMass(1,1);                                               
-printed = 0;                                                                % Contador para ver si ya encontró la solución
+counter = 0;                                                                % Contador para ver si ya encontró la solución
 for i = 2:cant_pisos
     PMass_acum(i,1) = PMass_acum(i-1,1) + PMass(i,1);
-    if PMass_acum(i,1) > 0.9 && printed ~= 1
+    if PMass_acum(i,1) > 0.9 && counter == 0
         fprintf('Solo se requieren los primeros %i modos \n \n', Modos(i,1))
-        printed = 1;
+        counter = 1;
     end
 end
 
-% Comentarios
+% Comentarios consola
 tabla = table();
 tabla.Modos = Modos;
 tabla.MasaModalEquivalente = Mn_ast;
@@ -444,48 +1022,613 @@ tabla.PorcntajeDeMasaAcum = PMass_acum;
 disp(tabla)
 clear tabla
 % Para verificar
-% Sum(Mn_Ast) = Sum_m
+% Sum(Mn_Ast) = Sum(diag(M))
 
 %% P1 d)
-% Amortiguamiento del primer modo utilizando fórmula propuesta por Cruz &
-% Miranda (2021)
+% Amortiguamiento del primer modo utilizando fórmula propuesta por Cruz & Miranda (2021)
 xi = zeros(cant_pisos,1);
-% Para el primer modo
-xi(1,1) = 0.28*htotal^(-0.52);
+% Para el primer modo fórmula Cruz & Miranda (2021)
+xi(1,1) = 0.28*(htotal/100)^(-0.52);
 
-%% P1 e
-% Amortiguamiento para los modos superiores utilizando fórmula propuesta
-% por Cruz & Miranda (2017)
+%% P1 e)
+% Amortiguamiento para los modos superiores utilizando fórmula propuesta por Cruz & Miranda (2017)
 for i = 2:cant_pisos
     xi(i,1) = xi(1,1)*(1+0.12*(wn(i,1)/wn(1,1)-1));
 end
-%% P1 f
+
+%% P1 f)
 % Graficar xi_n vs wn
 figure
-plot(wn,xi)
+plot(wn,xi,'-o')
 xlabel('\omega_n')
 ylabel('\xi_n')
 title('\xi_n vs \omega_n')
-% Da una recta como es de esperar viendo la ecuación de xi para modos
-% superiores
+grid on
 
+% Da una recta como es de esperar viendo la ecuación de xi para modos superiores
+
+% Figura para ver como varía Xi para cada modo (no es una recta)
 % figure
 % plot(Modos,xi)
 % xlabel('Modos')
 % ylabel('\xi_n')
 
 %% Pregunta 2
+% Para el registro de Santiago Centro del terremoto Maule 2010
+Registro = importdata('stgocentro2010-L.txt');
+dt = 0.005;
+time_vect = dt:dt:dt*length(Registro.data);
+time_length = length(time_vect);
 
 %% P2 a)
-% Import(registro maule)
+% Calcular pseudo-espectro de aceleraciones para el primer modo
+% Parámetros
+modoi = 1;
+Tn_ini = 0.01;
+Tn_step = 0.01;
+Tn_fin = 6;
+udi = 0;
+ui = 0;
+beta = 1/4;
 
-% Sd1 para Tn = 0.01:0.01:6, para xi = xi_1
-% PSa1 = wn1^2*Sd1
-% plot(Tn,Psa1)
+% Buscar PSa
+T_xlabel = Tn_ini:Tn_step:Tn_fin;
+[Sd,Sv,Sa,PSv,PSa] = Newmark_Lineal(beta,xi(modoi),dt,ui,udi,Registro.data,T_xlabel); % cm y segundos
+
+% Figura PSa vs Tn
+figure
+plot(T_xlabel,PSa/g)
+xlabel('Periodo T (sec)')
+ylabel('PSa_1 [g]')
+title('Pseudo-Espectro de Aceleraciones Modo 1')
+grid on
 
 %% P2 b)
-% Ce1 = PSa/g
+% Calcular coeficiente sísmico asociado a demanda elástica del primer modo
 
+% Encontrando periodo
+n = round(Tn(1)/Tn_step);
+
+% Determinación de Ce1
+% Ce1_Sa = Sa(n)/g;
+Ce1_PSa = PSa(n)/g;
+
+%Comentario consola
+fprintf('El valor del coeficiente sísmico elástico Ce_1 = %f \n \n', Ce1_PSa)
+
+%% P2 c)
+% Suponiendo coeficiente de Importancia I = 1, calcule el corte basal
+% asociado al primer modo en tonf
+% Qo = C*I*P = Ce1*1*Wtotal 
+Qo1 = Ce1_PSa*Wtotal;    % tonf
+
+% fprintf('Corte Basal del primer modo Qo_1 = C*I*P = Ce_1*Wtotal = %.4f [tonf] \n \n',Qo1)
+
+%% P2 d)
+% Utilizando la distribución en altura de la norma NCh433, calcule las
+% cargas laterales equivalentes en cada piso, en tonf
+
+% Ak    
+Ak = zeros(cant_pisos,1);                                                   % Forma de distribución de cargas
+Zk = (h:h:htotal).';                                                        % Altura de cada piso
+Ak(1) = sqrt(1)-sqrt(1-Zk(1)/htotal);                                       % Forma de distribución de cargas del primer piso
+for i = 2:cant_pisos
+    Ak(i,1) = sqrt(1-Zk(i-1)/htotal)-sqrt(1-Zk(i)/htotal);
+end
+Ak = flip(Ak);                                                              % Damos vuelta para que quede con pisos de arriba a abajo
+
+% Fk
+Pk = diag(M);                                                               % Peso de cada piso (de arriba a abajo)
+sumAjPj = sum(Ak.*Pk);                                                      % Suma_(j=1)^N (Aj*Pj)
+Fk1 = zeros(cant_pisos,1);
+for i = 1:cant_pisos
+    Fk1(i,1) = Ak(i,1).*Pk(i,1)/sumAjPj*Qo1;                                % Fuerza de cada piso (de arriba a abajo)
+end
+
+figure
+plot(Fk1,Pisos,'-o')
+xlabel('Fk_1 [tonf]')
+ylabel('Piso')
+grid on
+
+%% P2 e)
+% Para cada piso calcular:
+% i) Esfuerzos de corte (en tonf)
+% ii) Desplazamientos laterales (en cm)
+% iii) Razón de derivas de piso (Expresadas como porcentaje)
+
+% P2 e) i) Esfuerzos de corte (en tonf)
+
+corte_pisos1 = zeros(cant_pisos,1);
+for i = 1:cant_pisos
+    corte_pisos1(i,1) = sum(Fk1(1:i));    %tonf
+end
+
+% Corte basal
+Vb1 = sum(Fk1(:,1));
+
+%P2 e) ii) 
+% Desplazamientos laterales (en cm)
+% {dxe} = {K}^-1*{Fk}
+dxe1 = K^-1*Fk1;  %cm
+% ujn_max = Gamma_n(1)*Phi(:,1)*PSa(n)*Tn(1)^2/(4*pi^2); % Modal Espectral
+
+% P2 e) iii)
+% Razón de derivadas de piso (Expresadas como porcentaje)
+
+drift1 = dxe1 - [dxe1(2:cant_pisos); 0];   %cm
+razon_drift1 = drift1/h;  %cm/cm
+
+% comentarios y figuras
+figure
+plot(corte_pisos1,Pisos,'-o')
+xlabel('V_{Pisos,1} [tonf]')
+ylabel('Pisos')
+grid on
+
+
+figure
+plot(dxe1,Pisos,'-o')
+xlabel('Desplazamaientos laterales de cada piso (\delta_{xe}) [cm] (modo 1)')
+ylabel('Pisos')
+title('\delta_{xe} = [K^{-1}]*Fk_1')
+grid on
+
+
+% figure
+% plot(ujn_max,Pisos,'-o')
+% xlabel('Desplazamiento lateral de cada piso (u_{jn}^{max}) [cm] (modo 1)')
+% ylabel('Pisos')
+% title('u_{jn}^{max} = \Gamma_1*\phi(:,1)*PSa_1*T_1/(4*pi^2)')
+% grid on
+% disp('Desplazamientos laterales red. de cada piso [cm] (modo 1)')
+% disp(dxe1)
+
+figure
+plot(drift1,Pisos,'-o')
+xlabel('Derivas de piso (drift) [cm] (modo1)')
+ylabel('Pisos')
+grid on
+disp('Derivas de piso [cm] (modo 1)')
+disp(drift1)
+
+figure
+plot(razon_drift1*100,Pisos,'-o')
+xlabel('Razón de derivas de piso (modo 1)')
+ylabel('Pisos')
+grid on
+
+
+% Comentarios consola P2
+
+disp('Pregunta 2, Resultados')
+fprintf('Corte basal máximo: suma(Fk1) =  %f [tonf] \n Corte basal máximo: Qo1 = CIP = %f [tonf] \n \n ',Vb1, Qo1)
+
+tabla = table();
+tabla.Piso = Pisos;
+tabla.Fk1 = Fk1;
+tabla.corte_pisos1 = corte_pisos1;
+tabla.dxe1 = dxe1;
+tabla.razon_drift1 = razon_drift1*100;
+disp(tabla)
+clear tabla
+
+
+%% P3
+% Análisis modal espectral, registro SantiagoCentro_Maule2010
+% Utilizar 4 modos
+n_modos = 4;                                                                      % Cantidad de modos a utilizar
+fprintf('Cantidad de modos a considerar  n = %0.f \n',n_modos)
+
+figure
+hold on
+for i = 1:n_modos
+    [Sd,Sv,Sa,PSv,PSa] = Newmark_Lineal(beta,xi(i),dt,ui,udi,Registro.data,T_xlabel); % cm y segundos
+    modo.PSa(:,i) = PSa;    % cm/s2
+    modo.PSv(:,i) = PSv;    % cm/s
+    modo.Sa(:,i) = Sa;      % cm/s2
+    modo.Sv(:,i) = Sv;      % cm/s
+    modo.Sd(:,i) = Sd;      % cm
+    plot(T_xlabel,PSa/g)
+end
+hold off
+xlabel('Tn')
+ylabel('PSa_n')
+legend(strcat('Modo ',string(1:n_modos)))
+grid on
+
+%% P3 a)
+% Corte Basal Máximo 
+% Lo calculamos  en P3 b)
+%% P3 b)
+% Fuerzas laterales de piso máximas
+% Dn(t) = Sd(Tn) => fs_max(j,n) = Gamma_n(n)*phi(j,n)*mj*PSa(T(n))
+fs_max = zeros(cant_pisos,n_modos);
+figure
+hold on
+for n = 1:n_modos
+    for j = 1:cant_pisos
+        fs_max(j,n) = Gamma_n(n)*Phi(j,n)*M(j,j)*modo.PSa(round(Tn(n)/Tn_step),n);
+    end
+    plot(fs_max(:,n),Pisos,'-o')
+end
+hold off
+xlabel('fs_{jn}^{max}')
+ylabel('Pisos')
+legend(strcat('Modo ',string(1:n_modos)))
+grid on
+
+% Para encontrar la fuerza máxima de cada piso (combinando todos los modos)
+% Combinación modal -> SRSS, CQC o ABSSUM
+
+% SRSS
+fs_SRSSmax = zeros(cant_pisos,1);
+for j = 1:cant_pisos
+    fs_SRSSmax(j,1) = sqrt(sumsqr(fs_max(j,:)));
+end
+figure
+plot(fs_SRSSmax,Pisos,'-o')
+xlabel('fs_{SRSS}^{max}')
+ylabel('Pisos')
+grid on
+
+% Corte basal máximo
+Vb_max = zeros(1,n_modos);
+for n = 1:n_modos
+    Vb_max(1,n) = sum(fs_max(:,n));
+end
+
+% SRSS
+Vb_SRSSmax = sqrt(sumsqr(Vb_max(1,:)));
+
+
+%% P3 c)
+% Máximo esfuerzo de corte de piso
+% Primero obtenemos el corte de piso para cada modo
+
+V = zeros(cant_pisos,n_modos);
+figure 
+hold on
+for n = 1:n_modos
+    for j = 1:cant_pisos
+        V(j,n) = sum(fs_max(1:j,n));    %tonf
+    end
+    plot(V(:,n),Pisos,'-o')
+end
+hold off
+xlabel('V_{jn} [tonf]')
+ylabel('Pisos')
+legend(strcat('Modo ',string(1:n_modos)))
+grid on
+
+% Luego, SSRS
+V_SRSSmax = zeros(cant_pisos,1);
+for j = 1:cant_pisos
+    V_SRSSmax(j,1) = sqrt(sumsqr(V(j,:)));
+end
+figure
+plot(V_SRSSmax,Pisos,'-o')
+xlabel('V_{SRSS}^{max} [tonf]')
+ylabel('Pisos')
+grid on
+
+%% P3 d) 
+% Máximo desplazamiento lateral de cada piso SRSS
+
+u_jnmax = zeros(cant_pisos,n_modos);
+for n = 1:n_modos
+    for j = 1:cant_pisos
+        u_jnmax(j,n) = Gamma_n(n)*Phi(j,n)*modo.Sd(round(Tn(n)/Tn_step),n);
+    end
+end
+
+% Luego, SSRS
+u_SRSSmax = zeros(cant_pisos,1);
+for j = 1:cant_pisos
+    u_SRSSmax(j,1) = sqrt(sumsqr(u_jnmax(j,:)));
+end
+figure
+plot(u_SRSSmax,Pisos,'-o')
+xlabel('u_{SRSS}^{max} [tonf]')
+ylabel('Pisos')
+grid on
+
+%% P3 e)
+% Máxima razón de desplazamiento de piso
+
+rdp = zeros(cant_pisos,n_modos);
+for j = 1:cant_pisos
+    for n = 1:n_modos
+        if j < cant_pisos
+            rdp(j,n) = (1/h)*Gamma_n(n)*(Phi(j,n)-Phi(j+1,n))*modo.PSa(round(Tn(n)/Tn_step),n)*(1/wn2(n));
+        elseif j == cant_pisos
+            rdp(j,n) = (1/h)*Gamma_n(n)*(Phi(j,n))*modo.PSa(round(Tn(n)/Tn_step),n)*(1/wn2(n));
+        end
+    end
+end
+
+% Luego SRSS
+
+rdp_SRSSmax = zeros(cant_pisos,1);
+for j = 1:cant_pisos
+    rdp_SRSSmax(j,1) = sqrt(sumsqr(rdp(j,:)));
+end
+figure
+plot(rdp_SRSSmax*100,Pisos,'-o')
+xlabel('rdp_{SRSS}^{max} [tonf]')
+ylabel('Pisos')
+grid on
+
+
+% Comentarios Consolta P3
+disp('Pregunta 3, Resultados')
+fprintf('Corte basal máximo = %f [tonf] \n \n',Vb_SRSSmax)
+tabla = table();
+tabla.Piso = Pisos;
+tabla.fs = fs_SRSSmax;
+tabla.V = V_SRSSmax;
+tabla.u = u_SRSSmax;
+tabla.rdp = rdp_SRSSmax*100;
+disp(tabla)
+clear tabla
+
+%% P4 Análisis modal tiempo historia
+sn = Gamma_n'.*diag(M).*Phi;                                                 % {Sjn} = Gamma_n*mj*Phi_jn
+n_modos = 4;                                                                % Cantidad de modos a considerar en el análisis tiempo-historia
+figure
+for i = 1:n_modos
+    Dn = Disp_Newmark_Lineal(beta,xi(i),dt,ui,udi,Registro.data,Tn(i));     % Se determinan todos los Dn(t) para cada modo para un registro y amortig en particular.
+    modo.Dn(:,i) = Dn;
+    subplot(n_modos,1,i)                                                    % Graficamos Dn(t) para todos los modos considerados
+    plot(time_vect,modo.Dn(:,i))
+    ylabel(['D_', num2str(Modos(i)), '(t)'])
+    if i == 1
+        hold on
+    end
+    ylim([-20 20])
+    xlim([0 dt*time_length])
+end
+xlabel('tiempo t (sec)')
+hold off
+sgtitle('D_n(t)')
+
+% Obtención del máximo Dn(t) en el tiempo
+for i = 1:n_modos
+    modo.Dn_max(i,1) = max(abs(modo.Dn(:,i)));                                   % Buscamos max(Dn(t)), El Dn(t) máximo para cada mood
+end
+
+% % DESPLAZAMIENTO DE PISO
+% % uj = sum(Gamma_n*Phi_jn*Dn(t))
+% uj = zeros(time_length,cant_pisos);
+% for j = 1:cant_pisos
+%     for n = 1:n_modos
+%         uj(:,j) = uj(:,j) + Gamma_n(n)*Phi(j,n)*modo.Dn(:,n);               % Se suman todos los modos    
+%     end
+% end
+% 
+% % DESPLAZAMIENTOS MODALES DE TECHO 
+% % Desaplazamiento del techo (debe ser controlado) para cada modo
+% % u1n = Gamma_n*Phi_1n*Dn(t)    
+% u1n = zeros(time_length,n_modos);
+% figure
+% for n = 1:n_modos
+%     subplot(n_modos,1,n)
+%     u1n(:,n) = Gamma_n(n)*Phi(1,n)*modo.Dn(:,n);                            % Desplazamiento de techo para cada modo
+%     plot(time_vect,u1n(:,n))
+%     ylabel(['u_{1', num2str(Modos(n)), '} (t)'])
+%     ylim([-20 20])
+%     xlim([0 dt*time_length])
+% end
+% xlabel('tiempo t (sec)')
+% hold off
+% sgtitle('u_{1n}(t) = \Gamma_n \Phi_{1n} D_n(t)')
+% 
+% 
+% % RAZÓN DE DERIVAS MODALES
+% % Razón de derivas de piso para cada modo por separado
+% RDPjn = zeros(time_length,cant_pisos,n_modos);                              % RDP_jn (t)
+% 
+% for j = 2:cant_pisos
+%     for n = 1:n_modos
+%         RDPjn(:,j,n) = 1/h*Gamma_n(n)*(Phi(j,n)-Phi(j-1,n))*modo.Dn(:,n);   % RDP_jn (t) = 1/h*Gamma_n*(Phi_jn-Phi_j-1,n)*Dn(t)
+%     end
+% end
+% 
+% pisos_graficar = [9;5];                                                     % Escribir acá los pisos que se quieren graficar
+% length_pg = length(pisos_graficar);
+% 
+% figure                                                                      % Graficamos RDP, para el piso j en los modos considerados (n_modos)
+% for i = 1:length_pg
+%     subplot(length_pg,1,i)
+%     hold on
+%     for n = 1:n_modos
+%         plot(time_vect,RDPjn(:,i,n))
+%     end
+%     hold off
+%     ylabel(['RDP_{',num2str(pisos_graficar(i)),'n}']);
+% end
+% xlabel('tiempo (t) [sec]')
+
+
+%% P4 a) Corte basal máximo
+% Como es solo basal, no depende del número del piso, y solo se suman las
+% contribuciones modales
+
+vb_t = zeros(time_length,1);
+for n = 1:n_modos
+    vb_t(:,1) = vb_t(:,1) + Mn_ast(n,1)*wn2(n)*modo.Dn(:,n);                % Se suma la contribución de cada modo
+end
+Vj_max = max(abs(vb_t(:,1)));                                               % Corte vasal máximo es el máximo absoluto
+
+
+%% P4 b) Fuerzas laterales máximas
+% Obtenemos r_jn^st para cada piso para cada modo
+% fs_j(t) = sum( {rjn^st}wn^2*Dn(t) )
+% El máximo: fs_jmax = max(fs_j(t))
+
+fs_jt = zeros(time_length,cant_pisos);
+fs_jmax = zeros(cant_pisos,1);
+for j = 1:cant_pisos
+    for n = 1:n_modos
+        fs_jt(:,j) = fs_jt(:,j) + M(j,j)*Gamma_n(n,1)*Phi(j,n)*wn2(n)*modo.Dn(:,n); % Sum(rjn^st * wn^2 * Dn(t))
+    end
+    fs_jmax(j,1) = max(abs(fs_jt(:,j)));                                    % Máximo absoluto en el tiempo para el piso
+end
+
+figure
+plot(fs_jmax,Pisos,'-o')
+xlabel('fs_{j,max}')
+ylabel('Pisos')
+grid on
+title('fs_{j,max}')
+xlim([0 250])
+
+
+%% P4 c) Esfuerzo de corte máximo de cada piso
+% Esfuerzos e corte máximo para cada piso
+% rjnst = Sum_j(m_j*Gamma_n*Phi_jn)
+
+rjnst_v = zeros(cant_pisos,n_modos);
+V_jt = zeros(time_length,cant_pisos);
+V_jmax = zeros(cant_pisos,1);
+
+for i = 1:cant_pisos
+    for n = 1:n_modos
+        for j = i:cant_pisos
+            rjnst_v(i,n) = rjnst_v(i,n) + M(j,j)*Gamma_n(n,1)*Phi(j,n);   
+        end
+    end
+end
+
+for j = 1:cant_pisos
+    for n = 1:n_modos
+        V_jt(:,j) = V_jt(:,j) + rjnst_v(j,n)*wn2(n)*modo.Dn(:,n);           % Vj(t) = sum( rjnst_v * wn^2 * Dn(t) )
+    end
+    V_jmax(j,1) = max(abs(V_jt(:,j)));
+end
+V_jmax = flip(V_jmax);                                                      % No cacho porq me da al revés
+figure
+plot(V_jmax,Pisos,'-o')
+xlabel('Fuerza de corte de piso')
+ylabel('Pisos')
+grid on
+title('V_{j,max}')
+
+
+%% P4 d) desplazamientos laterales máximos
+% rjnst = (Gamma_n/wn^2)*Phi_jn
+rjnst_u = zeros(cant_pisos,n_modos);
+u_jt = zeros(time_length,cant_pisos);
+u_jmax = zeros(cant_pisos,1);
+
+for j = 1:cant_pisos
+    for n = 1:n_modos
+        rjnst_u(j,n) = Gamma_n(n)/wn2(n)*Phi(j,n);                          % Mejor guardarlo ya que se ocupan en P4 e)
+        u_jt(:,j) = u_jt(:,j) + rjnst_u(j,n)*wn2(n)*modo.Dn(:,n);
+    end
+    u_jmax(j,1) = max(abs(u_jt(:,j)));
+end
+
+figure
+plot(u_jmax,Pisos,'-o')
+xlabel('Desplazamientos laterales máximos')
+ylabel('Pisos')
+grid on
+title('u_{j,max}')
+
+
+%% P4 e) razón de derivas de piso máximoas
+% rjnst = (rjnst(uj)-rjnst(uj+1))/hj
+
+rdp_jt = zeros(time_length,cant_pisos);
+rdp_jmax = zeros(cant_pisos,1);
+for j = 1:cant_pisos
+    for n = 1:n_modos
+        if j < cant_pisos
+            rdp_jt(:,j) = rdp_jt(:,j) + (rjnst_u(j,n)-rjnst_u(j+1,n))/h*wn2(n)*modo.Dn(:,n);    % Traemos rjnst_u
+        elseif j == cant_pisos
+            rdp_jt(:,j) = rdp_jt(:,j) + (rjnst_u(j,n))/h*wn2(n)*modo.Dn(:,n);                   % La del primer modo es 
+        end
+    end
+    rdp_jmax(j,1) = max(abs(rdp_jt(:,j)));
+end
+
+figure
+plot(rdp_jmax*100,Pisos,'-o')
+xlabel('Razón de derivas de piso')
+ylabel('Pisos')
+grid on
+title('rdp_{j,max}')
+
+% Comentarios consola P4
+
+disp('Pregunta 4, Resultados')
+fprintf('Corte basal máximo: %f [tonf] \n \n',Vj_max)
+
+tabla = table();
+tabla.Piso = Pisos;
+tabla.fs_jmax = fs_jmax;
+tabla.V_jmax = V_jmax;
+tabla.u_jmax = u_jmax;
+tabla.rdp_jmax = rdp_jmax*100;
+disp(tabla)
+clear tabla
+
+%% P5
+% Comparación
+% No se reescribirán las tablas, solo las figuras, pero todas juntas
+% Fuerzas laterales
+figure
+hold on
+plot(Fk1,Pisos,'-o')
+plot(fs_SRSSmax,Pisos,'-o')
+plot(fs_jmax,Pisos,'-o')
+hold off
+xlabel('Fuerza lateral de piso máxima [tonf]')
+ylabel('Pisos')
+legend('CLE','ME','MTH')
+grid on
+
+
+% Corte 
+
+figure
+hold on
+plot(corte_pisos1,Pisos,'-o')
+plot(V_SRSSmax,Pisos,'-o')
+plot(V_jmax,Pisos,'-o')
+hold off
+xlabel('Corte de piso máximo [tonf]')
+ylabel('Pisos')
+legend('CLE','ME','MTH')
+grid on
+
+
+% Desplazamiento
+
+figure
+hold on
+plot(dxe1,Pisos,'-o')
+plot(u_SRSSmax,Pisos,'-o')
+plot(u_jmax,Pisos,'-o')
+hold off
+xlabel('Desplazamiento lateral de piso máximo [cm]')
+ylabel('Pisos')
+legend('CLE','ME','MTH')
+grid on
+
+% Razón de derivas de piso
+
+figure
+hold on
+plot(razon_drift1*100,Pisos,'-o')
+plot(rdp_SRSSmax*100,Pisos,'-o')
+plot(rdp_jmax*100,Pisos,'-o')
+hold off
+xlabel('Razón de deriva de piso máxima')
+ylabel('Pisos')
+legend('CLE','ME','MTH')
+grid on
 
 
 ##### SOURCE END #####

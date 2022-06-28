@@ -1,4 +1,4 @@
-function [Sd,Sv,Sa,PSv,PSa] = Newmark_Lineal(beta,xi,dt,ui,udi,uddg,Tn,mass)
+function [Sd,Sv,Sa,PSv,PSa] = Newmark_Lineal(beta,xi,dt,ui,udi,uddg,Tn)
 % Beta  -> factor del método de Newmark
 % xi    -> Razón de amortiguamiento
 % dt    -> Rango de partición
@@ -38,9 +38,9 @@ for j = 1:Tn_length                                                         % j 
     else
         wn = 2*pi/Tn(1,j);                                                  % Frecuencia natural del sistema
         udd(1,1) = uddg(1,1) - 2*xi*wn*udi - wn^2*ui;
-        a1 = mass/(beta*dt^2) + 2*xi*mass*wn*gamma/(beta*dt);
-        a2 = mass/(beta*dt) + 2*xi*mass*wn*(gamma/beta-1);
-        a3 = mass*(1/(2*beta)-1) + 2*xi*mass*wn*dt*(gamma/(2*beta)-1);
+        a1 = 1/(beta*dt^2) + 2*xi*wn*gamma/(beta*dt);
+        a2 = 1/(beta*dt) + 2*xi*wn*(gamma/beta-1);
+        a3 = (1/(2*beta)-1) + 2*xi*wn*dt*(gamma/(2*beta)-1);
         k_ton = a1 + wn^2;
         for i = 2:size(uddg,1)
             p_ton = -uddg(i,1) + a1*u(i-1,1) + a2*ud(i-1,1) + a3*udd(i-1,1);
