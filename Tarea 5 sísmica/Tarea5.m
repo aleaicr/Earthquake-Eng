@@ -181,6 +181,7 @@ grid on
 
 %% Pregunta 2
 % Para el registro de Santiago Centro del terremoto Maule 2010
+% (No es para diseñar así que no se usa espectro de diseño, solo quiero analizar para este terremoto con método que propone la norma)
 Registro = importdata('stgocentro2010-L.txt');
 dt = 0.005;
 time_vect = dt:dt:dt*length(Registro.data);
