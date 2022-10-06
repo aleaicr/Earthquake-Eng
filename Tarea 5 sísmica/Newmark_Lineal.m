@@ -1,15 +1,26 @@
 function [Sd,Sv,Sa,PSv,PSa] = Newmark_Lineal(beta,xi,dt,ui,udi,uddg,Tn)
-% Beta  -> factor del método de Newmark
+% Inputs
+% beta  -> factor del método de Newmark
 % xi    -> Razón de amortiguamiento
-% dt    -> Rango de partición
+% dt    -> Rango de partición temporal del registro
 % ui    -> Desplazamiento inicial
 % udi   -> Velocidad Inicial
-% uddg  -> aceleración del suelo
+% uddg  -> Registro de aceleración del suelo
 % Tn    -> Vector de Periodos a analizar
 
-gamma = 0.5;
+% Outputs
+% Sd    -> Espectro de desplazamientos
+% Sv    -> Espectro de velocidades
+% Sa    -> Espectro de aceleraciones
+% PSv   -> Pseudo-Espectro de velocidades
+% PSa   -> Pseudo-Espectro de aceleraciones
+
+gamma = 0.5;                                                                % Método según cómo se toma la aceleración
 uddg_length = length(uddg);
 Tn_length = length(Tn);
+
+%% Inicializar vectores
+% Para no reescribir sobre memoria cada vez que se modifica el tamaño
 
 % Inicialización de vector de desplazamientos, velocidad y aceleración
 u = zeros(uddg_length,1);
@@ -59,5 +70,7 @@ for j = 1:Tn_length                                                         % j 
     u(:,1) = zeros(size(u,1),1);
     ud(:,1) = zeros(size(ud,1),1);
     udd(:,1) = zeros(size(udd,1),1);
+    u(1,1) = ui;
+    ud(1,1) = udi;
 end
 end
