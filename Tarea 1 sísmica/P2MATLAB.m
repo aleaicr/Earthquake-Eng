@@ -2,25 +2,25 @@
 clear variables
 close all
 clc
-disp('Para registro de PICA quitar los comentarios de la')
-disp('LINEA 24')
+% disp('Para registro de PICA quitar los comentarios de la')
+% disp('LINEA 24')
 %% Importar datos
 % Todos los datos tienen paso temporal de 0.005
 % Todos tienen unidad cm/s2 para la aceleración del registro excepto pica2005_ew.txt
-Regi = readmatrix("Northridge-Tarzana-EW.txt");
-Nombre = "Northridge";
+Regi = readmatrix("Concepcion2010-L.txt");
+Nombre = "Concepcion2010-L";
 mc = length(Regi);
 fprintf("\n\nRegistro: %s \n \n",Nombre)
 
 %% Vector de tiempo;
 
-dt = 0.02;                      % Paso temporal de la toma de datos
+dt = 0.005;                      % Paso temporal de la toma de datos
 t_reg = (0:dt:(mc-1)*dt).';     % Vector que contiene los tiempos
 
 
 %% Ordenar Pica (registro viene con muchos NaN)
 % QUITAR COMENTARIO SI SE ESTÁ VIENDO EL REGISTRO DE PICA
-%Regi = Regi*981;                % g = 9.81 m/s2 = 981 cm/s2
+% Regi = Regi*981;                % g = 9.81 m/s2 = 981 cm/s2
 
 %% Generación de Gráficos
 
@@ -102,11 +102,11 @@ for i = 2:mc+1
     Ia(i,1) = Ia(i-1,1) + new_add;              %Integral de arias (se puede graficar)
 end
 
-figure
-plot(Ia)
-xlabel('Tiempo [s]')
-ylabel('Intensidad de Arias [cm/s]')
-title('Intensidad de Arias - '+Nombre)
+% figure
+% plot(t_reg,Ia)
+% xlabel('Tiempo [s]')
+% ylabel('Intensidad de Arias [cm/s]')
+% title('Intensidad de Arias - '+Nombre)
 
 clear new_add p
 
